@@ -1,7 +1,7 @@
-/*2.9 ELIMINAR EL ULTIMO NODO
-pasos:
-1- existe un caso particular cuando solo se tiene 1 nodo
-2- verificar si !=null, significa que hay nodos y por lo tanto es necesario recorrer la lista hasta encontrar el ultimo y eliminarlo
+/*2.10 ELIMINAR UN NODO CON INFORMACION X
+determinar:
+1- Verificar si la lista esta vacia
+2- Verificar si el nodo a eliminar esta al comienzo de al lista o al final de la lista
 */
 #include<iostream>
 using namespace std;
