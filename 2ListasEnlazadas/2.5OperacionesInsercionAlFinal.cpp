@@ -119,7 +119,7 @@ nodo* inserta_f(nodo *p)
 		while(r->sig!=NULL)
 			r=r->sig;
 	r->sig=q;
-	return p;
+	return p; //retorna p porque la direccion adonde apunta va a cambia
 }
 void recorre(nodo *p)
 {
