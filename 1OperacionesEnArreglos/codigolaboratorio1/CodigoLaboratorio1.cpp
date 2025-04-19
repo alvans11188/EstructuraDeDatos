@@ -15,7 +15,7 @@ void modifica_d(paciente *,int &);
 int buscar_o(paciente *, int , const char* );
 void inserta_o(paciente *,int &, const char*);
 void elimina_o(paciente *,int &,const char*);
-void modifica_o(paciente *, int &);
+void modifica_o(paciente *, int &, const char*);
 void mostrar(paciente *, int );
 void ordenar_o(paciente *, int );
 int main()
@@ -99,8 +99,8 @@ int main()
 							
 							break;
 						case 3:
-							cout<<"\n\t\tDATO A MODIFICAR : ";
-							modifica_o(x,n);
+							cout<<"Ingrese la historia clinica que desea modificar: ";cin>>dato;
+							modifica_o(x,n,dato);
 							
 							break;
 						case 4:
@@ -247,167 +247,113 @@ int buscar_o(paciente *x, int n, const char* dato)
         i++;
     }
 
-    if ((i > n) || (strcmp(x[i].hc, dato) != 0)) 
+    if (i > n)  
 	{
         pos = -1 * i; 
-    } else {
-        pos = i;       
+    }
+    else if((strcmp(x[i].hc, dato) == 0))
+    {
+    	pos = i;
+	}
+	 
+	 else {
+        pos = -1*i;       
     }
 
     return pos;
 }
 void inserta_o(paciente *x,int &n, const char*dato)
 {
-	int i,pos;
-	if(n<MAX-1)
+	int i, pos;
+	if(n<MAX)
 	{
-		pos = buscar_o(x,n,dato);
-		if(pos<0)
+		pos=buscar_o(x,n,dato);
+		if(pos<=0)
 		{
-            n = n + 1;
-            pos = -1 * pos;
-
-            for (i=n;i>pos;i--)
-            {
-                x[i] = x[i - 1];  
-            }
-
-            // datos
-            strcpy(x[pos].hc, dato);
-            cout << "\n\t\tNOMBRE: "; cin >> x[pos].nomb;
-            cout << "\n\t\tPESO (kg): "; cin >> x[pos].peso;
-            cout << "\n\t\tTALLA (cm): "; cin >> x[pos].talla;
-
-            // Calcular IMC
+			n=n+1;
+			pos=-1*pos;
+			for(i=n;i>pos;i--)
+			{
+				x[i]=x[i-1];
+			}
+			strcpy(x[pos].hc,dato);
+			cout << "\n\n\t\tNOMBRE: "; cin >> x[pos].nomb;
+            cout << "\n\n\t\tPESO  : "; cin >> x[pos].peso;
+            cout << "\n\n\t\tTALLA : "; cin >> x[pos].talla;
             x[pos].imc = x[pos].peso / ((x[pos].talla / 100) * (x[pos].talla / 100));
-
-            cout << "\n\t\tINDICE DE MASA CORPORAL: " << x[pos].imc;
-        }
+		}
 		else
 		{
-			cout << "El dato ya existe";
+			cout<<"El dato ya existe"<<endl;
+			system("pause");
 		}
 	}
 	else
 	{
-		cout << "arreglo lleno";
+		cout<<"El arreglo esta lleno, peligro de desbordamiento"<<endl;
+		system("pause");
 	}
 }
 
 void elimina_o(paciente *x, int &n,const char* dato)
 {
-
-    if (n >= 0)
-    {
-        int pos = buscar_o(x, n, dato);
-        if (pos >= 0)
-        {
-        	
-            for (int i = pos; i < n; i++)
-            {
-                x[i] = x[i + 1];  // Desplaza los elementos hacia la izquierda
-            }
-            n=n-1;  // Reduce el número de elementos
-            cout << "\n\n\t\tREGISTRO ELIMINADO CON EXITO.\n";
-        }
-        else
-        {
-            cout << "\n\n\t\tLA HISTORIA CLINICA NO EXISTE.\n";
-        }
-    }
-    else
-    {
-        cout << "\n\n\t\tEL ARREGLO ESTA VACIO.\n";
-    }
+	int pos,i;
+	if(n>=0)
+	{
+		pos=buscar_o(x,n,dato);
+		if(pos>=0)
+		{
+			n=n-1;
+			for(i=pos;i<=n;i++)
+			{
+				x[i]=x[i+1];
+			}
+			cout<<"El historial clinico numero : "<< dato << " a sido eliminado exitosamente"<<endl;
+			system("pause");
+		}
+		else
+		{
+			cout<<"El dato no existe"<<endl;
+			system("pause");
+		}
+	}
+	else
+	{
+		cout<<"El arreglo esta vacio"<<endl;
+		system("pause");
+	}
 }
 
-void modifica_o(paciente *x, int &n)
+void modifica_o(paciente *x, int &n, const char *dato)
 {
-    if (n >= 0)
-    {
-        char hcBuscar[15];
-        cout << "\n\t\tHISTORIA CLINICA A MODIFICAR : "; 
-        cin >> hcBuscar;
-
-        int pos = buscar_o(x, n, hcBuscar);
-
-        if (pos >= 0)
-        {
-            int opcion;
-            cout << "\n\tQUE CAMPO DESEA MODIFICAR?";
-            cout << "\n1. HISTORIA CLINICA";
-            cout << "\n2. NOMBRE";
-            cout << "\n3. PESO";
-            cout << "\n4. TALLA";
-            cout << "\nOpcion: ";
-            cin >> opcion;
-
-            switch (opcion)
-            {
-                case 1:
-                {
-                    char hcNueva[15];
-                    cout << "\nINGRESE LA NUEVA HISTORIA CLINICA: ";
-                    cin >> hcNueva;
-
-                    // Verifica que la nueva historia no exista
-                    if (buscar_o(x, n, hcNueva) < 0)
-                    {
-                        strcpy(x[pos].hc, hcNueva);
-                        ordenar_o(x, n);
-                        cout << "\nHISTORIA CLINICA MODIFICADA Y ARREGLO ORDENADO.\n";
-                    }
-                    else
-                    {
-                        cout << "\nLA NUEVA HISTORIA CLINICA YA EXISTE. NO SE MODIFICO NADA.\n";
-                    }
-                    break;
-                }
-                case 2:
-                    cout << "\nINGRESE EL NUEVO NOMBRE: ";
-                    cin >> x[pos].nomb;
-                    break;
-                case 3:
-                    cout << "\nINGRESE EL NUEVO PESO (kg): ";
-                    cin >> x[pos].peso;
-                    x[pos].imc = x[pos].peso / ((x[pos].talla / 100) * (x[pos].talla / 100));
-                    break;
-                case 4:
-                    cout << "\nINGRESE LA NUEVA TALLA (cm): ";
-                    cin >> x[pos].talla;
-                    x[pos].imc = x[pos].peso / ((x[pos].talla / 100) * (x[pos].talla / 100));
-                    break;
-                default:
-                    cout << "\nOPCION INVALIDA.\n";
-                    break;
-            }
-        }
-        else
-        {
-            cout << "\nLA HISTORIA CLINICA NO EXISTE.\n";
-        }
-    }
-    else
-    {
-        cout << "\nEL ARREGLO ESTA VACIO.\n";
-    }
+ 	int pos;
+ 	if(n>=0)
+ 	{
+ 		pos=buscar_o(x,n,dato);
+ 		if(pos>=0)
+ 		{
+ 			cout << "\n\n\t\tHISTORIA CLINICA: "; cin>>x[pos].hc;
+			cout << "\n\n\t\tNOMBRE: "; cin >> x[pos].nomb;
+            cout << "\n\n\t\tPESO  : "; cin >> x[pos].peso;
+            cout << "\n\n\t\tTALLA : "; cin >> x[pos].talla;
+            x[pos].imc = x[pos].peso / ((x[pos].talla / 100) * (x[pos].talla / 100));
+		}
+		else
+		{
+			cout<<"La hisotria clinica buscada no existe"<<endl;
+			system("pause");
+		}
+	}
+	else
+	{
+		cout<<"El arreglo esta vacio"<<endl;
+		system("pause");
+	}
 }
 
 void ordenar_o(paciente *x, int n)
 {
-    paciente aux;
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < n - i; j++)
-        {
-            if (strcmp(x[j].hc, x[j + 1].hc) > 0)
-            {
-                aux = x[j];
-                x[j] = x[j + 1];
-                x[j + 1] = aux;
-            }
-        }
-    }
+	//el ordenamiento ya se esta realizando por medio de la funcion buscar_o, encontrando la posición donde debe ir el nuevo dato para mantener el arreglo ordenado alfabéticamente por hc	 
 }
 void mostrar(paciente *x,int n)
 {
@@ -423,17 +369,6 @@ void mostrar(paciente *x,int n)
 		}
 		cout<<"\n\n";
 		system("pause");
-		/*
-	if(n>0)
-	{
-		
-	}
-	else
-	{
-		cout<<"ARREGLO VACIO";
-		cout<<"\n\n";
-		system("pause");
-	}
-	*/
+
 	
 }
