@@ -11,6 +11,7 @@ struct paciente
 paciente *crea_i(paciente *);
 paciente *crea_f(paciente *);
 paciente *inserta_i(paciente *);
+paciente *inserta_f(paciente *);
 
 void recorre(paciente *);
 
@@ -55,12 +56,12 @@ int main()
 				system("cls");
 				p=inserta_i(p);
 				break;
-			/*
+			
 			case 4:
 				system("cls");
 				p=inserta_f(p);
 				break;
-			case 5:
+			/*case 5:
 				system("cls");
 				cout<<"Ingrese un nombre referencial a buscar:";
 				cin>>codigo;
@@ -175,6 +176,31 @@ paciente *inserta_i(paciente *p)
 	q->sig=p;
 	p=q;
 	
+	return(p);
+}
+paciente *inserta_f(paciente *p)
+{
+	paciente *q,*r;
+	system("cls");
+	cout<<"\n\nINSERTANDO DATO POR EL FINAL   . ..";
+	q=new(paciente);
+	
+	cout<<"\n\nHISTORIAL CLINICO:  "; cin>>q->hc;
+	cout<<"\n\nNOMBRE:   "; cin>>q->nomb;
+	cout<<"\n\nPESO:    "; cin>>q->peso;
+	cout<<"\n\nTALLA:    "; cin>>q->talla;
+	q->imc=(q->peso/(q->talla*q->talla));
+	
+	q->sig=NULL;
+	r=p;
+	if(p==NULL)
+		p=q;
+	else
+	{
+		while(r->sig!=NULL)
+			r=r->sig;
+		r->sig=q;
+	}
 	return(p);
 }
 void recorre(paciente *p)
