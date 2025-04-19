@@ -10,8 +10,10 @@ struct paciente
 
 paciente *crea_i(paciente *);
 paciente *crea_f(paciente *);
+paciente *inserta_i(paciente *);
 
 void recorre(paciente *);
+
 int main()
 {	
 	char codigo[20];
@@ -49,11 +51,11 @@ int main()
 				p=NULL;
 				p=crea_f(p);
 				break;
-			/*
 			case 3:
 				system("cls");
-				p=inserta_f(p);
+				p=inserta_i(p);
 				break;
+			/*
 			case 4:
 				system("cls");
 				p=inserta_f(p);
@@ -158,7 +160,23 @@ paciente *crea_f(paciente *p)
 	while(op=='s'||op=='S');
 	return(p);
 }
-
+paciente *inserta_i(paciente *p)
+{
+	paciente *q;
+	system("cls");
+	cout<<"\n\nINSERTANDO DATO POR EL INICIO ... ";
+	q=new(paciente);
+	
+	cout<<"\n\nHISTORIAL CLINICO:  "; cin>>q->hc;
+	cout<<"\n\nNOMBRE:   "; cin>>q->nomb;
+	cout<<"\n\nPESO:    "; cin>>q->peso;
+	cout<<"\n\nTALLA:    "; cin>>q->talla;
+	q->imc=(q->peso/(q->talla*q->talla));
+	q->sig=p;
+	p=q;
+	
+	return(p);
+}
 void recorre(paciente *p)
 {
 	paciente *q;
