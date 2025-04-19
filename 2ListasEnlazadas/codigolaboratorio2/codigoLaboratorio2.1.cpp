@@ -14,6 +14,7 @@ paciente *inserta_i(paciente *);
 paciente *inserta_f(paciente *);
 paciente *inserta_ad(paciente *, char *);
 paciente *inserta_dd(paciente *, char *);
+paciente *eliminar_p(paciente *);
 
 void recorre(paciente *);
 
@@ -75,11 +76,11 @@ int main()
 				cin>>codigo;
 				p=inserta_dd(p,codigo);
 				break;
-			/*case 7:
+			case 7:
 				system("cls");
 				p=eliminar_p(p);
 				break;
-			case 8:
+			/*case 8:
 				system("cls");
 				p=eliminar_u(p);
 				break;
@@ -292,6 +293,27 @@ paciente *inserta_dd(paciente *p,char *ref)
 			q->sig=r->sig;
 		}
 		r->sig=q;
+	}
+	else
+	{
+		cout<<"La lista esta vacia"<<endl;
+		system("pause");
+	}
+	return(p);
+}
+paciente *eliminar_p(paciente *p)
+{
+	paciente *q,*r,*s;
+	int cen;
+	if(p!=NULL)
+	{
+		q=p;
+		p=p->sig;
+		cout<<"\n\t\tELIMINACION DEL PRIMER NODO\n"<<endl;
+		cout<<"\t\tSe esta eliminando el historial clinico ["<< q->hc << " ] de la lista enlazada"<<endl;
+		delete(q);
+		system("pause");
+		
 	}
 	else
 	{
