@@ -19,7 +19,7 @@ nodo *eliminar_ad(nodo *,char *);
 nodo *eliminar_dd(nodo *,char *);
 int main()
 {	
-	char codigo[10];
+	char codigo[20];
 	nodo *p=NULL;
 	int op;
 	do
@@ -61,6 +61,44 @@ int main()
 			case 4:
 				system("cls");
 				p=inserta_f(p);
+				break;
+			case 5:
+				system("cls");
+				cout<<"Ingrese un nombre referencial a buscar:";
+				cin>>codigo;
+				p=inserta_ad(p,codigo);
+				break;
+			case 6:
+				system("cls");
+				cout<<"Ingrese un nombre referencial a buscar :";
+				cin>>codigo;
+				p=inserta_dd(p,codigo);
+				break;
+			case 7:
+				system("cls");
+				p=eliminar_p(p);
+				break;
+			case 8:
+				system("cls");
+				p=eliminar_u(p);
+				break;
+			case 9:
+				system("cls");
+				cout<<"Ingrese un nombre a eliminar :";
+				cin>>codigo;
+				p=eliminar_x(p,codigo);
+				break;
+			case 10:
+				system("cls");
+				cout<<"Ingrese un nombre referencial a eliminar anteriormente :";
+				cin>>codigo;
+				p=eliminar_ad(p,codigo);
+				break;
+			case 11:
+				system("cls");
+				cout<<"Ingrese un nombre referencial a eliminar posteriormente :";
+				cin>>codigo;
+				p=eliminar_dd(p,codigo);
 				break;
 			case 12:
 				system("cls");
@@ -146,6 +184,300 @@ nodo *inserta_f(nodo *p)
 		while(r->sig!=NULL)
 			r=r->sig;
 		r->sig=q;
+	}
+	return(p);
+}
+nodo *inserta_ad(nodo *p,char *ref)
+{
+	nodo *q,*r,*s;
+	int cen;
+	if(p!=NULL)
+	{
+		r=p;
+		cen=0;
+		while((strcmp(r->nomb,ref))&&(cen==0))
+		{
+			if(r->sig!=NULL)
+			{
+				s=r;
+				r=r->sig;
+			}
+			else
+			{
+				cen=1;
+			}
+		}
+		if(cen==0)
+		{
+			q=new(nodo);
+			cout<<"Ingrese el nombre que desea insertar despues del nombre referencial"<<endl;
+			cin>>q->nomb;
+			if(p==r)
+			{
+				p=q;
+			}
+			else
+			{
+				s->sig=q;
+			}
+			q->sig=r;
+		}
+		else
+		{
+			cout<<"No existe el nombre referencial"<<endl;
+			system("pause");
+		}
+	}
+	else
+	{
+		cout<<"LA LISTA ESTA VACIA"<<endl;
+		system("pause");
+	}
+	return(p);
+}
+nodo *inserta_dd(nodo *p,char *ref)
+{
+	nodo *q,*r,*s;
+	int cen;
+	if(p!=NULL)
+	{
+		r=p;
+		cen=0;
+		while((strcmp(r->nomb,ref)&&(cen==0)))
+		{
+			if(r->sig!=NULL)
+			{
+				r=r->sig;
+			}
+			else
+			{
+				cen=1;
+			}
+		}
+		if(cen==0)
+		{
+			q=new(nodo);
+			cout<<"Ingrese el nombre que desea ingresar despues del nombre referencial"<<endl;
+			cin>>q->nomb;
+			q->sig=r->sig;
+		}
+		r->sig=q;
+	}
+	else
+	{
+		cout<<"La lista esta vacia"<<endl;
+		system("pause");
+	}
+	return(p);
+}
+nodo *eliminar_p(nodo *p)
+{
+	nodo *q,*r,*s;
+	int cen;
+	if(p!=NULL)
+	{
+		q=p;
+		p=p->sig;
+		cout<<"Se esta eliminando ["<< q->nomb << " ]de la lista enlazada"<<endl;
+		delete(q);
+		system("pause");
+		
+	}
+	else
+	{
+		cout<<"La lista esta vacia"<<endl;
+		system("pause");
+	}
+	return(p);
+}
+nodo *eliminar_u(nodo *p)
+{
+	nodo *q,*r,*s;
+	int cen;
+	if(p!=NULL)
+	{
+		q=p;
+		if(p->sig==NULL)
+		{
+			p=NULL;
+		}
+		else
+		{
+			while(q->sig!=NULL)
+			{
+				r=q;
+				q=q->sig;
+			}
+			r->sig=NULL;
+		}
+		cout<<"Se esta eliminando el nombre ( "<<q->nomb<<" ) de la lista enlazada"<<endl;
+		delete(q);
+		system("pause");
+	}
+	else
+	{
+		cout<<"La lista esta vacia"<<endl;
+		system("pause");
+	}
+	return(p);
+}
+nodo *eliminar_x(nodo *p,char *ref)
+{
+	nodo *q,*r,*s;
+	int cen;
+	if(p!=NULL)
+	{
+		q=p;
+		cen=0;
+		while((strcmp(q->nomb,ref)&&(cen==0)))
+		{
+			if(q->sig!=NULL)
+			{
+				r=q;
+				q=q->sig;
+			}
+			else
+			{
+				cen=1;
+			}
+		}
+		if(cen==0)
+		{
+			if(p=q)
+			{
+				p=q->sig;
+			}
+			else
+			{
+				r->sig=q->sig;
+			}
+			cout<<"Se esta eliminando el nombre ( "<<q->nomb<<" ) de la lista enlazada"<<endl;
+			delete(q);
+			system("pause");
+		}
+		else
+		{
+			cout<<"El dato ("<<ref<<") no existe en la lista enlazada"<<endl;
+			system("pause");
+		}
+		
+	}
+	else
+	{
+		cout<<"La lista esta vacia"<<endl;
+		system("pause");
+	}
+	return(p);
+}
+nodo *eliminar_ad(nodo *p,char *ref)
+{
+	nodo *q,*r,*t;
+	int cen;
+	if(p!=NULL)
+	{
+		if(strcmp(p->nomb,ref)==0)
+		{
+			cout<<"No existe un nodo que precede al valor de "<<ref<<endl;;
+			system("pause");
+		}
+		else
+		{
+			q=p;
+			t=p;
+			cen=1;
+			while((strcmp(q->nomb,ref)&&(cen=1)))
+			{
+				if(q->sig!=NULL)
+				{
+					r=t;
+					t=q;
+					q=q->sig;
+				}
+				else
+				{
+					cen=0;
+				}
+			}
+			if(cen==0)
+			{
+				cout<<"No existe el valor de x"<<endl;
+				system("pause");
+			}
+			else
+			if(p->sig==q)
+			{
+				p=q;
+			}
+			else
+			{
+				r->sig=q;
+			}
+			cout<<"Se esta eliminando el nombre ( "<<t->nomb<<" ) de la lista enlazada"<<endl;
+			delete(t);
+			system("pause");
+		}
+	}
+	else
+	{
+		cout<<"La lista esta vacia"<<endl;
+		system("pause");
+	}
+	return(p);
+}
+nodo *eliminar_dd(nodo *p,char *ref)
+{
+	nodo *q,*r,*t;
+	int cen;
+	if(p!=NULL)
+	{
+		q=p;
+		t=p;
+		cen=1;
+		while(strcmp(q->nomb,ref)&&(cen==1))
+		{
+			if(q->sig!=NULL)
+			{
+				q=q->sig;
+				t=q;
+			}
+			else
+			{
+				cen=0;
+			}
+		}
+		if(cen==0)
+		{
+			cout<<"El dato ("<<ref<<") no existe en la lista enlazada"<<endl;
+			system("pause");
+		}
+		else
+		{
+			if(q->sig!=NULL)
+			{
+				t=q->sig;
+				if(t->sig!=NULL)
+				{
+					q->sig=t->sig;
+				}
+				else
+				{
+					q->sig=t->sig;
+				}
+				cout<<"Se esta eliminando el nombre ( "<<t->nomb<<" ) de la lista enlazada"<<endl;
+				delete(t);
+				system("pause");
+			}
+			else
+			{
+				cout<<"No existe un nodo posterior a "<<ref<<endl;
+				system("pause");
+			}
+		}
+	}
+	else
+	{
+		cout<<"La lista esta vacia"<<endl;
+		system("pause");
 	}
 	return(p);
 }
