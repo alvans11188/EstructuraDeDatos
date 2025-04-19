@@ -56,7 +56,7 @@ int main()
 				break;
 			case 3:
 				system("cls");
-				p=inserta_f(p);
+				p=inserta_i(p);
 				break;
 			case 4:
 				system("cls");
