@@ -12,6 +12,7 @@ paciente *crea_i(paciente *);
 paciente *crea_f(paciente *);
 paciente *inserta_i(paciente *);
 paciente *inserta_f(paciente *);
+paciente *inserta_ad(paciente *, char *);
 
 void recorre(paciente *);
 
@@ -61,13 +62,13 @@ int main()
 				system("cls");
 				p=inserta_f(p);
 				break;
-			/*case 5:
+			case 5:
 				system("cls");
-				cout<<"Ingrese un nombre referencial a buscar:";
+				cout<<"Ingrese el hicstorial de clinica a buscar:";
 				cin>>codigo;
 				p=inserta_ad(p,codigo);
 				break;
-			case 6:
+			/*case 6:
 				system("cls");
 				cout<<"Ingrese un nombre referencial a buscar :";
 				cin>>codigo;
@@ -200,6 +201,60 @@ paciente *inserta_f(paciente *p)
 		while(r->sig!=NULL)
 			r=r->sig;
 		r->sig=q;
+	}
+	return(p);
+}
+paciente *inserta_ad(paciente *p,char *ref)
+{
+	paciente *q,*r,*s;
+	int cen;
+	if(p!=NULL)
+	{
+		r=p;
+		cen=0;
+		while((strcmp(r->hc,ref))&&(cen==0))
+		{
+			if(r->sig!=NULL)
+			{
+				s=r;
+				r=r->sig;
+			}
+			else
+			{
+				cen=1;
+			}
+		}
+		if(cen==0)
+		{
+			q=new(paciente);
+			
+			cout<<"INGRESO DE DATOS DESPUES DEL HISTORIAL DE CLINICA REFERENCIAL"<<endl;
+			cout<<"\n\nHISTORIAL CLINICO:  "; cin>>q->hc;
+			cout<<"\n\nNOMBRE:   "; cin>>q->nomb;
+			cout<<"\n\nPESO:    "; cin>>q->peso;
+			cout<<"\n\nTALLA:    "; cin>>q->talla;
+			q->imc=(q->peso/(q->talla*q->talla));
+			
+			if(p==r)
+			{
+				p=q;
+			}
+			else
+			{
+				s->sig=q;
+			}
+			q->sig=r;
+		}
+		else
+		{
+			cout<<"No existe el historial referencial"<<endl;
+			system("pause");
+		}
+	}
+	else
+	{
+		cout<<"LA LISTA ESTA VACIA"<<endl;
+		system("pause");
 	}
 	return(p);
 }
