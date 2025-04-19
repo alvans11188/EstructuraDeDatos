@@ -13,6 +13,7 @@ paciente *crea_f(paciente *);
 paciente *inserta_i(paciente *);
 paciente *inserta_f(paciente *);
 paciente *inserta_ad(paciente *, char *);
+paciente *inserta_dd(paciente *, char *);
 
 void recorre(paciente *);
 
@@ -64,17 +65,17 @@ int main()
 				break;
 			case 5:
 				system("cls");
-				cout<<"Ingrese el hicstorial de clinica a buscar:";
+				cout<<"Ingrese el historial de clinica a buscar:";
 				cin>>codigo;
 				p=inserta_ad(p,codigo);
 				break;
-			/*case 6:
+			case 6:
 				system("cls");
-				cout<<"Ingrese un nombre referencial a buscar :";
+				cout<<"Ingrese el historial de clinica a buscar :";
 				cin>>codigo;
 				p=inserta_dd(p,codigo);
 				break;
-			case 7:
+			/*case 7:
 				system("cls");
 				p=eliminar_p(p);
 				break;
@@ -228,7 +229,7 @@ paciente *inserta_ad(paciente *p,char *ref)
 		{
 			q=new(paciente);
 			
-			cout<<"INGRESO DE DATOS DESPUES DEL HISTORIAL DE CLINICA REFERENCIAL"<<endl;
+			cout<<"\n\n\tINGRESO DE DATOS ANTES DEL HISTORIAL DE CLINICA REFERENCIAL"<<endl;
 			cout<<"\n\nHISTORIAL CLINICO:  "; cin>>q->hc;
 			cout<<"\n\nNOMBRE:   "; cin>>q->nomb;
 			cout<<"\n\nPESO:    "; cin>>q->peso;
@@ -254,6 +255,47 @@ paciente *inserta_ad(paciente *p,char *ref)
 	else
 	{
 		cout<<"LA LISTA ESTA VACIA"<<endl;
+		system("pause");
+	}
+	return(p);
+}
+paciente *inserta_dd(paciente *p,char *ref)
+{
+	paciente *q,*r,*s;
+	int cen;
+	if(p!=NULL)
+	{
+		r=p;
+		cen=0;
+		while((strcmp(r->hc,ref)&&(cen==0)))
+		{
+			if(r->sig!=NULL)
+			{
+				r=r->sig;
+			}
+			else
+			{
+				cen=1;
+			}
+		}
+		if(cen==0)
+		{
+			q=new(paciente);
+			
+			cout<<"\n\t\tINGRESO DE DATOS DESPUES DEL HISTORIAL DE CLINICA REFERENCIAL"<<endl;
+			cout<<"\n\nHISTORIAL CLINICO:  "; cin>>q->hc;
+			cout<<"\n\nNOMBRE:   "; cin>>q->nomb;
+			cout<<"\n\nPESO:    "; cin>>q->peso;
+			cout<<"\n\nTALLA:    "; cin>>q->talla;
+			q->imc=(q->peso/(q->talla*q->talla));
+			
+			q->sig=r->sig;
+		}
+		r->sig=q;
+	}
+	else
+	{
+		cout<<"La lista esta vacia"<<endl;
 		system("pause");
 	}
 	return(p);
