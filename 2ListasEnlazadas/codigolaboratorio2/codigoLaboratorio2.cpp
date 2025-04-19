@@ -40,7 +40,7 @@ int main()
 		cout<<"\n\n11. ELIMINAR EL NODO POSTERIOR A ";
 		cout<<"\n\n12. M O S T R A R ";
 		cout<<"\n\n13. S A L I R ";
-		cout<<"\n\n\t\t\t OPCION:";
+		cout<<"\n\n\t\t\t OPCION: ";
 		cin>>op;
 		switch(op)
 		{
@@ -106,6 +106,7 @@ int main()
 				system("pause");
 				break;
 			case 13:
+				cout<<" S A L I E N D O   D E L   P R O G R A M A  \n"<<endl;
 				break;
 		}
 	}
