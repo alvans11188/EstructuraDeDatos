@@ -9,6 +9,7 @@ struct paciente
 };
 
 paciente *crea_i(paciente *);
+paciente *crea_f(paciente *);
 
 void recorre(paciente *);
 int main()
@@ -43,12 +44,12 @@ int main()
 				p=NULL;
 				p=crea_i(p);
 				break;
-			/*
 			case 2:
 				system("cls");
 				p=NULL;
 				p=crea_f(p);
 				break;
+			/*
 			case 3:
 				system("cls");
 				p=inserta_f(p);
@@ -132,6 +133,32 @@ paciente *crea_i(paciente *p)
 	while(op=='s'||op=='S');
 	return(p);
 }
+paciente *crea_f(paciente *p)
+{
+	paciente *q,*r;
+	char op;
+	do
+	{
+		system("cls");
+		q=new(paciente);
+		cout<<"\n\nHISTORIAL CLINICO:  "; cin>>q->hc;
+		cout<<"\n\nNOMBRE:   "; cin>>q->nomb;
+		cout<<"\n\nPESO:    "; cin>>q->peso;
+		cout<<"\n\nTALLA:    "; cin>>q->talla;
+		q->imc=(q->peso/(q->talla*q->talla));
+		q->sig=NULL;
+		if(p==NULL)
+			p=q;
+		else
+			r->sig=q;
+		r=q;
+		cout<<"\n\n\t\t\t MAS DATOS (S/N)?   ";
+		cin>>op;
+	}
+	while(op=='s'||op=='S');
+	return(p);
+}
+
 void recorre(paciente *p)
 {
 	paciente *q;
@@ -149,6 +176,7 @@ void recorre(paciente *p)
 		cout<<"\n\n\t\tTALLA	: "<<q->talla<<" cm.";
 		cout<<"\n\n\t\tINDICE DE MASA CORPORAL	: "<<q->imc;
 		q=q->sig;
+		i=i+1;
 	}
 	cout<<"\n\n";
 	system("pause");
