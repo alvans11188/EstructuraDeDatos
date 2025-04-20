@@ -15,6 +15,7 @@ paciente *inserta_f(paciente *);
 paciente *inserta_ad(paciente *, char *);
 paciente *inserta_dd(paciente *, char *);
 paciente *eliminar_p(paciente *);
+paciente *eliminar_u(paciente *);
 
 void recorre(paciente *);
 
@@ -80,11 +81,11 @@ int main()
 				system("cls");
 				p=eliminar_p(p);
 				break;
-			/*case 8:
+			case 8:
 				system("cls");
 				p=eliminar_u(p);
 				break;
-			case 9:
+			/*case 9:
 				system("cls");
 				cout<<"Ingrese un nombre a eliminar :";
 				cin>>codigo;
@@ -314,6 +315,37 @@ paciente *eliminar_p(paciente *p)
 		delete(q);
 		system("pause");
 		
+	}
+	else
+	{
+		cout<<"La lista esta vacia"<<endl;
+		system("pause");
+	}
+	return(p);
+}
+paciente *eliminar_u(paciente *p)
+{
+	paciente *q,*r,*s;
+	int cen;
+	if(p!=NULL)
+	{
+		q=p;
+		if(p->sig==NULL)
+		{
+			p=NULL;
+		}
+		else
+		{
+			while(q->sig!=NULL)
+			{
+				r=q;
+				q=q->sig;
+			}
+			r->sig=NULL;
+		}
+		cout<<"Se esta eliminando el historial clinico numero:  ( "<<q->hc<<" ) de la lista enlazada"<<endl;
+		delete(q);
+		system("pause");
 	}
 	else
 	{
