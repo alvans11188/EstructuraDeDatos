@@ -18,6 +18,7 @@ paciente *eliminar_p(paciente *);
 paciente *eliminar_u(paciente *);
 paciente *eliminar_x(paciente *, char *);
 paciente *eliminar_ad(paciente *,char *);
+paciente *eliminar_dd(paciente *, char *);
 
 void recorre(paciente *);
 
@@ -95,17 +96,16 @@ int main()
 				break;
 			case 10:
 				system("cls");
-				cout<<"Ingrese un la historial clinica refrencial , para eliminar su anterior nodo :";
+				cout<<"Ingrese la historia clinica refrencial , para eliminar su anterior nodo :";
 				cin>>codigo;
 				p=eliminar_ad(p,codigo);
 				break;
-			/*case 11:
+			case 11:
 				system("cls");
-				cout<<"Ingrese un nombre referencial a eliminar posteriormente :";
+				cout<<"Ingrese la historia clinica refrencial , para eliminar su posterior nodo :";
 				cin>>codigo;
 				p=eliminar_dd(p,codigo);
 				break;
-			*/
 			case 12:
 				system("cls");
 				recorre(p);
@@ -450,6 +450,63 @@ paciente *eliminar_ad(paciente *p,char *ref)
 			cout<<"Se esta eliminando la historia clinica numero: ( "<<t->hc<<" ), de la lista enlazada"<<endl;
 			delete(t);
 			system("pause");
+		}
+	}
+	else
+	{
+		cout<<"La lista esta vacia"<<endl;
+		system("pause");
+	}
+	return(p);
+}
+paciente *eliminar_dd(paciente *p,char *ref)
+{
+	paciente *q,*r,*t;
+	int cen;
+	if(p!=NULL)
+	{
+		q=p;
+		t=p;
+		cen=1;
+		while(strcmp(q->hc,ref)&&(cen==1))
+		{
+			if(q->sig!=NULL)
+			{
+				q=q->sig;
+				t=q;
+			}
+			else
+			{
+				cen=0;
+			}
+		}
+		if(cen==0)
+		{
+			cout<<"El la historia clinica referencial : ("<<ref<<"), no existe en la lista enlazada"<<endl;
+			system("pause");
+		}
+		else
+		{
+			if(q->sig!=NULL)
+			{
+				t=q->sig;
+				if(t->sig!=NULL)
+				{
+					q->sig=t->sig;
+				}
+				else
+				{
+					q->sig=t->sig;
+				}
+				cout<<"Se esta eliminando la historia clinica: ( "<<t->hc<<" )< de la lista enlazada"<<endl;
+				delete(t);
+				system("pause");
+			}
+			else
+			{
+				cout<<"No existe un nodo posterior a "<<ref<<endl;
+				system("pause");
+			}
 		}
 	}
 	else
