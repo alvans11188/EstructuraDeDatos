@@ -386,7 +386,7 @@ nodo *eliminar_ad(nodo *p,char *ref)
 			q=p;
 			t=p;
 			cen=1;
-			while((strcmp(q->nomb,ref)&&(cen=1)))
+			while((strcmp(q->nomb,ref)&&(cen==1)))
 			{
 				if(q->sig!=NULL)
 				{
