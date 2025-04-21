@@ -25,6 +25,7 @@ int main()
 		switch(op)
 		{
 			case 1:
+				p=NULL;
 				p=crear_i(p);
 				system("pause");
 				break;
@@ -67,36 +68,36 @@ nodo *crear_i(nodo *p)
 	}while(op=='s'||op=='S');
 	return(p);
 }
-nodo *eliminar_iguales(nodo *p,int ref)
-{
-	nodo *q,*r;
+
+nodo* eliminar_iguales(nodo* p, int ref) {
+    nodo *q,*s ;
+    q=p;
+    s=NULL;
 	
-	if(p!=NULL)
-	{
-		q=p;
-		while(q->sig!=NULL)
-		if(q->numero==ref)
-		{
-			r=q;
-			q=q->sig;
-			p=q;
-			cout<<"Se elimino el nodo "<<r->numero<< " de la lista enlazada "<<endl;
-			delete(r);
-			system("pause");
-		}
-		else
-		{
-			cout<<"No se logro encontrar el valor referencial en la lista enlazada"<<endl;
-			system("pause");
-		}
-	}
-	else
-	{
-		cout<<"La lista esta vacia";
-		system("pause");
-	}
-	return(p);
+    while (q != NULL) {
+        if (q->numero == ref) {
+            nodo* r = q;  
+            
+            if (s == NULL) {
+                
+                p = q->sig;
+                q = p;
+            } else {
+                
+                s->sig = q->sig;
+                q = q->sig;
+            }
+            
+            cout << "Se elimino el nodo con valor: " << r->numero << endl;
+            delete r;
+        } else {
+            s = q;      
+            q = q->sig;  
+        }
+    }
+    return p;
 }
+
 void mostrar(nodo *p)
 {
 	nodo *q;
