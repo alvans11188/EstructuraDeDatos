@@ -533,7 +533,6 @@ void recorre(paciente *p)
 		cout<<"\n\n\t\tTALLA	: "<<q->talla<<" cm.";
 		cout<<"\n\n\t\tINDICE DE MASA CORPORAL	: "<<q->imc;
 		q=q->sig;
-		i=i+1;
 	}
 	cout<<"\n\n";
 	//system("pause");
