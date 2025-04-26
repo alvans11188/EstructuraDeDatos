@@ -15,8 +15,10 @@ void recorrerDesdeInicio(paciente *);
 void recorrerDesdeFinal(paciente *);
 void insertar_principio(paciente *&, paciente *&, int);
 void insertar_final(paciente *&, paciente *&, int);
-void insertar_antes_x(paciente *&,int , int );
-void insertar_despues_x(paciente *&,int , int );
+void insertar_antes_x(paciente *&, const char [] );
+
+void insertar_despues_x(paciente *& , const char[] );
+
 void contar_concurrencias(paciente *&,int );
 void invertir(paciente *&,paciente *&);
 
@@ -24,7 +26,8 @@ int main()
 {
 	paciente *p=NULL;
 	paciente *f=NULL;
-	int opcion, dato, x;
+	int opcion, dato;
+	char x[15];
 	
 	do
 	{
@@ -64,18 +67,16 @@ int main()
 				
 			case 3:
 				system("cls");
-				cout<<"Dato a insertar: ";
-				cin>>dato;
-				cout<<"Antes del paciente con dato: ";
+				
+				cout<<"Antes del historial clinico numero: ";
 				cin>>x;
-				insertar_antes_x(p,dato,x);
+				insertar_antes_x(p,x);
 				break;
 			case 4:
-				cout<<"Dato a insertar: ";
-				cin>>dato;
-				cout<<"Despues del paciente con dato: ";
+				
+				cout<<"Despues del  con dato: ";
 				cin>>x;
-				insertar_despues_x(p,dato,x);
+				insertar_despues_x(p,x);
 				break;
 			case 5:
 				system("cls");
@@ -199,9 +200,45 @@ void insertar_final(paciente *&p, paciente *&f, int dato)
 	
 }
 //insercion antes de un paciente con dota X
-void insertar_antes_x(paciente *&p,int dato, int x)
+void insertar_antes_x(paciente *&p,int dato, const char x[])
 {
+	paciente *q=p;
+	while(q->sigder!=NULL&&(strcmp(q->hc,x)!=0))
+	{
+		q=q->sigder;
+	}
+	if((strcmp(q->hc,x)==0))
+	{
+		paciente *t=new paciente();
+		system("cls");
+	    cout<<"\n\nHISTORIAL CLINICO:  "; cin>>t->hc;
+	    cout<<"\n\nNOMBRE:   "; cin>>t->nomb;
+	    cout<<"\n\nPESO:    "; cin>>t->peso;
+	    cout<<"\n\nTALLA:    "; cin>>t->talla;
+	    t->imc = (t->peso / (t->talla * t->talla));
+		strcpy(t->hc,dato);
 
+		t->sigder=q;
+		
+		paciente *r=q->sigizq;
+		q->sigizq=t;
+		
+		if(p==q)
+		{
+			p=t;
+			t->sigizq=NULL;
+		}
+		else
+		{
+			r->sigder=t;
+			t->sigizq=r;
+		}
+	}
+	else
+	{
+		cout<<"No se encontro el dato "<< x << "en la lista. "<<endl;
+		return;
+	}
 }
 //insercion despues de un paciente con dota X
 void insertar_despues_x(paciente *&p,int dato, int x)
