@@ -254,6 +254,30 @@ int main()
 	inserta_principio(p,f,1);
 	inserta_principio(p,f,3);
 	inserta_principio(p,f,4);
+	inserta_principio(p,f,5);
+	recorrerDesdeInicio(p);
+	*/
+	/*
+	int ocurrencias = 0;
+	nodo *p=NULL;
+	nodo *f=NULL;
+	inserta_final(p,f,1);
+	inserta_final(p,f,3);
+	inserta_final(p,f,5);
+	inserta_final(p,f,7);
+	recorrerDesdeInicio(p);
+	invertir(p,f);
+	recorrerDesdeInicio(p);
+	inserta_principio(p,f,1);
+	recorrerDesdeInicio(p);
+	int nro=1;
+	ocurrencias = contar_ocurrencias(p,nro);
+	cout<<"El numero "<<nro<<" se repite: "<< ocurrencias <<" veces.";
 	
 	*/
+	return 0;
 }
+
+	
+	
+	
