@@ -14,6 +14,7 @@ struct nodo
 nodo *crear_i(nodo *);
 nodo *inserta_antes_x(nodo *, int);
 nodo *invertir(nodo *);
+nodo *eliminar_concurrente(nodo *,int);
 void mostrar(nodo *);
 int main()
 {
@@ -25,6 +26,7 @@ int main()
 		cout<<"\n\t 1- Crear lista por el inicio "<<endl;
 		cout<<"\n\t 2- Insertar antes de un nodo referencial"<<endl;
 		cout<<"\n\t 3- Invertir"<<endl;
+		cout<<"\n\t 4- Eliminar duplicado"<<endl;
 		cout<<"\n\t 13-SALIR"<<endl;
 		cout<<"\t OPCION: \t"<<endl;
 		cin>>op;
@@ -42,7 +44,10 @@ int main()
 			case 3:
 				p=invertir(p);
 				break;
-			
+			case 4:
+				cout<<"Que dato desea eliminar"<<endl;
+				p=eliminar_concurrente(p,dato);
+				break;
 			case 9:
 				mostrar(p);
 			default:
@@ -139,7 +144,48 @@ nodo *invertir(nodo *p)
     }
 
     p = t;  // actualizo p al nuevo comienzo
-    return p;
+    return(p);
+}
+nodo *eliminar_concurrencias(nodo *p,int dato)
+{
+	nodo *q,*t;
+	q=p;
+	if(q!=NULL)
+	{
+		while(q!=NULL)
+		{
+			if(p->num==dato)
+			{
+				t=p;
+				p=p->sig;
+				q=q->sig;
+				delete(t);
+			}
+			else
+			{
+				if(q->sig!=NULL)
+				{
+					t=q->sig;
+					if(t->num==dato)
+					{
+						q->sig=t->sig;
+						delete(t);
+					}
+					else
+					{
+						q=q->sig;
+					}
+				}
+				else
+				q=q->sig;
+			}
+		}
+	}
+	else
+	{
+		cout<<"La lista esta vacia"<<endl;
+	}
+	return (p);
 }
 void mostrar(nodo *p)
 {
