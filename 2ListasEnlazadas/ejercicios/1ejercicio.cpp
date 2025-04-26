@@ -10,10 +10,11 @@ struct nodo
 	nodo *sig;	
 };
 nodo *crear_i(nodo *);
+nodo *inserta_antes_x(nodo *, int);
 void mostrar(nodo *);
 int main()
 {
-	int n,op;
+	int n,op,dato;
 	nodo *p;
 	do
 	{
@@ -31,6 +32,9 @@ int main()
 				p=crear_i(p);
 				break;
 			case 2:
+				cout<<"Ingrese el dato que desea usar como referencial"<<endl;
+				cin>>dato;
+				p=inserta_antes_x(p,dato);
 				break;
 			case 9:
 				mostrar(p);
@@ -42,19 +46,7 @@ int main()
 	
 	return 0;
 }
-void mostrar(nodo *p)
-{
-	nodo *q;
-	q=p;
-	cout<<"La lista es P-> ";
-	while(q!=NULL)
-	{
-		cout<< q->num;
-		cout<<"->";
-		q=q->sig;
-	}
-	cout<<"\n";
-}
+
 nodo *crear_i(nodo *p)
 {
 	nodo *q;
@@ -78,9 +70,67 @@ nodo *crear_i(nodo *p)
 	return(p);
 }
 
+nodo *inserta_antes_x(nodo *p, int dato)
+{
+	nodo *q,*r,*s;
+	int cen;
+	if(p!=NULL)
+	{
+		r=p;
+		cen=0;
+		while(r->num!=dato&&cen==0)
+		{
+			if(r->sig!=NULL)
+			{
+				s=r;
+				r=r->sig;
+			}
+			else
+			{
+				cen=1;
+			}
+		}
+		if(cen==0)
+		{
+			q=new(nodo);
+			cout<<"Valor encontrado, que valor desea ingresar antes"<<endl;
+			cin>>q->num;
+			if(p==r)
+			{
+				p=q;
+			}
+			else
+			{
+				s->sig=q;
+			}
+			q->sig=r;
+		}
+		else
+		{
+			cout<<"No existe el dato referencial"<<endl;
+		}
+	}
+	else
+	{
+		cout<<"La lista esta vacia";
+		
+	}
+	return(p);
+}
 
-
-
+void mostrar(nodo *p)
+{
+	nodo *q;
+	q=p;
+	cout<<"La lista es P-> ";
+	while(q!=NULL)
+	{
+		cout<< q->num;
+		cout<<"->";
+		q=q->sig;
+	}
+	cout<<"\n";
+}
 
 
 
