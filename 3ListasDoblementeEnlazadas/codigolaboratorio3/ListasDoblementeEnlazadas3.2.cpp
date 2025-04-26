@@ -176,7 +176,26 @@ void insertar_principio(paciente *&p, paciente *&f, int dato)
 
 void insertar_final(paciente *&p, paciente *&f, int dato)
 {
+	paciente *q;
+	q=new paciente();
+	system("cls");
+    cout<<"\n\nHISTORIAL CLINICO:  "; cin>>q->hc;
+    cout<<"\n\nNOMBRE:   "; cin>>q->nomb;
+    cout<<"\n\nPESO:    "; cin>>q->peso;
+    cout<<"\n\nTALLA:    "; cin>>q->talla;
+    q->imc = (q->peso / (q->talla * q->talla));
 	
+	if(f==NULL)
+	{
+		p=f=q;
+	}
+	else
+	{
+		f->sigder=q;
+		q->sigizq=f;
+		q->sigder=NULL;
+		f=q;
+	}
 	
 }
 //insercion antes de un paciente con dota X
