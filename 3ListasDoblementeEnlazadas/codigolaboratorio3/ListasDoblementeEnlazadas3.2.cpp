@@ -46,15 +46,19 @@ int main()
 		{
 			case 1:
 				system("cls");
+				/*
 				cout<<"Dato a insertar al inicio: ";
 				cin>>dato;
+				*/
 				insertar_principio(p,f,dato);
 				break;
 				
 			case 2:
 				system("cls");
+				/*
 				cout<<"Dato a insertar al final: ";
 				cin>>dato;
+				*/
 				insertar_final(p,f,dato);
 				break;
 				
@@ -122,39 +126,57 @@ void recorrerDesdeInicio(paciente *p)
 		cout<<"\n\n\t\tPESO 	: "<<q->peso<<" kg.";
 		cout<<"\n\n\t\tTALLA	: "<<q->talla<<" cm.";
 		cout<<"\n\n\t\tINDICE DE MASA CORPORAL	: "<<q->imc;
-		q=q->sigder;
-		
+		q=q->sigder;	
 	}
 	cout<<"\n\n";
 }
 //recorrido de la lista desde el final
 void recorrerDesdeFinal(paciente *f)
 {
-
-}
-void insertar_principio(paciente *&p,paciente *&f,int dato)
-{
-	paciente *q = new paciente();
+	paciente *q;
+	int i=0;
 	system("cls");
-	cout<<"\n\nHISTORIAL CLINICO:  "; cin>>q->hc;
-	cout<<"\n\nNOMBRE:   "; cin>>q->nomb;
-	cout<<"\n\nPESO:    "; cin>>q->peso;
-	cout<<"\n\nTALLA:    "; cin>>q->talla;
-	q->imc=(q->peso/(q->talla*q->talla));
-	q->sigder=p;
-	p=q;
-	if(p==NULL)
-	
-		f=q;
-	
-	else
+	q=f;
+	cout<<"\n\n\tLISTA DE DATOS: \n";
+	cout<<"\t===============";
+	while(q!=NULL)
 	{
-		p->sigizq=q;
-	}	
+		i=i+1;
+		cout<<"\nx["<<i<<"] : \n\n";
+		cout<<"\n\n\t\tHISTORIA CLINICA		:"<<q->hc;
+		cout<<"\n\n\t\tNOMBRE	: "<<q->nomb;
+		cout<<"\n\n\t\tPESO 	: "<<q->peso<<" kg.";
+		cout<<"\n\n\t\tTALLA	: "<<q->talla<<" cm.";
+		cout<<"\n\n\t\tINDICE DE MASA CORPORAL	: "<<q->imc;
+		q=q->sigizq;	
+	}
+	cout<<"\n\n";
 }
+void insertar_principio(paciente *&p, paciente *&f, int dato)
+{
+    paciente *q = new paciente();
+    system("cls");
+    cout<<"\n\nHISTORIAL CLINICO:  "; cin>>q->hc;
+    cout<<"\n\nNOMBRE:   "; cin>>q->nomb;
+    cout<<"\n\nPESO:    "; cin>>q->peso;
+    cout<<"\n\nTALLA:    "; cin>>q->talla;
+    q->imc = (q->peso / (q->talla * q->talla));
+
+    q->sigder = p;    
+    q->sigizq = NULL; 
+
+    if (p != NULL)
+        p->sigizq = q; 
+
+    p = q; 
+
+    if (f == NULL)
+        f = q; 
+}
+
 void insertar_final(paciente *&p, paciente *&f, int dato)
 {
-
+	
 	
 }
 //insercion antes de un paciente con dota X
