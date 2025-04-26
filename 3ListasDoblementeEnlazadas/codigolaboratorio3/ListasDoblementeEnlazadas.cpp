@@ -130,7 +130,7 @@ void inserta_despues_x(nodo *&p,int dato, int x)
 	else
 	{
 		cout<<"No se encontro el dato "<< x << "en la lista. "<<endl;
-		return;
+		
 	}
 }
 void contar_concurrencias(nodo *&p,int dato)
