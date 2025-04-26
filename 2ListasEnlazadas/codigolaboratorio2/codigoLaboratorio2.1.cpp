@@ -526,13 +526,15 @@ void recorre(paciente *p)
 	cout<<"\t===============";
 	while(q!=NULL)
 	{
-		cout<<"\nx["<<i+1<<"] : \n\n";
+		i=i+1;
+		cout<<"\nx["<<i<<"] : \n\n";
 		cout<<"\n\n\t\tHISTORIA CLINICA		:"<<q->hc;
 		cout<<"\n\n\t\tNOMBRE	: "<<q->nomb;
 		cout<<"\n\n\t\tPESO 	: "<<q->peso<<" kg.";
 		cout<<"\n\n\t\tTALLA	: "<<q->talla<<" cm.";
 		cout<<"\n\n\t\tINDICE DE MASA CORPORAL	: "<<q->imc;
 		q=q->sig;
+		
 	}
 	cout<<"\n\n";
 	//system("pause");
