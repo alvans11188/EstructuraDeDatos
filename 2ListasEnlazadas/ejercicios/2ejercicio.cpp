@@ -23,8 +23,8 @@ int main()
 		cout<<"\n\t 1- Crear lista por el inicio "<<endl;
 		cout<<"\n\t 2- Insertar antes de un nodo referencial"<<endl;
 		cout<<"\n\t 3- Invertir"<<endl;
-		cout<<"\n\t9-mostrar"<<endl;
-		cout<<"\n\t13-SALIR"<<endl;
+		cout<<"\n\t 9-mostrar"<<endl;
+		cout<<"\n\t 13-SALIR"<<endl;
 		cout<<"\t OPCION: \t"<<endl;
 		cin>>op;
 		switch(op)
@@ -40,6 +40,7 @@ int main()
 				break;
 			case 3:
 				p=invertir(p);
+				break;
 			case 9:
 				mostrar(p);
 			default:
