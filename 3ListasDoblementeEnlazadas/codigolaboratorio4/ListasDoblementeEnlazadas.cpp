@@ -175,11 +175,27 @@ void elimina_inicio(nodo *&p,nodo *&f)
 		p=NULL;
 		f=NULL;
 	}
+	cout<<"Se a eliminado el valor de ("<<q->inf<<") de la lista."<<endl;
+	system("pause");
 	delete(q);
+	
 }
 void elimina_ultimo(nodo *&p,nodo *&f)
 {
-
+	nodo *q=f;
+	if(q->sigizq!=NULL)
+	{
+		f=q->sigizq;
+		f->sigder=NULL;
+	}
+	else
+	{
+		p=NULL;
+		q=NULL;
+	}
+	cout<<"Se a eliminado el valor de ("<<q->inf<<") de la lista."<<endl;
+	system("pause");
+	delete(q);
 }
 void elimina_x(nodo *&p,nodo *&f,int x)
 {
