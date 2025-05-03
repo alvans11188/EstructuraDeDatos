@@ -162,6 +162,22 @@ void invertir(nodo *&p, nodo *&f)
 	p=f;
 	f=temp;
 }
+void elimina_inicio(nodo *&p,nodo *&f)
+{
+	
+}
+void elimina_ultimo(nodo *&p,nodo *&f)
+{
+	
+}
+void elimina_x(nodo *&p,nodo *&f,int x)
+{
+	
+}
+void elimina_antes_x(nodo *&p,nodo *&f,int x)
+{
+	
+}
 void menu()
 {
 	nodo *p=NULL;
@@ -180,6 +196,10 @@ void menu()
 		cout<<"6. Mostrar lisa de fin a inicio"<<endl;
 		cout<<"7. Contar concurrencias"<<endl;
 		cout<<"8. Invertir elementos"<<endl;
+		cout<<"9. Elimina el primer nodo"<<endl;
+		cout<<"10. Eliminar el ultimo nodo"<<endl;
+		cout<<"11. Eliminar el nodo con informacion x"<<endl;
+		cout<<"12. Eliminar el nodo anterior al nodo con informacion X"<<endl;
 		cout<<"0. salir "<<endl;
 		cout<<"Opcion: ";
 		cin>>opcion;
@@ -234,6 +254,30 @@ void menu()
 			case 8:
 				system("cls");
 				invertir(p,f);
+				system("pause");
+				break;
+			case 9:
+				system("cls");
+				elimina_inicio(p,f);
+				system("pause");
+				break;
+			case 10:
+				system("cls");
+				elimina_ultimo(p,f);
+				system("pause");
+				break;
+			case 11:
+				system("cls");
+				cout<<"Ingrese el valor que desea eliminar"<<endl;
+				cin>>x;
+				elimina_x(p,f,x);
+				system("pause");
+				break;
+			case 12:
+				system("cls");
+				cout<<"Ingrese el valor referencial para eliminar su anterior"<<endl;
+				cin>>x;
+				elimina_antes_x(p,f,x);
 				system("pause");
 				break;
 			case 0:
