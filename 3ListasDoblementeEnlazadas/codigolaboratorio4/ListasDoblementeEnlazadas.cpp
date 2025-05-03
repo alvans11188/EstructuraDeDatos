@@ -251,7 +251,44 @@ void elimina_x(nodo *&p,nodo *&f,int x) //funciona eliminando el primer y ultimo
 }
 void elimina_antes_x(nodo *&p,nodo *&f,int x)
 {
-	
+	nodo *q=p;
+	while(q->sigder!=NULL && q->inf!=x)
+	{
+		q=q->sigder;
+	}
+	if(q->inf==x)
+	{
+		if(p==q)
+		{
+			cout<<"No existe nodo anterior al primero."<<endl;
+			return;
+		}
+		else
+		{
+			nodo *t=NULL;
+			t=q->sigizq;
+			if(p==t)
+			{
+				p=q;
+				p->sigizq=NULL;
+			}
+			else
+			{
+				nodo *r=NULL;
+				r=t->sigizq;
+				q->sigizq=r;
+				r->sigder=q;
+				
+			}
+			delete(t);
+		}
+	}
+	else
+	{
+		cout<<"El elemento con informacion "<< x << " no se encuentra en la lista."<<endl;
+		
+		return;
+	}
 }
 void menu()
 {
