@@ -10,27 +10,6 @@ struct nodo
 	nodo *ligader;	
 };
 
-void crearLista(nodo* &p, nodo* &f) {
-	int valores[] = {1, 3, 5, 7};
-	p = NULL;
-	f = NULL;
-
-	for (int i = 0; i < 4; i++) {
-		nodo* nuevo = new nodo;
-		nuevo->inf = valores[i];
-		nuevo->ligader = NULL;
-		nuevo->ligaizq = f;  // conecta hacia atrás
-
-		if (p == NULL) {
-			p = nuevo;       // primer nodo
-		} else {
-			f->ligader = nuevo;  // conecta hacia adelante
-		}
-
-		f = nuevo; // actualiza el final
-	}
-}
-
 void recorre_desde_inicio(nodo *);
 void recorre_desde_final(nodo *);
 void inserta_principio(nodo *&,nodo *&, int);
@@ -44,7 +23,7 @@ int main()
     int op,dato,x;
     p=NULL;
 	f=NULL;
-	crearLista(p,f);
+	
     do
 	{
     	cout<<"\n\n\t\tLISTAS DOBLEMENTE ENLAZADAS ";
@@ -62,9 +41,11 @@ int main()
 			case 1:
 				
 				recorre_desde_inicio(p);
+				system("cls");
 				break;
 			case 2:
 				recorre_desde_final(f);
+				system("cls");
 				break;
 			case 3:
 				cout<<"Ingrese el dato a insertar"<<endl;
@@ -104,14 +85,23 @@ void recorre_desde_inicio(nodo *p)
 	q=p;
 	cout<<"\n\n\t\tLA LISTA DOBLEMENTE ENLAZADA ES: ";
 	cout<<"\n\n\t\t ";
-	while(q!=NULL)
+	if(q==NULL)
 	{
-		cout<<q->inf<< " ";
-		q=q->ligader;
+		cout<<"La lista se encuentra vacia"<<endl;
+		system("pause");
 	}
-	cout<<"\n\n\t\t ";
-	system("pause");
-	system("cls");
+	else
+	{
+		while(q!=NULL)
+		{
+			cout<<q->inf<< " ";
+			q=q->ligader;
+		}
+		cout<<"\n\n\t\t ";
+		system("pause");
+		system("cls");	
+	}
+
 	
 }
 
