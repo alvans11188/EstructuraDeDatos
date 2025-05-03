@@ -197,8 +197,56 @@ void elimina_ultimo(nodo *&p,nodo *&f)
 	system("pause");
 	delete(q);
 }
-void elimina_x(nodo *&p,nodo *&f,int x)
+void elimina_x(nodo *&p,nodo *&f,int x) //funciona eliminando el primer y ultimo
 {
+	nodo *q=p;
+	
+	while(q->sigder!=NULL && q->inf!=x)
+	{
+		q=q->sigder;
+	}
+	if(q->inf==x)
+	{
+		if(q==p && q==f)
+		{
+			p=NULL;
+			f=NULL;
+		}
+		else
+		{
+			if(q==p)
+			{
+				p=q->sigder;
+				p->sigizq=NULL;
+			}
+			else
+			{
+				if(q==f)
+				{
+					f=q->sigizq;
+					f->sigder=NULL;
+				}
+				else
+				{
+					nodo *t=NULL;
+					nodo *r=NULL;
+					t=q->sigizq;
+					r=q->sigder;
+					t->sigder=r;
+					r->sigizq=t;	
+				}
+				
+			}
+		}
+		cout<<"Se a eliminado el valor de ("<<q->inf<<") de la lista."<<endl;
+		
+	}
+	else
+	{
+		cout<<"El elemento con informacion "<<x << " no se encuentra en la lista."<<endl;
+		
+		return;
+	}
 	
 }
 void elimina_antes_x(nodo *&p,nodo *&f,int x)
