@@ -164,11 +164,22 @@ void invertir(nodo *&p, nodo *&f)
 }
 void elimina_inicio(nodo *&p,nodo *&f)
 {
-	
+	nodo *q=p;
+	if(q->sigder!=NULL)
+	{
+		p=q->sigder;
+		p->sigizq=NULL;
+	}
+	else
+	{
+		p=NULL;
+		f=NULL;
+	}
+	delete(q);
 }
 void elimina_ultimo(nodo *&p,nodo *&f)
 {
-	
+
 }
 void elimina_x(nodo *&p,nodo *&f,int x)
 {
