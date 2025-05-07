@@ -290,6 +290,195 @@ void elimina_antes_x(nodo *&p,nodo *&f,int x)
 		return;
 	}
 }
+void moverMenor(nodo *&p,nodo *&f)
+{
+	nodo *q,*menor,*r,*t;
+	q=new nodo();
+	menor=new nodo();
+	if(p->sigder==NULL)
+	{
+		cout<<"La lista tiene un solo elemento"<<endl;
+	}
+	else
+	{
+		q=p;
+		menor=p;
+		while(q!=NULL)
+		{
+			if(q->inf<menor->inf)
+			{
+				menor=q;
+			}
+			q=q->sigder;
+		}
+		if(menor==p)
+		{
+			cout<<"El menor elemento ya esta en la primera posicion"<<endl;
+		}
+		else
+		{
+			if(menor==f)
+			{
+				f=menor->sigizq;
+				f->sigder=NULL;
+			}
+			else
+			{
+				r=menor->sigizq;
+				t=menor->sigder;
+				r->sigder=t;
+				t->sigizq=r;
+			}
+			menor->sigder=p;
+			menor->sigizq=NULL;
+			p->sigizq=menor;
+			p=menor;
+		}
+	}
+}
+
+void moverMayor(nodo *&p, nodo *&f)
+{
+    nodo *q, *mayor, *r, *t;
+    q = new nodo();   // Esta línea no es necesaria realmente
+    mayor = new nodo(); // Tampoco, pero se mantiene para similitud
+
+    if (p->sigder == NULL)
+    {
+        cout << "La lista tiene un solo elemento" << endl;
+    }
+    else
+    {
+        q = p;
+        mayor = p;
+
+        // Buscar el nodo con el mayor valor
+        while (q != NULL)
+        {
+            if (q->inf > mayor->inf)
+            {
+                mayor = q;
+            }
+            q = q->sigder;
+        }
+
+        if (mayor == f)
+        {
+            cout << "El mayor elemento ya está en la última posición" << endl;
+        }
+        else
+        {
+            if (mayor == p)
+            {
+                p = mayor->sigder;
+                p->sigizq = NULL;
+            }
+            else
+            {
+                r = mayor->sigizq;
+                t = mayor->sigder;
+                r->sigder = t;
+                t->sigizq = r;
+            }
+
+            // Insertar el mayor al final
+            mayor->sigizq = f;
+            mayor->sigder = NULL;
+            f->sigder = mayor;
+            f = mayor;
+        }
+    }
+}
+
+void eliminarRepetidos(nodo *&p, nodo *&f)
+{
+    nodo *q, *t, *r;
+    if (p == NULL)
+    {
+        cout << "No hay elementos en la lista" << endl;
+    }
+    else
+    {
+        q = p;
+        while (q->sigder != NULL)
+        {
+            t=new nodo();
+			t = q->sigder;
+            if (q->inf == t->inf)
+            {
+                q->sigder = t->sigder;
+                if (t->sigder != NULL)
+                {
+                    r = t->sigder;
+                    r->sigizq = q;
+                }
+                else
+                {
+                    f = q; // actualiza el final si eliminamos el último nodo
+                }
+                delete t;
+            }
+            else
+            {
+                q = q->sigder;
+            }
+        }
+    }
+}
+
+void eliminarCoincidentes(nodo *&p, nodo *&f, int x)
+{
+    nodo *q, *r, *t, *s;
+    
+    if (p == NULL)
+    {
+        cout << "No hay elementos en la lista" << endl;
+    }
+    else
+    {
+        q = p;  // Empezamos desde el primer nodo
+        t = NULL;  // Nodo anterior a q (al principio no hay uno)
+        
+        while (q != NULL)  // Mientras haya nodos en la lista
+        {
+            if (q->inf == x)  // Si encontramos un nodo con el valor a eliminar
+            {
+                r = q;  // Guardamos el nodo a eliminar
+                
+                // Si es el primer nodo de la lista
+                if (t == NULL)
+                {
+                    p = q->sigder;  // El siguiente nodo se convierte en el primer nodo
+                    if (p != NULL)  // Si hay un siguiente nodo, lo conectamos correctamente
+                    {
+                        p->sigizq = NULL;  // El primer nodo no tiene nodo anterior
+                    }
+                }
+                else  // Si no es el primer nodo
+                {
+                    t->sigder = q->sigder;  // El anterior nodo apunta al siguiente
+                    if (q->sigder != NULL)  // Si no estamos eliminando el último nodo
+                    {
+                        s = q->sigder;
+                        s->sigizq = t;  // El siguiente nodo tiene ahora el nodo anterior correcto
+                    }
+                    else  // Si es el último nodo
+                    {
+                        f = t;  // Actualizamos el puntero al final de la lista
+                    }
+                }
+                
+                q = q->sigder;  // Avanzamos al siguiente nodo
+                delete (r);  // Eliminamos el nodo guardado en r
+            }
+            else  // Si el nodo no tiene el valor a eliminar, avanzamos
+            {
+                t = q;  // Actualizamos el nodo anterior
+                q = q->sigder;  // Avanzamos al siguiente nodo
+            }
+        }
+    }
+}
 void menu()
 {
 	nodo *p=NULL;
@@ -312,6 +501,10 @@ void menu()
 		cout<<"10. Eliminar el ultimo nodo"<<endl;
 		cout<<"11. Eliminar el nodo con informacion x"<<endl;
 		cout<<"12. Eliminar el nodo anterior al nodo con informacion X"<<endl;
+		cout<<"13. Mover el menor dato hacia delante de la lista"<<endl;
+		cout<<"14. Mover el mayor dato hacia el final de la lista"<<endl;
+		cout<<"15. Eliminar duplicados"<<endl;
+		cout<<"16. Eliminar nodos con un valor especifico"<<endl;
 		cout<<"0. salir "<<endl;
 		cout<<"Opcion: ";
 		cin>>opcion;
@@ -392,6 +585,31 @@ void menu()
 				elimina_antes_x(p,f,x);
 				system("pause");
 				break;
+			case 13:
+				system("cls");
+				cout<<"Moviendo el menor dato hacia delante de la lista"<<endl;
+				moverMenor(p,f);
+				system("pause");
+				break;
+			case 14:
+				system("cls");
+				//cout<<"Moviendo el mayor dato hacia delante de la lista"<<endl;
+				moverMayor(p,f);
+				system("pause");
+				break;
+			case 15:
+				system("cls");
+				cout<<"Eliminando duplicados"<<endl;
+				eliminarRepetidos(p,f);
+				system("pause");
+				break;
+			case 16:
+				system("cls");
+				cout<<"Ingrese el valor a eliminar"<<endl;
+				cin>>x;
+				eliminarCoincidentes(p,f,x);
+				system("pause");
+				break;
 			case 0:
 				cout<<"Programa finalizado."<<endl;
 				break;
@@ -434,6 +652,4 @@ int main()
 	return 0;
 }
 
-	
-	
 	
