@@ -340,9 +340,7 @@ void moverMenor(nodo *&p,nodo *&f)
 void moverMayor(nodo *&p, nodo *&f)
 {
     nodo *q, *mayor, *r, *t;
-    q = new nodo();   // Esta línea no es necesaria realmente
-    mayor = new nodo(); // Tampoco, pero se mantiene para similitud
-
+    
     if (p->sigder == NULL)
     {
         cout << "La lista tiene un solo elemento" << endl;
@@ -352,7 +350,7 @@ void moverMayor(nodo *&p, nodo *&f)
         q = p;
         mayor = p;
 
-        // Buscar el nodo con el mayor valor
+       
         while (q != NULL)
         {
             if (q->inf > mayor->inf)
@@ -364,7 +362,7 @@ void moverMayor(nodo *&p, nodo *&f)
 
         if (mayor == f)
         {
-            cout << "El mayor elemento ya está en la última posición" << endl;
+            cout << "El mayor elemento ya esta en la última posicion" << endl;
         }
         else
         {
@@ -381,11 +379,11 @@ void moverMayor(nodo *&p, nodo *&f)
                 t->sigizq = r;
             }
 
-            // Insertar el mayor al final
+            
             mayor->sigizq = f;
-            mayor->sigder = NULL;
             f->sigder = mayor;
             f = mayor;
+            mayor->sigder = NULL;
         }
     }
 }
@@ -414,7 +412,7 @@ void eliminarRepetidos(nodo *&p, nodo *&f)
                 }
                 else
                 {
-                    f = q; // actualiza el final si eliminamos el último nodo
+                    f = q; 
                 }
                 delete t;
             }
@@ -436,45 +434,45 @@ void eliminarCoincidentes(nodo *&p, nodo *&f, int x)
     }
     else
     {
-        q = p;  // Empezamos desde el primer nodo
-        t = NULL;  // Nodo anterior a q (al principio no hay uno)
+        q = p;  
+        t = NULL;  
         
-        while (q != NULL)  // Mientras haya nodos en la lista
+        while (q != NULL) 
         {
-            if (q->inf == x)  // Si encontramos un nodo con el valor a eliminar
+            if (q->inf == x) 
             {
-                r = q;  // Guardamos el nodo a eliminar
+                r = q;  
                 
-                // Si es el primer nodo de la lista
+                
                 if (t == NULL)
                 {
-                    p = q->sigder;  // El siguiente nodo se convierte en el primer nodo
-                    if (p != NULL)  // Si hay un siguiente nodo, lo conectamos correctamente
+                    p = q->sigder;  
+                    if (p != NULL) 
                     {
-                        p->sigizq = NULL;  // El primer nodo no tiene nodo anterior
+                        p->sigizq = NULL;  
                     }
                 }
-                else  // Si no es el primer nodo
+                else  
                 {
-                    t->sigder = q->sigder;  // El anterior nodo apunta al siguiente
-                    if (q->sigder != NULL)  // Si no estamos eliminando el último nodo
+                    t->sigder = q->sigder; 
+                    if (q->sigder != NULL)  
                     {
                         s = q->sigder;
-                        s->sigizq = t;  // El siguiente nodo tiene ahora el nodo anterior correcto
+                        s->sigizq = t;  
                     }
-                    else  // Si es el último nodo
+                    else 
                     {
-                        f = t;  // Actualizamos el puntero al final de la lista
+                        f = t; 
                     }
                 }
                 
-                q = q->sigder;  // Avanzamos al siguiente nodo
-                delete (r);  // Eliminamos el nodo guardado en r
+                q = q->sigder; 
+                delete (r);  
             }
-            else  // Si el nodo no tiene el valor a eliminar, avanzamos
+            else  
             {
-                t = q;  // Actualizamos el nodo anterior
-                q = q->sigder;  // Avanzamos al siguiente nodo
+                t = q;  
+                q = q->sigder;  
             }
         }
     }
