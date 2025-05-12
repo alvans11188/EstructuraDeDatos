@@ -1,7 +1,9 @@
 #include<iostream>
+#include<string>
 using namespace std;
 struct nodo {
 	int info;
+	char info2;
 	nodo* liga;
 };
 class Pila{
@@ -144,11 +146,55 @@ class Pila{
 				sacarPila();
 			}
 		}
+		bool esPalindromo(const string& palabra1){
+			nodo *q,*r;
+			int ban=0;
+			Pila letras;
+			Pila letras2;
+			
+			for(int i=0;i<palabra1.length();i++){ //la parte de palabra1.lenght es para saber el tamaño
+				q = new nodo;
+				q->info2=palabra1[i];
+				q->liga=letras.tope;
+				letras.tope=q;
+			}
+			//insertando la cadena de testo palabra 1
+			
+			while(q!=NULL){
+				r=new nodo;
+				r->info2=q->info2;
+				r->liga=letras2.tope;
+				letras2.tope=r;
+				q=q->liga;
+			}
+			q=letras.tope;
+			r=letras2.tope;
+			while((q!=NULL&&r!=NULL)){
+				if(q->info2==r->info2){
+					ban=1;
+				}
+				else
+				{
+					ban=0;
+				}
+				q=q->liga;
+				r=r->liga;
+			}
+			if(ban==1){
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 	
+		}
 };
 void menu(){
 	Pila pila1;
 	Pila pila2;
+	Pila palabra1;
+	string palabra;
 	int opcion, dato,op;
 	
 	do{
@@ -162,6 +208,7 @@ void menu(){
 		cout<<"7. Mostrar Pila 2"<<endl;
 		cout<<"8. Comparar Pila 1 con Pila 2"<<endl;
 		cout<<"9. Verificando si la Pila 1 es palindroma"<<endl;
+		cout<<"10. Verificar si una palabra es palindroma"<<endl;
 		cout<<"0. Salir"<<endl;
 		cout<<"Opcion: ";
 		cin>>opcion;
@@ -210,6 +257,17 @@ void menu(){
 				else
 				{
 					cout<<"NO ES UN PALINDROMO"<<endl;
+				}
+				break;
+			case 10:
+				cout<<"Ingrese la palabra"<<endl;
+				cin>>palabra;
+				if(palabra1.esPalindromo(palabra)){
+					cout<<"Es una palabra palindromo"<<endl;
+				}
+				else
+				{
+					cout<<"NO ES UNA PALABRA PALINDROMO"<<endl;
 				}
 				break;
 			case 0:
