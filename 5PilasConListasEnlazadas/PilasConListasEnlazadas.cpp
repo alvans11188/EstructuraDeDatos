@@ -82,10 +82,25 @@ class Pila{
 					//cout<<"No se encontro el dato"<<endl;
 				}
 			}
-			
+			return ban;
 		}
-		bool compararCon(Pila& pila2){
+		bool compararCon(Pila& pila1,Pila& pila2){
+			nodo *q,*s;
 			
+			q=pila1.tope;
+			s=pila2.tope;
+			int ban=0;
+			while((q!=NULL)||(s!=NULL)){
+				if(q->info==s->info){
+					ban=1;
+				}
+				q=q->liga;
+				s=s->liga;
+			}
+			if(ban==1){
+				return true;
+			}
+			return false;
 		}
 		
 		~Pila(){
@@ -95,7 +110,7 @@ class Pila{
 		}
 };
 void menu(){
-	Pila pila;
+	Pila pila1;
 	Pila pila2;
 	int opcion, dato;
 	
@@ -116,22 +131,22 @@ void menu(){
 			case 1:
 				cout<<"Ingrese dato a apilar en Pila1: ";
 				cin>>dato;
-				pila.agregarPila(dato);
+				pila1.agregarPila(dato);
 				break;
 			case 2:
-				pila.sacarPila();
+				pila1.sacarPila();
 				break;
 			case 3:
-				pila.mostrarPila();
+				pila1.mostrarPila();
 				break;
 			case 4:
-				cout<<"Cantidad de elementos en Pila 1: "<<pila.contarElementosPila()<<endl;
+				cout<<"Cantidad de elementos en Pila 1: "<<pila1.contarElementosPila()<<endl;
 				break;
 			case 5:
 				cout<<"Ingrese el elemento a buscar en Pila 1: ";
 				cin>>dato;
-				pila.buscarElementoPila(dato);
-				cout<<"¿Esta el "<<dato<<"?: "<<(pila.buscarElementoPila(dato)?"Si":"No")<<endl;
+				pila1.buscarElementoPila(dato);
+				cout<<"¿Esta el "<<dato<<" ?: "<<(pila1.buscarElementoPila(dato)?"Si":"No")<<endl;
 				break;
 			case 6:
 				cout<<"Ubgrese dato a apilar en Pila 2: ";
@@ -142,7 +157,7 @@ void menu(){
 				pila2.mostrarPila();
 				break;
 			case 8:
-				if(pila.compararCon(pila2)){
+				if(pila1.compararCon(pila1,pila2)){
 					cout<<"Las pilas son iguales. "<<endl;
 				}
 				else{
