@@ -60,6 +60,28 @@ class Pila{
 			return i;
 		}
 		bool buscarElementoPila(int dato){
+			int ban=0; 
+			nodo *q;
+			q=tope;
+			if(q==NULL){
+				cout<<"Pila vacia"<<endl;
+			}
+			else
+			{
+				while(q!=NULL){
+					if(q->info==dato){
+						ban=1;
+					}
+					q=q->liga;
+				}
+				if(ban==1){
+					//cout<<"Se encontro el dato"<<endl;
+				}
+				else
+				{
+					//cout<<"No se encontro el dato"<<endl;
+				}
+			}
 			
 		}
 		bool compararCon(Pila& pila2){
