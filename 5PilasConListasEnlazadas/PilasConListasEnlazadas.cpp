@@ -4,11 +4,11 @@ struct nodo {
 	int info;
 	nodo* liga;
 };
-class pila{
+class Pila{
 	private:
 		nodo* tope;
 	public:
-		pila(){
+		Pila(){
 			tope=NULL;
 		}
 		//metodo para agregar un elemento a la pila
@@ -50,24 +50,31 @@ class pila{
 		}
 		
 		int contarElementosPila(){
-			
+			nodo *q;
+			int i=0;
+			q=tope;
+			while(q!=NULL){
+				i=i+1;
+				q=q->liga;
+			}
+			return i;
 		}
 		bool buscarElementoPila(int dato){
 			
 		}
-		bool compararCon(pila& pila2){
+		bool compararCon(Pila& pila2){
 			
 		}
 		
-		~pila(){
+		~Pila(){
 			while(tope!=NULL){
 				sacarPila();
 			}
 		}
 };
 void menu(){
-	pila pila;
-	pila pila2;
+	Pila pila;
+	Pila pila2;
 	int opcion, dato;
 	
 	do{
@@ -110,7 +117,7 @@ void menu(){
 				pila2.agregarPila(dato);
 				break;
 			case 7:
-				pila2.mostrarPila(dato);
+				pila2.mostrarPila();
 				break;
 			case 8:
 				if(pila.compararCon(pila2)){
