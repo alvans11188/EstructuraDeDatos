@@ -103,16 +103,53 @@ class Pila{
 			return false;
 		}
 		
+		bool palindromo(Pila& pila1){
+			nodo *q,*r,*s;
+			int ban=0;
+			Pila temp;
+			q=pila1.tope;
+			
+			while (q!=NULL){
+				temp.agregarPila(q->info);
+				q=q->liga;
+			}
+			r=temp.tope;
+			while(r!=NULL){
+				cout<<r->info<<" ";
+				r=r->liga;
+			}
+			q=pila1.tope;
+			r=temp.tope;
+			while((q!=NULL&&r!=NULL)){
+				if(q->info==r->info){
+					ban=1;
+				}
+				else
+				{
+					ban=0;
+				}
+				q=q->liga;
+				r=r->liga;
+			}
+			if(ban==1){
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 		~Pila(){
 			while(tope!=NULL){
 				sacarPila();
 			}
 		}
+	
 };
 void menu(){
 	Pila pila1;
 	Pila pila2;
-	int opcion, dato;
+	int opcion, dato,op;
 	
 	do{
 		cout<<"\n---MENU PILA---"<<endl;
@@ -124,6 +161,7 @@ void menu(){
 		cout<<"6. Apilar en Pila 2"<<endl;
 		cout<<"7. Mostrar Pila 2"<<endl;
 		cout<<"8. Comparar Pila 1 con Pila 2"<<endl;
+		cout<<"9. Verificando si la Pila 1 es palindroma"<<endl;
 		cout<<"0. Salir"<<endl;
 		cout<<"Opcion: ";
 		cin>>opcion;
@@ -162,6 +200,16 @@ void menu(){
 				}
 				else{
 					cout<<"Laas pilas son diferentes. "<<endl;
+				}
+				break;
+			case 9:
+				cout<<"Verificando si la pila 1 es palindroma"<<endl;
+				if(pila1.palindromo(pila1)){
+					cout<<"Es un palindromo"<<endl;
+				}
+				else
+				{
+					cout<<"NO ES UN PALINDROMO"<<endl;
 				}
 				break;
 			case 0:
