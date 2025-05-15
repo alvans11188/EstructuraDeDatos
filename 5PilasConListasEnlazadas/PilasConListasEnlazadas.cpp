@@ -152,7 +152,7 @@ class Pila{
 			Pila letras;
 			Pila letras2;
 			
-			for(int i=0;i<palabra1.length();i++){ //la parte de palabra1.lenght es para saber el tamaño
+			for(int i=0;i<palabra1.length();i++){ //la parte de palabra1.lenght es para saber el tamaño del string
 				q = new nodo;
 				q->info2=palabra1[i];
 				q->liga=letras.tope;
