@@ -189,13 +189,19 @@ bool Pila::revisarApostfijaOperacionMatematica(const string& expmatematica){
 	char simbolo, dato;
 	int i;
 	int cont=0;
+	int cont2=0;
 	for(i=0;i<expmatematica.length();i++){
+		
 		simbolo=expmatematica[i];
-		if(simbolo=='('||simbolo==')'){
+		cout<<simbolo;
+		if(simbolo=='('){
 			cont=cont+1;
 		}
+		if(simbolo==')'){
+			cont2=cont2+1;
+		}
 	}
-	if(cont % 2 != 0){
+	if(cont==cont2){
 		return true;
 	}else{
 		return false;
@@ -286,8 +292,8 @@ void menu(){
 			case 11:
 				cout<<"Ingresa una operacion matematica"<<endl;
 				cin>>operacion;
-				cout<<"¿La operacion matematica "<<operacion<<" es correcta ?"<<(esPalindromo(palabra)?"Si":"No")<<endl;
-				pila1.revisarApostfijaOperacionMatematica(operacion);
+				cout<<"¿La operacion matematica "<<operacion<<" es correcta ?"<<( pila1.revisarApostfijaOperacionMatematica(operacion)?"Si":"No")<<endl;
+				;
 				break;
 				
 			case 0:
