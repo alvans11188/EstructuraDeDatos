@@ -183,7 +183,24 @@ bool Pila::infijaApostfijaOperacionMatematica(const string& expmatematica){
 	return true;
 }
 bool Pila::revisarApostfijaOperacionMatematica(const string& expmatematica){
-	return true;
+	Pila temp;
+	int tope;
+	string EPOS="";
+	char simbolo, dato;
+	int i;
+	int cont=0;
+	for(i=0;i<expmatematica.length();i++){
+		simbolo=expmatematica[i];
+		if(simbolo=='('||simbolo==')'){
+			cont=cont+1;
+		}
+	}
+	if(cont % 2 != 0){
+		return true;
+	}else{
+		return false;
+	}
+	
 }
 bool esPalindromo(const string& palabra){
 	Pila temp;
@@ -270,7 +287,6 @@ void menu(){
 				cout<<"Ingresa una operacion matematica"<<endl;
 				cin>>operacion;
 				cout<<"¿La operacion matematica "<<operacion<<" es correcta ?"<<(esPalindromo(palabra)?"Si":"No")<<endl;
-		
 				pila1.revisarApostfijaOperacionMatematica(operacion);
 				break;
 				
