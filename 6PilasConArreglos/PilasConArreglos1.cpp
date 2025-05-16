@@ -20,7 +20,8 @@ class Pila{
 		int contarElementosPila();
 		bool buscarElementoPila(int valor);
 		bool compararCon(Pila& otra);
-		bool revisarOperacionMatematica(const string& expmatematica);
+		bool infijaApostfijaOperacionMatematica(const string& expmatematica);
+		bool revisarApostfijaOperacionMatematica(const string& expmatematica);
 		
 };
 
@@ -137,13 +138,53 @@ bool Pila::compararCon(Pila& pila2){
 	return true;
 }
 
-
-bool Pila::revisarOperacionMatematica(const string& expmatematica){
-	
-
-	return true;
+int prioridad(char op) {
+    if (op == '^')              return 3;
+    if (op == '*' || op == '/') return 2;
+	if (op == '+' || op == '-') return 1;
+    return 0;
 }
 
+bool Pila::infijaApostfijaOperacionMatematica(const string& expmatematica){
+	Pila pila;
+	int tope=0;
+	string EPOS="";
+	char simbolo,dato;
+	int i;
+	for(i=0;i<expmatematica.length();i++){
+		simbolo=expmatematica[i];
+		if(simbolo == '('){
+			pila.agregarPila(simbolo); 
+		}else{
+			if(simbolo==')'){
+				while(!pila.pilaVacia() && pila.cima() != '('){
+					dato = pila.sacarPila();
+					EPOS = EPOS + dato;
+				}
+				pila.sacarPila();
+			}else{
+				if(isalnum(simbolo)){
+					EPOS=EPOS+simbolo;
+				}else{
+					while(!pila.pilaVacia()&&prioridad(pila.cima()>=prioridad(simbolo))){
+						dato = pila.sacarPila();
+						EPOS =EPOS + dato;
+					}
+					pila.agregarPila(simbolo);
+				}
+			}
+		}
+	}
+	while(!pila.pilaVacia()){
+		dato=pila.sacarPila();
+		EPOS=EPOS+dato;
+	}
+	cout<<"EXPRESION POSTFIJA"<<EPOS<<endl;
+	return true;
+}
+bool Pila::revisarApostfijaOperacionMatematica(const string& expmatematica){
+	return true;
+}
 bool esPalindromo(const string& palabra){
 	Pila temp;
 	int i, tamanio;
@@ -166,7 +207,7 @@ void menu(){
 	Pila pila2;
 	int opcion;
 	char dato;
-	string palabra;
+	string palabra,operacion;
 	do{
 		cout<<"\n--MENU PILA--"<<endl;
 		cout<<"1. Apilar en Pila 1"<<endl;
@@ -178,6 +219,8 @@ void menu(){
 		cout<<"7. Mostrar Pila 2"<<endl;
 		cout<<"8. Comparar Pila 1 con Pila 2"<<endl;
 		cout<<"9. Determinar si una palabra es palindroma"<<endl;
+		cout<<"10. Expresar una expresion infija como postfija"<<endl;
+		cout<<"11. Determinar si una expresion matematica es correcta"<<endl;
 		cout<<"0. Salir "<<endl;
 		cout<<"Opcion:  "<<endl;
 		cin>>opcion;
@@ -216,7 +259,21 @@ void menu(){
 				cout<<"Ingrese la palabra:";
 				cin>>palabra;
 				cout<<"¿La palabra "<<palabra<<" es palindroma ?"<<(esPalindromo(palabra)?"Si":"No")<<endl;
-				break;	
+				break;
+			case 10:
+				cout<<"Ingresa una operacion matematica"<<endl;
+				cin>>operacion;
+				pila1.infijaApostfijaOperacionMatematica(operacion);
+				break;
+				
+			case 11:
+				cout<<"Ingresa una operacion matematica"<<endl;
+				cin>>operacion;
+				cout<<"¿La operacion matematica "<<operacion<<" es correcta ?"<<(esPalindromo(palabra)?"Si":"No")<<endl;
+		
+				pila1.revisarApostfijaOperacionMatematica(operacion);
+				break;
+				
 			case 0:
 				cout<<"Programa finalizado."<<endl;
 				break;
@@ -266,7 +323,7 @@ int main(){
 	expresion= "((3+4)*(8+3**2))";
 	//exprecion = "(3+4)*(8+3**2));
 	
-	if(pila.revisarOperacionMatematica(expresion)){
+	if(pila.revisarApostfijaOperacionMatematica(expresion)){
 		cout<<"LA EXPRESION MATEMATICA"<<expresion << " es correcta"<<endl;
 	}else{
 		cout<<"La expresion matematica"<<expresion<<"es incorrecta"<<endl;
