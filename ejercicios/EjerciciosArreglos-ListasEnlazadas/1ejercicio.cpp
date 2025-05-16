@@ -58,7 +58,7 @@ int main(){
 	}
 	cout<<endl;
 	
-	insertarAntesDe(x,n,1);
+	insertarAntesDe(x,n,5);
 	for(i=0;i<=n;i++){
 		cout<<x[i]<<" ";
 	}
