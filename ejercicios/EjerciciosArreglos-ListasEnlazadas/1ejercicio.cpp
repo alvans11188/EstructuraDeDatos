@@ -31,9 +31,7 @@ void insertarAntesDe(int x[],int &n,int ref){
 		cout<<pos;
 		cout<<"Ingrese el dato"<<endl;
 		cin>>dato;
-		if(pos>0){
-			cout<<"El dato ya existe"<<endl;
-		}else{
+		if(pos<=0){
 			n=n+1;
 			pos=-1*pos;
 			for(int i=n;i>pos;i--){
@@ -43,6 +41,9 @@ void insertarAntesDe(int x[],int &n,int ref){
 			}
 			
 			x[pos]=dato;
+			
+		}else{
+			cout<<"El dato no existe referencial no existe"<<endl;
 		}
 	}
 }
@@ -58,7 +59,7 @@ int main(){
 	}
 	cout<<endl;
 	
-	insertarAntesDe(x,n,5);
+	insertarAntesDe(x,n,7);
 	for(i=0;i<=n;i++){
 		cout<<x[i]<<" ";
 	}
