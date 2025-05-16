@@ -1,4 +1,4 @@
-/*EJERCICIO 1
+/*EJERCICIO 2
 Diseñar un algoritmo que inserte un dato DESPUES DE un dato referencial en un arreglo desordenado.
 */
 #include<iostream>

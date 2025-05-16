@@ -1,87 +1,93 @@
-/*EJERCICIO 1
-Diseñar un algoritmo que inserte un dato ANTES DE un dato referencial en un arreglo desordenado.
+/*EJERCICIO 3
+Diseñar un algoritmo que elimine un dato localizado ANTES DE un dato referencial en un arreglo 
+desordenado. 
 */
 #include<iostream>
 #define MAX 10
 using namespace std;
-
-struct arreglo{
-	int inf;	
-};
-
-void inserta(arreglo *,int&, int);
-int buscar(arreglo *, int& ,int );
-void insertaDespuesReferencial(arreglo *,int&, int);
-void eliminarAntesDe(arreglo *, int&, int);
-void mostrar(arreglo*, int);
+void mostrar(int x[],int n){
+	for(int i=0;i<n;i++){
+		cout<<x[i]<<" ";
+	}
+}
+int buscar(int x[],int n, int ref){
+	int i=0;
+	while(i<=n&&x[i]<ref){
+		i=i+1;
+	}
+	if(i>n||x[i]>ref){
+		return i;
+	}else{
+		return -i;
+	}
+	
+}
+void eliminaAntesDe(int x[],int &n,int ref){
+	int dato,pos;
+	if(n<0){
+		cout<<"No existes elementos en la lista"<<endl;
+	}else{
+		pos=buscar(x,n,ref);
+		cout<<"Indice: "<<pos<<"\n"<<endl;
+		
+		if(pos>0){
+				cout<<"El dato no existe"<<endl;
+		}else{
+		
+			if(x[0]==ref){
+				cout<<"NO ES POSIBLE ELIMINAR EL ANTERIOR AL REFERENCIAL PORQUE ES EL PRIMER"<<endl;
+			}else{
+				pos=-1*pos; //importante para determinar el lugar donde sera eliminado
+				n=n-1;
+				pos=pos-1;
+				for(int i=pos;i<=n;i++){
+					x[i]=x[i+1];
+				}	
+			}	
+		}
+	}
+}
 
 int main(){
-	arreglo x[MAX];
-	int n=0;
+	int x[MAX]={1,2,4};
+	int i;
+	int n=2;
+	int op;
 	
-	inserta(x,n,1);
-	inserta(x,n,2);inserta(x,n,7);
-	inserta(x,n,3);
-	inserta(x,n,5);
+	for(i=0;i<=n;i++){
+		cout<<x[i]<<" ";
+	}
+	cout<<endl;
+	//cin>>op;
+	//eliminaAntesDe(x,n,1);
+	//eliminaAntesDe(x,n,2);
+	eliminaAntesDe(x,n,4);
+	/*
+	do{
+		switch(op){
+			case 1:
+			eliminaAntesDe(x,n,1);
 	
-	//insertaDespuesReferencial(x,n,7);
-	eliminarAntesDe(x,n,7);
-	mostrar(x,n);
+			break;
+		case 2:
+			eliminaAntesDe(x,n,2);
+			break;
+		case 3:
+			eliminaAntesDe(x,n,4);
+			break;
+			
+		default:
+			break;
+			
+		}
+		
+	}while(op!=0);
+	*/
+	
+	for(i=0;i<=n;i++){
+		cout<<x[i]<<" ";
+	}
+	cout<<endl;
 	return 0;
 }
 
-void inserta(arreglo* x,int &n,int dato){
-	//int dato;
-	
-	if(n>MAX){
-		cout<<"El arreglo esta lleno"<<endl;
-	}else{
-		
-		//cout<<"Ingrese el dato"<<endl;
-		//cin>>dato;
-		x[n].inf=dato;
-		n=n+1;
-	}
-}
-int buscar(arreglo *x, int& n,int dato){
-	for(int i=0;i<n;i++){
-		if(x[i].inf==dato){
-			return i;
-		}
-	}
-	return -1;
-}
-void insertaDespuesReferencial(arreglo *x,int &n, int ref){
-
-}
-void eliminarAntesDe(arreglo *x,int& n,int ref){
-		if(n<0){
-		cout<<"El arreglo esta vacio"<<endl;
-		return;
-	} else {
-		int pos = buscar(x,n,ref);
-		if(pos<0){
-			cout<<"No se encontro el referencial"<<endl;
-			return;
-		}else{
-			if(pos==0){
-				cout<<"No existe un elemento antes del referencial"<<endl;
-				return;
-			}else{
-				int dato2;
-				//cout<<"Ingrese el dato "<<endl;
-				//cin>>dato2;
-				for(int j=pos-1;j<n-1;j++){
-					x[j].inf=x[j+1].inf;
-				}
-				
-				n=n-1;
-			}
-		}
-	}
-}
-void mostrar(arreglo *x,int n){
-	for(int i=0;i<n;i++){
-		cout<<x[i].inf<<" ";
-	}
-}
