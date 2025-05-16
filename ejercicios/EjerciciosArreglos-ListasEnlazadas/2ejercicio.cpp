@@ -1,5 +1,5 @@
 /*EJERCICIO 1
-Diseñar un algoritmo que inserte un dato ANTES DE un dato referencial en un arreglo desordenado.
+Diseñar un algoritmo que inserte un dato DESPUES DE un dato referencial en un arreglo desordenado.
 */
 #include<iostream>
 #define MAX 10
@@ -21,7 +21,7 @@ int buscar(int x[],int n, int ref){
 	}
 	
 }
-void insertarAntesDe(int x[],int &n,int ref){
+void insertarDespuesDe(int x[],int &n,int ref){
 	int dato,pos;
 	if(n>=MAX){
 		cout<<"El arreglo esta lleno"<<endl;
@@ -31,27 +31,29 @@ void insertarAntesDe(int x[],int &n,int ref){
 		cout<<pos;
 		cout<<"Ingrese el dato"<<endl;
 		cin>>dato;
+		
 		if(pos<=0){
 			n=n+1;
 			pos=-1*pos;
-			for(int i=n;i>pos;i--){
+			int des=pos+1;
+			for(int i=n;i>des;i--){
 				x[i]=x[i-1];
 				mostrar(x,n);
 				cout<<endl;
 			}
 			
-			x[pos]=dato;
+			x[des]=dato;
 			
 		}else{
-			cout<<"El dato no existe referencial no existe"<<endl;
+			cout<<"El dato no existe referencial no existe "<<endl;
 		}
 	}
 }
 
 int main(){
-	int x[MAX]={1,2,3,4,5};
+	int x[MAX]={1,2,4};
 	int i;
-	int n=4;
+	int n=2;
 	
 	
 	for(i=0;i<=n;i++){
@@ -59,7 +61,7 @@ int main(){
 	}
 	cout<<endl;
 	
-	insertarAntesDe(x,n,5);
+	insertarDespuesDe(x,n,9);
 	for(i=0;i<=n;i++){
 		cout<<x[i]<<" ";
 	}
