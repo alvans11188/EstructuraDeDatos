@@ -11,10 +11,10 @@ void mostrar(int x[],int n){
 }
 int buscar(int x[],int n, int ref){
 	int i=0;
-	while(i<=n&&x[i]<ref){
+	while(i<=n&&x[i]!=ref){
 		i=i+1;
 	}
-	if(i>n||x[i]>ref){
+	if(i>n||x[i]!=ref){
 		return i;
 	}else{
 		return -i;
@@ -49,7 +49,7 @@ void insertarAntesDe(int x[],int &n,int ref){
 }
 
 int main(){
-	int x[MAX]={1,2,3,4,5};
+	int x[MAX]={3,5,3,2,2};
 	int i;
 	int n=4;
 	
@@ -59,7 +59,7 @@ int main(){
 	}
 	cout<<endl;
 	
-	insertarAntesDe(x,n,7);
+	insertarAntesDe(x,n,2);
 	for(i=0;i<=n;i++){
 		cout<<x[i]<<" ";
 	}

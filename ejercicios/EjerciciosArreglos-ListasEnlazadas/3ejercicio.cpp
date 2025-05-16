@@ -12,10 +12,10 @@ void mostrar(int x[],int n){
 }
 int buscar(int x[],int n, int ref){
 	int i=0;
-	while(i<=n&&x[i]<ref){
+	while(i<=n&&x[i]!=ref){
 		i=i+1;
 	}
-	if(i>n||x[i]>ref){
+	if(i>n||x[i]!=ref){
 		return i;
 	}else{
 		return -i;
@@ -49,7 +49,7 @@ void eliminaAntesDe(int x[],int &n,int ref){
 }
 
 int main(){
-	int x[MAX]={1,2,4};
+	int x[MAX]={8,2,10};
 	int i;
 	int n=2;
 	int op;
@@ -61,7 +61,7 @@ int main(){
 	//cin>>op;
 	//eliminaAntesDe(x,n,1);
 	//eliminaAntesDe(x,n,2);
-	eliminaAntesDe(x,n,4);
+	eliminaAntesDe(x,n,2);
 	/*
 	do{
 		switch(op){

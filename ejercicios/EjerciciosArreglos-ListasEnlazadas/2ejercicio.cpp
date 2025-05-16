@@ -11,10 +11,10 @@ void mostrar(int x[],int n){
 }
 int buscar(int x[],int n, int ref){
 	int i=0;
-	while(i<=n&&x[i]<ref){
+	while(i<=n&&x[i]!=ref){
 		i=i+1;
 	}
-	if(i>n||x[i]>ref){
+	if(i>n||x[i]!=ref){
 		return i;
 	}else{
 		return -i;
@@ -29,10 +29,11 @@ void insertarDespuesDe(int x[],int &n,int ref){
 	}else{
 		pos=buscar(x,n,ref);
 		cout<<pos;
-		cout<<"Ingrese el dato"<<endl;
-		cin>>dato;
+		
 		
 		if(pos<=0){
+			cout<<"Ingrese el dato"<<endl;
+			cin>>dato;
 			n=n+1;
 			pos=-1*pos;
 			int des=pos+1;
@@ -45,13 +46,13 @@ void insertarDespuesDe(int x[],int &n,int ref){
 			x[des]=dato;
 			
 		}else{
-			cout<<"El dato no existe referencial no existe "<<endl;
+			cout<<"El referencial no existe "<<endl;
 		}
 	}
 }
 
 int main(){
-	int x[MAX]={1,2,4};
+	int x[MAX]={6,1,9};
 	int i;
 	int n=2;
 	
@@ -61,7 +62,7 @@ int main(){
 	}
 	cout<<endl;
 	
-	insertarDespuesDe(x,n,9);
+	insertarDespuesDe(x,n,1);
 	for(i=0;i<=n;i++){
 		cout<<x[i]<<" ";
 	}
