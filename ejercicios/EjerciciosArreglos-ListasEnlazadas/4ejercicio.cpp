@@ -51,7 +51,7 @@ int main(){
 	int n=2;
 	//eliminarDespuesDe(x,n,1);
 	//eliminarDespuesDe(x,n,2);
-	eliminarDespuesDe(x,n,3);
+	eliminarDespuesDe(x,n,4);
 	mostrar(x,n);
 	return 0;
 }
