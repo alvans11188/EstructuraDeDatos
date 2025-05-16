@@ -1,0 +1,78 @@
+/*7 EJERCICIO
+Diseñar un algoritmo que elimine un dato localizado ANTES DE un dato referencial en un arreglo ordenado. 
+*/
+
+#include<iostream>
+#define MAX 5
+
+using namespace std;
+void mostrar(int x[],int n){
+	for(int i=0;i<=n;i++){
+	cout<<	x[i]<<" ";
+	}
+}
+int buscar(int x[],int n,int ref){
+	int i=0;
+	while(i<=n&&x[i]<ref){
+		i=i+1;
+	}
+	if(i>n||x[i]>ref){
+		return i;
+	}else{
+		return -i;
+	}
+}
+
+void ordenarArreglo(int x[],int n){
+	int aux,i,j;
+	for(i=0;i<=n;i++){
+		for(j=i+1;j<=n;j++){
+			if(x[j]<x[i]){
+				aux=x[i];
+				x[i]=x[j];
+				x[j]=aux;
+			}
+		}
+	}
+	
+}
+void eliminaAntesDe(int x[],int &n, int ref){
+	int dato,pos;
+	ordenarArreglo(x,n);
+	if(n<0){
+		cout<<"No existes elementos en la lista"<<endl;
+	}else{
+		pos=buscar(x,n,ref);
+		cout<<"Indice: "<<pos<<"\n"<<endl;
+		
+		if(pos>0){
+				cout<<"El dato no existe"<<endl;
+		}else{
+		
+			if(x[0]==ref){
+				cout<<"NO ES POSIBLE ELIMINAR EL ANTERIOR AL REFERENCIAL PORQUE ES EL PRIMER"<<endl;
+			}else{
+				pos=-1*pos; //importante para determinar el lugar donde sera eliminado
+				n=n-1;
+				pos=pos-1;
+				for(int i=pos;i<=n;i++){
+					x[i]=x[i+1];
+				}	
+			}	
+		}
+		mostrar(x,n);
+	}
+}
+
+int main(){
+	int x[MAX] = {3,2,1,6,5};
+	int n=4;
+	
+	eliminaAntesDe(x,n,2);
+	//insertaDespuesDe(x,n,2);
+	//insertaDespuesDe(x,n,3);
+	//insertaDespuesDe(x,n,5);
+
+	
+	return 0;
+}
