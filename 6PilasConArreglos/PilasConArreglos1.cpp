@@ -1,5 +1,6 @@
 #include<iostream>
 #include<string>
+#include<cctype>
 using namespace std;
 #define MAX 100 // capacidad maxima de la pila
 
@@ -20,7 +21,7 @@ class Pila{
 		bool buscarElementoPila(int valor);
 		bool compararCon(Pila& otra);
 		bool revisarOperacionMatematica(const string& expmatematica);
-		bool esPalindromo(const string& palabra);
+		
 };
 
 //constructor
@@ -82,7 +83,7 @@ void Pila::mostrarPila(){
 		return;
 	}else{
 		cout<<"Elementos de la pila (de arriba hacia abajo):"<<endl;
-		for(int i=tope;i>=0;i++){
+		for(int i=tope;i>=0;i--){
 			cout<<elementos[i]<<" ";
 		}
 		cout<<endl;
@@ -90,26 +91,82 @@ void Pila::mostrarPila(){
 }
 //metodo para contar elementos
 int Pila::contarElementosPila(){
+	if(pilaVacia()){
+		cout<<"La pila esta vacia"<<endl;
+	}
 	return tope+1;
 }
 //metodo para buscar un elemento en la pila
 bool Pila::buscarElementoPila(int dato){
-	return true;
+	int cen=0;
+	if(pilaVacia()){
+		cout<<"La pila esta vacia"<<endl;
+		return false;
+	}else{
+		for(int i=0;i<=tope;i++){
+			if(elementos[i]==dato){
+				cen=1;
+			}
+		}
+	}
+	if(cen==1){
+		return true;
+	}else{
+		return false;
+	}
 }
 //metodo para comparar con otra pila
 bool Pila::compararCon(Pila& pila2){
+	int cen=0;
+	int i;
+	if(pilaVacia()){
+		cout<<"La pila esta vacia"<<endl;
+		return false;
+	}else{
+		if(tope!=pila2.tope){
+			cout<<"Las pilas son de diferentes tamanios"<<endl;
+			return false;
+		}else{
+			for(i=0;i<=tope;i++){
+				if(elementos[i]!=pila2.elementos[i]){
+					return false;
+				}
+			}
+		}		
+	}
 	return true;
 }
-//
+
+
 bool Pila::revisarOperacionMatematica(const string& expmatematica){
+	
+
 	return true;
 }
+
+bool esPalindromo(const string& palabra){
+	Pila temp;
+	int i, tamanio;
+	
+	tamanio = palabra.length() ;
+	for(i=0;i<tamanio;i++){
+		temp.agregarPila(palabra[i]);
+	}
+	for(i=0;i<tamanio;i++){
+		if(palabra[i]!=temp.sacarPila()){
+			return false;
+		}
+	}
+	return true;
+}
+
 //menu
 void menu(){
 	Pila pila1;
 	Pila pila2;
 	int opcion;
 	char dato;
+	string palabra;
 	do{
 		cout<<"\n--MENU PILA--"<<endl;
 		cout<<"1. Apilar en Pila 1"<<endl;
@@ -120,6 +177,7 @@ void menu(){
 		cout<<"6. Apilar en Pila 2 "<<endl;
 		cout<<"7. Mostrar Pila 2"<<endl;
 		cout<<"8. Comparar Pila 1 con Pila 2"<<endl;
+		cout<<"9. Determinar si una palabra es palindroma"<<endl;
 		cout<<"0. Salir "<<endl;
 		cout<<"Opcion:  "<<endl;
 		cin>>opcion;
@@ -136,7 +194,7 @@ void menu(){
 				pila1.mostrarPila();
 				break;
 			case 4:
-				cout<<"Cantidad de elementos en Pila 1:"<<pila1.contarElementosPila()<<endl;
+				cout<<"\nLa cantidad de elementos en Pila 1 es:"<<pila1.contarElementosPila()<<endl;
 				break;
 			case 5:
 				cout<<"Ingrese el elemento a buscar en Pila 1:";
@@ -152,8 +210,13 @@ void menu(){
 				pila2.mostrarPila();
 				break;
 			case 8:
-				pila1.compararCon(pila2);
+				cout<<"Los elementos de la Pila 1 y 2 son iguales ?"<<(pila1.compararCon(pila2)?"Si son iguales":"No son iguales")<<endl;
 				break;
+			case 9:
+				cout<<"Ingrese la palabra:";
+				cin>>palabra;
+				cout<<"¿La palabra "<<palabra<<" es palindroma ?"<<(esPalindromo(palabra)?"Si":"No")<<endl;
+				break;	
 			case 0:
 				cout<<"Programa finalizado."<<endl;
 				break;
