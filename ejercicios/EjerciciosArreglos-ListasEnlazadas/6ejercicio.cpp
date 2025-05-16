@@ -1,6 +1,7 @@
-/*5 EJERCICIO
-Diseñar un algoritmo que inserte un dato ANTES DE un dato referencial en un arreglo ordenado. 
+/*6 EJERCICIO
+	Diseñar un algoritmo que inserte un dato DESPUÉS DE un dato referencial en un arreglo ordenado  
 */
+
 #include<iostream>
 #define MAX 5
 #include <algorithm>
@@ -21,6 +22,7 @@ int buscar(int x[],int n,int ref){
 		return -i;
 	}
 }
+
 void ordenarArreglo(int x[],int n){
 	int aux,i,j;
 	for(i=0;i<=n;i++){
@@ -34,7 +36,7 @@ void ordenarArreglo(int x[],int n){
 	}
 	
 }
-void insertaAntesDe(int x[],int &n, int ref){
+void insertaDespuesDe(int x[],int &n, int ref){
 	int pos,dato;
 	if(n==0){
 		cout<<"Mi arreglo esta vacio"<<endl;
@@ -53,9 +55,10 @@ void insertaAntesDe(int x[],int &n, int ref){
 				cout<<"Ingrese el dato que desea insertar"<<endl;
 				cin>>dato;
 				pos=-1*pos;
-				n++;
-				for(int i=n;i>=pos;i--){
-					x[i+1]=x[i];
+				pos=pos+1;
+				n=n+1;
+				for(int i=n;i>pos;i--){
+						x[i]=x[i-1];
 				}
 				x[pos]=dato;
 				
@@ -78,11 +81,11 @@ int main(){
 	int x[MAX] = {1,2,3,4,5};
 	int n=4;
 	
-	insertaAntesDe(x,n,1);
-	//insertaAntesDe(x,n,1);
-	//insertaAntesDe(x,n,2);
-	//nsertaAntesDe(x,n,3);
-	//insertaAntesDe(x,n,4);
+	insertaDespuesDe(x,n,1);
+	//insertaDespuesDe(x,n,2);
+	//insertaDespuesDe(x,n,3);
+	//insertaDespuesDe(x,n,5);
+
 	
 	return 0;
 }
