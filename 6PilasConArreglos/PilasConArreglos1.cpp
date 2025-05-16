@@ -190,23 +190,25 @@ bool Pila::revisarApostfijaOperacionMatematica(const string& expmatematica){
 	int i;
 	int cont=0;
 	int cont2=0;
+	bool cen=true;
 	for(i=0;i<expmatematica.length();i++){
 		
 		simbolo=expmatematica[i];
-		cout<<simbolo;
+		
 		if(simbolo=='('){
 			cont=cont+1;
+		}else{
+			if(simbolo==')'){
+				cont2=cont2+1;
+				if(cont2>cont){
+					cen=false;
+				}
+			}
 		}
-		if(simbolo==')'){
-			cont2=cont2+1;
-		}
+
 	}
-	if(cont==cont2){
-		return true;
-	}else{
-		return false;
-	}
-	
+	return (cen&&(cont==cont2));
+
 }
 bool esPalindromo(const string& palabra){
 	Pila temp;
@@ -307,7 +309,7 @@ void menu(){
 //funcion principal para probar la clase pila
 int main(){
 	setlocale(LC_ALL, "");
-	menu();
+	//menu();
 	Pila pila;
 	
 	cout<<"Agregando elementos a,b,c.."<<endl;
