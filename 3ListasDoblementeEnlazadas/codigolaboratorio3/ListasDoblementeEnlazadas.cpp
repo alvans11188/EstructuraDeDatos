@@ -100,7 +100,7 @@ void inserta_antes_x(nodo *&p,int dato, int x)
 	}
 }
 //insercion despues de un nodo con dota X
-void inserta_despues_x(nodo *&p,int dato, int x)
+void inserta_despues_x(nodo *&p, nodo *&f,int dato, int x)
 {
 	nodo *q=p;
 	while(q->sigder!=NULL&&q->inf!=x)
@@ -116,9 +116,9 @@ void inserta_despues_x(nodo *&p,int dato, int x)
 		nodo *r=q->sigder;
 		q->sigder=t;
 		
-		if(p==q)
+		if(f==q)
 		{
-			p=t;
+			f=t;
 			t->sigder=NULL;
 		}
 		else
@@ -213,7 +213,7 @@ void menu()
 				cin>>dato;
 				cout<<"Despues del nodo con dato: ";
 				cin>>x;
-				inserta_despues_x(p,dato,x);
+				inserta_despues_x(p,f,dato,x);
 				break;
 			case 5:
 				system("cls");
