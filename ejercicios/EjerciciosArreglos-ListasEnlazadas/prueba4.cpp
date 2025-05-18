@@ -204,7 +204,34 @@ nodo *eliminar_x(nodo *p, int dato){
 	}
 	return(p);
 }
-
+nodo *eliminar_concurrencias(nodo *p,int dato){
+	nodo *q,*r,*s;
+	if(p!=NULL){
+		q=p;
+		s=NULL;
+		while(q!=NULL){
+			if(q->inf==dato){
+				r=q;
+				if(s==NULL){
+					p=q->sig;
+					q=p;
+				}else{
+					s->sig=q->sig;
+					q=q->sig;
+				}
+				delete(r);
+				cout<<"se elimino el nodo "<<endl;
+			}else{
+				s=q;
+				q=q->sig;
+			}
+		}
+		
+	}else{
+		cout<<"La lista esta vacia"<<endl;
+	}
+	return(p);
+}
 int main(){
 	nodo *p;
 	p=NULL;
@@ -215,7 +242,16 @@ int main(){
 		p=insercion_f(p);
 		i++;
 		mostrar(p);
-	}while(i!=3);
+	}while(i!=5);
+	
+	
+	//eliminar concurrencias
+	cout<<"Ingrese el dato a eliminar"<<endl;
+	cin>>dato;
+	p=eliminar_concurrencias(p,dato);
+	mostrar(p);
+	system("pause");
+	
 	//eliminar nodo con informacion X
 	cout<<"Ingrese el dato a eliminar"<<endl;
 	cin>>dato;
