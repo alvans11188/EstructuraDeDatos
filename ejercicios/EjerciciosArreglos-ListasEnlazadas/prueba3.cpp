@@ -65,7 +65,20 @@ int buscar_d(int x[], int n, int dato){
 	}
 	return i;
 }
-
+void modificar(int x[], int n, int dato){
+	int nuevodato;
+	int pos;
+	pos=buscar(x,n,dato);
+	if(pos<n){ //si es negativo el dato se encontro en el arreglo
+			pos=-1*pos;
+			cout<<"Dato encontrado, cambiar a: ";
+			cin>>nuevodato;
+				x[pos]=nuevodato;
+			
+	}else{
+			cout<<"El dato no se encontro"<<endl;
+	}
+}
 int main(){
 	int x[MAX]={1,2,3,4,10};
 	int n=4;
@@ -81,10 +94,18 @@ int main(){
 	inserta(x,n,11); //obcion no valida por lo que deja de inrgesarse datos
 	*/
 	mostrar(x,n);
+	do{
+		cout<<"Que valor desea modificar?: ";
+		cin>>dato;
+		modificar(x,n,dato);
+		mostrar(x,n);
+	}while(true);
+	
+	
+	
 	
 	cout<<"Que valor desea buscar?: ";
-	cin>>dato;
-	modificar(x,n,dato);
+	
 	
 	do{
 		cout<<"Que valor desea buscar?: ";
@@ -102,9 +123,6 @@ int main(){
 	
 	eliminar(x,n,dato);
 	mostrar(x,n);
-	
-	
-	
 	
 	
 	return 0;
