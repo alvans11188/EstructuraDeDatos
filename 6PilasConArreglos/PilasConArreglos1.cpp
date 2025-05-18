@@ -21,6 +21,7 @@ class Pila{
 		bool buscarElementoPila(int valor);
 		bool compararCon(Pila& otra);
 		bool infijaApostfijaOperacionMatematica(const string& expmatematica);
+		bool infijaAprefijaOperacionMatematica(const string& expmatematica);
 		bool revisarApostfijaOperacionMatematica(const string& expmatematica);
 		
 };
@@ -179,9 +180,63 @@ bool Pila::infijaApostfijaOperacionMatematica(const string& expmatematica){
 		dato=pila.sacarPila();
 		EPOS=EPOS+dato;
 	}
-	cout<<"EXPRESION POSTFIJA"<<EPOS<<endl;
+	cout<<"EXPRESION INFIJA A POSTFIJA: "<<EPOS<<endl;
 	return true;
 }
+bool Pila::infijaAprefijaOperacionMatematica(const string& expmatematica){
+	Pila pilaOperadores;
+    string EPRE = "";  
+    char simbolo, dato;
+    
+    
+    string expInvertida = "";
+    for(int i = expmatematica.length() - 1; i >= 0; i--) {
+        if(expmatematica[i] == '(') {
+            expInvertida += ')';
+        } else if(expmatematica[i] == ')') {
+            expInvertida += '(';
+        } else {
+            expInvertida += expmatematica[i];
+        }
+    }
+    
+    
+    for(int i = 0; i < expInvertida.length(); i++) {
+        simbolo = expInvertida[i];
+        
+        if(simbolo == '(') {
+            pilaOperadores.agregarPila(simbolo);
+        } else if(simbolo == ')') {
+            while(!pilaOperadores.pilaVacia() && pilaOperadores.cima() != '(') {
+                EPRE = EPRE + pilaOperadores.sacarPila();  
+            }
+            pilaOperadores.sacarPila(); 
+        } else if(isalnum(simbolo)) {
+            EPRE += simbolo;
+        } else {
+            while(!pilaOperadores.pilaVacia() && 
+                  prioridad(pilaOperadores.cima()) > prioridad(simbolo)) {
+                EPRE = EPRE + pilaOperadores.sacarPila();  
+            }
+            pilaOperadores.agregarPila(simbolo);
+        }
+    }
+    
+    
+    while(!pilaOperadores.pilaVacia()) {
+        EPRE = EPRE + pilaOperadores.sacarPila(); 
+    }
+    
+    
+    string resultadoPrefijo = "";
+    for(int i = EPRE.length() - 1; i >= 0; i--) {
+        resultadoPrefijo = resultadoPrefijo + EPRE[i];
+    }
+    
+    cout << "EXPRESION INFIJA A PREFIJA: " << resultadoPrefijo << endl;
+    return true;
+}
+
 bool Pila::revisarApostfijaOperacionMatematica(const string& expmatematica){
 	Pila temp;
 	int tope;
@@ -245,7 +300,8 @@ void menu(){
 		cout<<"8. Comparar Pila 1 con Pila 2"<<endl;
 		cout<<"9. Determinar si una palabra es palindroma"<<endl;
 		cout<<"10. Expresar una expresion infija como postfija"<<endl;
-		cout<<"11. Determinar si una expresion matematica es correcta"<<endl;
+		cout<<"11. Expresar una expresion infija a prefija"<<endl;
+		cout<<"12. Determinar si una expresion matematica es correcta"<<endl;
 		cout<<"0. Salir "<<endl;
 		cout<<"Opcion:  "<<endl;
 		cin>>opcion;
@@ -286,12 +342,17 @@ void menu(){
 				cout<<"¿La palabra "<<palabra<<" es palindroma ?"<<(esPalindromo(palabra)?"Si":"No")<<endl;
 				break;
 			case 10:
-				cout<<"Ingresa una operacion matematica"<<endl;
+				cout<<"Ingresa una operacion matematica INFIJA A POSTFIJA"<<endl;
 				cin>>operacion;
 				pila1.infijaApostfijaOperacionMatematica(operacion);
 				break;
-				
 			case 11:
+				cout<<"Ingresa una operacion matematica INFIJA A PREFIJA"<<endl;
+				cin>>operacion;
+				pila1.infijaAprefijaOperacionMatematica(operacion);
+				break;
+				
+			case 12:
 				cout<<"Ingresa una operacion matematica"<<endl;
 				cin>>operacion;
 				cout<<"¿La operacion matematica "<<operacion<<" es correcta ?"<<( pila1.revisarApostfijaOperacionMatematica(operacion)?"Si":"No")<<endl;
@@ -309,7 +370,7 @@ void menu(){
 //funcion principal para probar la clase pila
 int main(){
 	setlocale(LC_ALL, "");
-	//menu();
+	menu();
 	Pila pila;
 	
 	cout<<"Agregando elementos a,b,c.."<<endl;
