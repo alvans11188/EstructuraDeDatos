@@ -23,9 +23,21 @@ void inserta_principio(nodo *&p, nodo *&f, int dato){
 }
 
 //mostrar por el final
+void mostrar_f(nodo *&p, nodo *&f){
+	nodo *q;
+	q=f;
+	if(q!=NULL)	{
+		while(q=NULL){
+			cout<<q->inf<< " ";
+			q=q->izq;
+		}
+	}else{
+		cout<<"El arregloe sta vacio"<<endl;
+	}
+}
 
 //mostrar por el inicio
-void mostrar(nodo *&p, nodo *&f){
+void mostrar_i(nodo *&p, nodo *&f){
 	nodo *q;
 	q=p;
 	if(q!=NULL){
@@ -50,12 +62,14 @@ int main(){
 		cin>>dato;
 		inserta_principio(p,f,dato);
 		i++;
-		mostrar(p,f);
+		mostrar_i(p,f);
 	}while(i!=3);
+	//inserta desde el final
+	
 	//mostar por el final
 	mostrar_f(p,f);
 	
 	//mostrar por el inicio
-	mostrar(p,f);
+	mostrar_i(p,f);
 	return 0;
 }
