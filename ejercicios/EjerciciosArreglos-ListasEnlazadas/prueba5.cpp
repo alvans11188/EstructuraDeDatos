@@ -224,6 +224,31 @@ void elimina_antes_x(nodo *&p, nodo*&f,int x){
 		cout<<"El elemento no se encontro en la lista"<<endl;
 	}
 }
+void elimina_despues_x(nodo *&p, nodo*&f,int x){
+	nodo *q,*r,*t;
+	q=p;
+	while(q->der!=NULL&&q->inf!=x){
+		q=q->der;
+	}
+	if(q->inf==x){
+		if(q==f){
+			cout<<"No existe nodo posterior al ultimo"<<endl;
+		}else{
+			t=q->der;
+			if(t==f){
+				f=q;
+				f->der=NULL;
+			}else{
+				r=t->der;
+				q->der=r;
+				r->izq=q;
+			}
+		}
+		delete(t);
+	}else{
+		cout<<"El elemento no se encontro en la lista"<<endl;
+	}
+}
 int main(){
 	nodo *p=NULL;
 	nodo *f=NULL;
@@ -235,7 +260,11 @@ int main(){
 		i++;
 		mostrar_i(p,f);
 	}while(i!=3);
-	//elimina un nodo antes de x
+	//elimina despues de x
+	cin>>x;
+	elimina_despues_x(p,f,x);
+	mostrar_i(p,f);
+	//elimina  antes de x
 	cin>>x;
 	elimina_antes_x(p,f,x);
 	mostrar_i(p,f);
