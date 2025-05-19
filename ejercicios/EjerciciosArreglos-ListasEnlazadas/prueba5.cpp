@@ -224,6 +224,7 @@ void elimina_antes_x(nodo *&p, nodo*&f,int x){
 		cout<<"El elemento no se encontro en la lista"<<endl;
 	}
 }
+//eliminacion despues de un nodo con informacion x
 void elimina_despues_x(nodo *&p, nodo*&f,int x){
 	nodo *q,*r,*t;
 	q=p;
