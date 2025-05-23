@@ -4,6 +4,7 @@ using namespace std;
 
 struct nodo{
 	int inf;
+	char inf2;
 	nodo *liga;
 };
 class Pila{
@@ -20,6 +21,16 @@ class Pila{
 			q->inf=dato;
 			q->liga=tope;
 			tope=q;
+		}
+		void sacarPila(){
+			if(tope!=NULL){
+				nodo *q=tope;
+				tope=q->liga;
+				delete(q);
+			}else{
+				cout<<"Pila vacia"<<endl;
+				return;
+			}
 		}
 		void mostrar(){
 			if(tope!=NULL){
@@ -74,12 +85,24 @@ class Pila{
 				cout<<"Las pilas son diferentes"<<endl;
 			}
 		}
+		void palindromo(Pila& pila1){
+			nodo *q,*s,*r;
+			int ban=0;
+			Pila temp;
+			q=pila1.tope;
+			while(q!=NULL){
+				temp.agregarPila()
+			}
+		}
+		
+		
 };
 int main(){
 	
 	Pila pila1;
 	Pila pila2;
 	int i=0,dato;
+	string palabra;
 	//agregar  a la pila
 	do{
 		cin>>dato;
@@ -88,9 +111,20 @@ int main(){
 		i++;
 		
 	}while(i!=3);
+	
+	
+	//verificar si es palindromo
+	
+	pila1.palindromo(pila1);
+	
+	
 	pila1.agregarPila(5);
 	pila1.mostrar(); cout<<endl;
 	pila2.mostrar();
+	cout<<"Despues de sacar pila"<<endl;
+	pila1.sacarPila();
+	pila1.mostrar();
+	
 	//comparar con la otra pila
 	pila1.compararPilas(pila1,pila2);
 	
