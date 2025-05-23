@@ -9,9 +9,13 @@ int main()
 	int i,dato,pos;
 	int n=6;
 	//n=n-1;
+		for(i=0;i<n;i++){
+		cout << x[i] << " ";
+	}
+	
 	cout<<"INSERTAR DATO: ";
 	cin>>dato;
-	
+
 	insertar_ao(x,n,max,dato);
 	
 	cout <<"\n";
