@@ -326,13 +326,14 @@ void menu(){
 				cout<<"¿Esta el  "<<dato<<" ?"<<(pila1.buscarElementoPila(dato)?"Si":"No")<<endl;
 				break;
 			case 6:
-				cout<<"Ingrese dato a apilar ne Pila 2: ";
+				cout<<"Ingrese dato a apilar en Pila 2: ";
 				cin>>dato;
 				pila2.agregarPila(dato);
 				break;
 			case 7:
 				pila2.mostrarPila();
 				break;
+				
 			case 8:
 				cout<<"Los elementos de la Pila 1 y 2 son iguales ?"<<(pila1.compararCon(pila2)?"Si son iguales":"No son iguales")<<endl;
 				break;
