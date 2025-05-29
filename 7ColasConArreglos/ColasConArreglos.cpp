@@ -14,7 +14,7 @@ class cola{
 		bool colaVacia();
 		bool colaLlena();
 		void insertarCola(string dato);
-		string eliminarCola(string dato);
+		string eliminarCola();
 		string verFrente();
 		void mostrarCola();
 		int contarElementos();
@@ -59,12 +59,13 @@ void cola::insertarCola(string dato){
 	}
 }
 //eliminar un elemento de la cola
-string cola::eliminarCola(string dato){
+string cola::eliminarCola(){
+	string dato;
 	if(!colaVacia()){	
 		dato = elementos[frente];
 		if(final==frente){
-			frente = 0;
-			final = 0;
+			frente = -1;
+			final = -1;
 		}else{
 			frente = frente +1;
 		}
@@ -80,7 +81,7 @@ string cola::verFrente(){
 	if(!colaVacia()){
 		return elementos[frente];
 	}else{
-		cout<<"La cola esta vacia";
+		cout<<"La cola esta vacia\n";
 		return "";
 	}
 }
@@ -98,17 +99,37 @@ void cola::mostrarCola(){
 }
 //retorna el numero de elementos de la cola
 int cola::contarElementos(){
-	
+	if(!colaVacia()){
+		return (final - frente +1);
+	}else{
+		cout<<"La cola esta vacia";
+		return 0;
+	}	
 }
 //buscar un elemento en la cla cola
 bool cola::buscarElemento(string dato){
-	
+	if(!colaVacia()){
+		return (final - frente +1);
+	}else{
+		cout<<"La cola esta vacia";
+		return 0;
+	}	
+}
+void evacuacion(){
+	//Acaba de ocurrir un accidente y se debe evacuar a todos los pasajeros. Para evacuar de forma ordenada 
+    //creas las siguientes colas:
+	cola pasajeros_prioritarios;
+	cola pasajeros;
+	cola tripulacion;
 }
 int main(){
 	cola cola1;
 	string dato;
 	int opcion;
-	
+	//ingreso de datos 1 2 3
+	cola1.insertarCola("1");
+	cola1.insertarCola("2");
+	cola1.insertarCola("3");
 	do{
 		cout<<"\n -- MENU DE COLOA -- \n";
 		cout<<"1. Insertar elemento en la cola\n";
@@ -116,6 +137,7 @@ int main(){
 		cout<<"3. Ver frente\n";
 		cout<<"4. Mostrar cola\n";
 		cout<<"5. Contar elementos \n";
+		cout<<"6. EVACUACIONNN\n";
 		cout<<"0. salir\n";
 		cout<<"seleccione una opcion :";
 		cin>>opcion;
@@ -126,11 +148,12 @@ int main(){
 				cola1.insertarCola(dato);
 				break;
 			case 2:
-				cout << "Ingrese el dato que desea eliminar: ";
-				cin>>dato;
-				dato = cola1.eliminarCola(dato);
+				
+				dato = cola1.eliminarCola();
 				if(dato != ""){
 					cout<<"Elemento eliminado: "<< dato << endl;
+				}else{
+					cout<<"No hay elementos en la cola"<<endl;
 				}
 				break;
 			case 3:
@@ -144,6 +167,9 @@ int main(){
 				break;
 			case 5:
 				cout<<"Total de elementos en la cola: "<<cola1.contarElementos()<<endl;
+				break;
+			case 6:
+				evacuacion();
 				break;
 			case 0:
 				cout<<"Programa finalizado.\n";
