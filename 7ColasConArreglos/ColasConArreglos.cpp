@@ -110,10 +110,18 @@ int cola::contarElementos(){
 //buscar un elemento en la cla cola
 bool cola::buscarElemento(string dato){
 	if(!colaVacia()){
-		return (final - frente +1);
+		int i=0;
+		while(elementos[i]!=dato&&i<=final){
+			i=i+1;
+		}
+		if(i<=final&&elementos[i]==dato){
+			return true;
+		}else{
+			return false;
+		}
 	}else{
 		cout<<"La cola esta vacia";
-		return 0;
+		return false;
 	}	
 }
 
@@ -201,7 +209,8 @@ int main(){
 		cout<<"3. Ver frente\n";
 		cout<<"4. Mostrar cola\n";
 		cout<<"5. Contar elementos \n";
-		cout<<"6. EVACUACIONNN\n";
+		cout<<"6. Buscar elemento \n";
+		cout<<"7. EVACUACIONNN\n";
 		cout<<"0. salir\n";
 		cout<<"seleccione una opcion :";
 		cin>>opcion;
@@ -233,6 +242,16 @@ int main(){
 				cout<<"Total de elementos en la cola: "<<cola1.contarElementos()<<endl;
 				break;
 			case 6:
+				cout<<"Que elemento desea buscar"<<endl;
+				cin>>dato;
+				
+				if(cola1.buscarElemento(dato)){
+					cout<<"Elemento encontrado"<<endl;
+				}else{
+					cout<<"No se encontro el elemento"<<endl;
+				}
+				break;
+			case 7:
 				evacuacion();
 				break;
 			case 0:
