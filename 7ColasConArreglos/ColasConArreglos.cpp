@@ -129,7 +129,11 @@ void evacuacion(){
 	pasajeros_prioritarios.insertarCola("Juan-pas.prioritario");
 	pasajeros.insertarCola("pedro-pasajero");
 	tripulacion.insertarCola("Alex - tripulacion");
+	pasajeros_prioritarios.insertarCola("Meppo-pas.prioritario");
+	pasajeros.insertarCola("Slark-pasajero");
+	tripulacion.insertarCola("Clinz - tripulacion");
 	cout<<"PASAJEROS ABORDO"<<endl;
+	
 	pasajeros_prioritarios.mostrarCola();
 	pasajeros.mostrarCola();
 	tripulacion.mostrarCola();
@@ -153,12 +157,12 @@ void evacuacion(){
 			cin>>opcion;
 			if(opcion=="s"||opcion=="s"){
 				if(!pasajeros_prioritarios.colaVacia()){
-					opcion="N";
+					//opcion="N";
 					cout<<"Necesita evacuar a los PASAJEROS PRIORITARIOS PRIMERO"<<endl;
 				}else{
-					if((opcion=="s")||(opcion=="S") ){
+					
 						cout<<"Evacuando pasajero "<< pasajeros.eliminarCola()<<endl;
-					}
+					
 				}	
 			}
 		}
@@ -168,12 +172,12 @@ void evacuacion(){
 			cin>>opcion;
 			if(opcion=="s"||opcion=="s"){
 				if(!pasajeros_prioritarios.colaVacia()||!pasajeros.colaVacia()){
-					opcion="N";
+					//opcion="N";
 					cout<<"Necesita evacuar a los PASAJEROS PRIORITARIOS PRIMERO y PASAJEROS"<<endl;
 				}else{
-					if((opcion=="s")||(opcion=="S") ){
+				
 						cout<<"Evacuando pasajero "<< tripulacion.eliminarCola()<<endl;
-					}
+					
 				}	
 			}	
 		}
