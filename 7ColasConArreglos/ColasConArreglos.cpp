@@ -92,6 +92,7 @@ void cola::mostrarCola(){
 		for(int i=frente;i<=final;i++){
 			cout<<elementos[i]<<" ";
 		}
+		cout<<endl;
 	}else{
 		cout<<"La cola esta vacia";
 		
@@ -115,13 +116,76 @@ bool cola::buscarElemento(string dato){
 		return 0;
 	}	
 }
+
 void evacuacion(){
 	//Acaba de ocurrir un accidente y se debe evacuar a todos los pasajeros. Para evacuar de forma ordenada 
     //creas las siguientes colas:
 	cola pasajeros_prioritarios;
 	cola pasajeros;
 	cola tripulacion;
+	string persona;
+	string opcion;
+	
+	pasajeros_prioritarios.insertarCola("Juan-pas.prioritario");
+	pasajeros.insertarCola("pedro-pasajero");
+	tripulacion.insertarCola("Alex - tripulacion");
+	cout<<"PASAJEROS ABORDO"<<endl;
+	pasajeros_prioritarios.mostrarCola();
+	pasajeros.mostrarCola();
+	tripulacion.mostrarCola();
+	
+	cout<<"RETIRA LOS PASAJEROS DE FORMA ORDENADA "<<endl;
+	
+	while(!pasajeros_prioritarios.colaVacia()||!pasajeros.colaVacia()||!tripulacion.colaVacia()){
+		
+		if(!pasajeros_prioritarios.colaVacia()){
+			persona = pasajeros_prioritarios.verFrente();
+			cout<<"Desea evacuar a "<<persona<< "? S/N";
+			cin>>opcion;
+			if((opcion=="s")||(opcion=="S") ){
+				cout<<"Evacuando pasajero "<< pasajeros_prioritarios.eliminarCola()<<endl;
+			}else{
+				cout<<"Necesita evacuar a los PASAJEROS PRIORITARIOS PRIMERO"<<endl;
+				
+			}
+		}else{
+			if(!pasajeros.colaVacia()){
+				persona = pasajeros.verFrente();
+				cout<<"Desea evacuar a "<<persona<< "? S/N";
+				cin>>opcion;
+				if(!pasajeros_prioritarios.colaVacia()){
+					opcion="N";
+				}else{
+					if((opcion=="s")||(opcion=="S") ){
+						cout<<"Evacuando pasajero "<< pasajeros.eliminarCola()<<endl;
+					}else{
+						cout<<"Necesita evacuar a los PASAJEROS PRIORITARIOS PRIMERO"<<endl;
+					}
+				}
+				
+			}else{
+				if(!tripulacion.colaVacia()){
+					persona = tripulacion.verFrente();
+					cout<<"Desea evacuar a "<<persona<< "? S/N";
+					cin>>opcion;
+					if(!pasajeros_prioritarios.colaVacia()&&!pasajeros.colaVacia()){
+						opcion="N";
+					}else{
+						if((opcion=="s")||(opcion=="S") ){
+							cout<<"Evacuando pasajero "<< tripulacion.eliminarCola()<<endl;
+						}else{
+							cout<<"Necesita evacuar a los PASAJEROS PRIORITARIOS PRIMERO y PASAJEROS"<<endl;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	cout<<"PROGRAMA FINALIZADO "<<endl;
+	
 }
+
 int main(){
 	cola cola1;
 	string dato;
