@@ -145,45 +145,41 @@ void evacuacion(){
 			if((opcion=="s")||(opcion=="S") ){
 				cout<<"Evacuando pasajero "<< pasajeros_prioritarios.eliminarCola()<<endl;
 			}else{
-				cout<<"Necesita evacuar a los PASAJEROS PRIORITARIOS PRIMERO"<<endl;
-				
 			}
-		}else{
-			if(!pasajeros.colaVacia()){
-				persona = pasajeros.verFrente();
-				cout<<"Desea evacuar a "<<persona<< "? S/N";
-				cin>>opcion;
+		}
+		if(!pasajeros.colaVacia()){
+			persona = pasajeros.verFrente();
+			cout<<"Desea evacuar a "<<persona<< "? S/N";
+			cin>>opcion;
+			if(opcion=="s"||opcion=="s"){
 				if(!pasajeros_prioritarios.colaVacia()){
 					opcion="N";
+					cout<<"Necesita evacuar a los PASAJEROS PRIORITARIOS PRIMERO"<<endl;
 				}else{
 					if((opcion=="s")||(opcion=="S") ){
 						cout<<"Evacuando pasajero "<< pasajeros.eliminarCola()<<endl;
-					}else{
-						cout<<"Necesita evacuar a los PASAJEROS PRIORITARIOS PRIMERO"<<endl;
 					}
-				}
-				
-			}else{
-				if(!tripulacion.colaVacia()){
-					persona = tripulacion.verFrente();
-					cout<<"Desea evacuar a "<<persona<< "? S/N";
-					cin>>opcion;
-					if(!pasajeros_prioritarios.colaVacia()&&!pasajeros.colaVacia()){
-						opcion="N";
-					}else{
-						if((opcion=="s")||(opcion=="S") ){
-							cout<<"Evacuando pasajero "<< tripulacion.eliminarCola()<<endl;
-						}else{
-							cout<<"Necesita evacuar a los PASAJEROS PRIORITARIOS PRIMERO y PASAJEROS"<<endl;
-						}
-					}
-				}
+				}	
 			}
 		}
+		if(!tripulacion.colaVacia()){
+			persona = tripulacion.verFrente();
+			cout<<"Desea evacuar a "<<persona<< "? S/N";
+			cin>>opcion;
+			if(opcion=="s"||opcion=="s"){
+				if(!pasajeros_prioritarios.colaVacia()||!pasajeros.colaVacia()){
+					opcion="N";
+					cout<<"Necesita evacuar a los PASAJEROS PRIORITARIOS PRIMERO y PASAJEROS"<<endl;
+				}else{
+					if((opcion=="s")||(opcion=="S") ){
+						cout<<"Evacuando pasajero "<< tripulacion.eliminarCola()<<endl;
+					}
+				}	
+			}	
+		}
 	}
-	
+	cout<<"TODOS SE SALVARON :V"<<endl;
 	cout<<"PROGRAMA FINALIZADO "<<endl;
-	
 }
 
 int main(){
