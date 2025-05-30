@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#define MAX 10
+#define MAX 100
 using namespace std;
 
 class cola{
@@ -52,7 +52,7 @@ void cola::insertarCola(string dato){
 			final++;
 		}
 		elementos[final] = dato;
-		cout << dato << " agregado a la cola. "<< endl;
+		//cout << dato << " agregado a la cola. "<< endl;  // solo lo coloque como comentario porque no necesito imprimirlo
 	}else{
 		cout << "Desbordamiento - La cola esta llena \n";
 		return;
@@ -193,7 +193,30 @@ void evacuacion(){
 	cout<<"TODOS SE SALVARON :V"<<endl;
 	cout<<"PROGRAMA FINALIZADO "<<endl;
 }
-
+void jugadores(){
+	cola jugador;
+	string opcion;
+	int turno=0;
+	jugador.insertarCola("Alex");
+	jugador.insertarCola("Juan");
+	jugador.insertarCola("Pepe");
+	jugador.insertarCola("Joshua");
+	while(!jugador.colaVacia()){
+		turno++;
+		cout<<"**TURNO "<< jugador.verFrente() << "**"<<endl;
+		cout<<"Quieres seguir jugando?(S/N) Jugador: "<<jugador.verFrente()<<endl;
+		cin>>opcion;
+		if((opcion=="s")||(opcion=="S")){
+			cout<<jugador.verFrente()<< "se retiro del juego"<<endl;
+			jugador.eliminarCola();
+		}else{
+			jugador.insertarCola(jugador.verFrente());
+			jugador.eliminarCola();
+		}
+	}
+	cout<<"**TODOS LOS JUGADORES SALIERON DEL JUEGO**"<<endl;
+	cout<<"El numero de turnos es de: "<<turno<<endl;
+}
 int main(){
 	cola cola1;
 	string dato;
@@ -211,6 +234,7 @@ int main(){
 		cout<<"5. Contar elementos \n";
 		cout<<"6. Buscar elemento \n";
 		cout<<"7. EVACUACIONNN\n";
+		cout<<"8. Jugadores\n";
 		cout<<"0. salir\n";
 		cout<<"seleccione una opcion :";
 		cin>>opcion;
@@ -221,7 +245,6 @@ int main(){
 				cola1.insertarCola(dato);
 				break;
 			case 2:
-				
 				dato = cola1.eliminarCola();
 				if(dato != ""){
 					cout<<"Elemento eliminado: "<< dato << endl;
@@ -253,6 +276,9 @@ int main(){
 				break;
 			case 7:
 				evacuacion();
+				break;
+			case 8:
+				jugadores();
 				break;
 			case 0:
 				cout<<"Programa finalizado.\n";
