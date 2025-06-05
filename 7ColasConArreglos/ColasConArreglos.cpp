@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#define MAX 100
+#define MAX 5
 using namespace std;
 
 class cola{
@@ -10,7 +10,6 @@ class cola{
 		int final;
 	public:
 		cola();
-		
 		bool colaVacia();
 		bool colaLlena();
 		void insertarCola(string dato);
@@ -19,6 +18,12 @@ class cola{
 		void mostrarCola();
 		int contarElementos();
 		bool buscarElemento(string dato);
+		//COLAS CIRCULARES
+		//bool colaVaciaCircular();
+		bool colaLlenaCircular();
+		void insertaCircular(string dato);
+		string eliminarCircular();
+		void mostrarCircular();
 };
 //constructor 
 cola::cola(){
@@ -58,6 +63,7 @@ void cola::insertarCola(string dato){
 		return;
 	}
 }
+
 //eliminar un elemento de la cola
 string cola::eliminarCola(){
 	string dato;
@@ -124,6 +130,84 @@ bool cola::buscarElemento(string dato){
 		return false;
 	}	
 }
+// COLAS CIRCULARES
+//verificar si esta vacia la cola circula
+/*
+bool cola::colaVaciaCircular(){
+	return (frente==-1);
+}
+*/
+
+//verificar si esta llena la cola circula
+bool cola::colaLlenaCircular(){
+	if((final+1)==frente || (frente == 0 && final == MAX-1)){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+//insertar un elemento en una cola circular
+void cola::insertaCircular(string dato){
+	if(colaLlenaCircular()){
+		cout<<"Desbordamiento - cola llena";
+	}else{
+		if(colaVacia()==true){
+			frente=0;
+			final=0;
+		}else{
+			if(final==MAX-1){
+			final=0;
+			}else{
+				final++;
+			}
+		}
+		elementos[final]=dato;
+	}
+}
+
+//eliminar un elemento en una cola circular
+string cola::eliminarCircular(){
+	string dato;
+	if(colaVacia()==true){
+		return "";
+	}else{
+		dato=elementos[frente];
+		if(frente==final){
+			frente=-1;
+			final=-1;
+		}else{
+			if(frente==MAX-1){
+				frente=0;
+			}else{
+				frente++;
+			}
+		}
+	}
+	
+	return dato;
+}
+//mostrar cola circular
+void cola::mostrarCircular(){
+	int i=frente;
+	if(colaVacia()){
+		cout<<"La cola esta vacia"<<endl;
+		return;
+	}else{
+		cout<<"Los elementos son : "<<endl;
+		while(true){
+			cout<<elementos[i]<<" ";
+			if(i==MAX){
+				i=0;
+			}
+			if(i==final){
+				break;
+			}
+			i++;
+		}
+		cout<<endl;
+	}
+}
 
 void evacuacion(){
 	//Acaba de ocurrir un accidente y se debe evacuar a todos los pasajeros. Para evacuar de forma ordenada 
@@ -170,7 +254,6 @@ void evacuacion(){
 				}else{
 					
 						cout<<"Evacuando pasajero "<< pasajeros.eliminarCola()<<endl;
-					
 				}	
 			}
 		}
@@ -185,7 +268,7 @@ void evacuacion(){
 				}else{
 				
 						cout<<"Evacuando pasajero "<< tripulacion.eliminarCola()<<endl;
-					
+
 				}	
 			}	
 		}
@@ -217,14 +300,94 @@ void jugadores(){
 	cout<<"**TODOS LOS JUGADORES SALIERON DEL JUEGO**"<<endl;
 	cout<<"El numero de turnos es de: "<<turno<<endl;
 }
+
+
+void menuCircular(){
+	system("cls");
+	int opcion;
+	string dato;
+	cola cir;
+	
+	cir.insertaCircular("1");
+	cir.insertaCircular("2");
+	cir.insertaCircular("3");
+	
+	do{
+		cout<<"\n -- MENU DE COLAR CIRUCLARES -- \n";
+		cout<<"1. Insertar elemento en la cola circular\n";
+		cout<<"2. Eliminar elemento de la cola circular\n";
+		cout<<"3. Ver frente\n";
+		cout<<"4. Mostrar cola circular\n";
+		cout<<"5. Contar elementos \n";
+		cout<<"6. Buscar elemento \n";
+		cout<<"0. salir\n";
+		cout<<"seleccione una opcion :";
+		
+		cin>>opcion;
+		switch(opcion){
+			case 1:
+				cout<<"Ingrese dato a insertar en la cola circular: ";
+				cin>>dato;
+				cir.insertaCircular(dato);
+				break;
+			
+			case 2:
+				dato = cir.eliminarCircular();
+				cout<<dato;
+				if(dato != ""){
+					cout<<"Elemento eliminado: "<< dato << endl;
+				}else{
+					cout<<"No hay elementos en la cola"<<endl;
+				}
+				break;
+		
+			case 3:
+				dato = cir.verFrente();
+				
+				if(dato != ""){
+					cout<<"Elemento en el frente: "<<dato<<endl;
+				}else{
+					cout<<"La cola esta vacia"<<endl;
+				}
+				break;
+			
+			case 4:
+				cir.mostrarCircular();
+				break;
+			/*
+			case 5:
+				cout<<"Total de elementos en la cola: "<<cola1.contarElementos()<<endl;
+				break;
+			case 6:
+				cout<<"Que elemento desea buscar"<<endl;
+				cin>>dato;
+				
+				if(cola1.buscarElemento(dato)){
+					cout<<"Elemento encontrado"<<endl;
+				}else{
+					cout<<"No se encontro el elemento"<<endl;
+				}
+				break;
+			*/
+			case 0:
+				cout<<"Programa finalizado.\n";
+				break;
+			default:
+				cout<<"Opcion incorrecta\n";	
+		}
+	}while(opcion!=0);
+	
+}
 int main(){
 	cola cola1;
 	string dato;
 	int opcion;
 	//ingreso de datos 1 2 3
+	
 	cola1.insertarCola("1");
 	cola1.insertarCola("2");
 	cola1.insertarCola("3");
+	
 	do{
 		cout<<"\n -- MENU DE COLOA -- \n";
 		cout<<"1. Insertar elemento en la cola\n";
@@ -235,8 +398,11 @@ int main(){
 		cout<<"6. Buscar elemento \n";
 		cout<<"7. EVACUACIONNN\n";
 		cout<<"8. Jugadores\n";
+		cout<<"9. Colas Circular\n";
 		cout<<"0. salir\n";
 		cout<<"seleccione una opcion :";
+		
+		//cin>>opcion;
 		cin>>opcion;
 		switch(opcion){
 			case 1:
@@ -280,34 +446,16 @@ int main(){
 			case 8:
 				jugadores();
 				break;
+			case 9:
+				menuCircular();
+				break;
 			case 0:
 				cout<<"Programa finalizado.\n";
 				break;
 			default:
-				cout<<"Opcion incorrecta\n";
-				
+				cout<<"Opcion incorrecta\n";	
 		}
 	}while(opcion!=0);
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
