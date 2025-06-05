@@ -3,6 +3,64 @@
 #define MAX 5
 using namespace std;
 
+class Pila{
+	private:
+		string elementos[MAX];
+		int tope;
+	public:
+		Pila();
+		
+		bool pilaVacia();
+		bool pilaLlena();
+		void agregarPila(string dato);
+		string sacarPila();
+		
+
+};
+
+//constructor
+Pila::Pila(){
+	tope=-1; //pila vacia
+}
+//metodo para verificar si la pila esta vacia
+bool Pila::pilaVacia(){
+	if(tope==-1){
+		return true;
+	}else{
+		return false;
+	}
+}
+//metodo para verificar si la pila esta llena
+bool Pila::pilaLlena(){
+	if(tope == MAX -1){
+		return true;
+	}else{
+		return false;
+	}
+}
+//metodo para agregar un elemento a la pila (push)
+void Pila::agregarPila(string dato){
+	if(pilaLlena()){
+		cout<<"Desbordamiento - pila llena. no se puede agregar mas elementos."<<endl;
+		return;
+	}else{
+		tope++;
+		elementos[tope] = dato;
+	}
+}
+
+//metodo para eliminar el elemento superior de la pila(pop)
+string Pila::sacarPila(){
+	if(pilaVacia()){
+		cout<<"Subdesbordamiento - pila vacia. no se puede sacar elemento"<<endl;
+		return (0);
+	}else{
+		string dato = elementos[tope];
+		tope--;
+		return dato;
+	}
+}
+
 class cola{
 	private:
 		string elementos[MAX];
@@ -18,6 +76,8 @@ class cola{
 		void mostrarCola();
 		int contarElementos();
 		bool buscarElemento(string dato);
+		void invertirElementos();
+		void eliminarDeterminado(string dato);
 		//COLAS CIRCULARES
 		//bool colaVaciaCircular();
 		bool colaLlenaCircular();
@@ -87,7 +147,7 @@ string cola::verFrente(){
 	if(!colaVacia()){
 		return elementos[frente];
 	}else{
-		cout<<"La cola esta vacia\n";
+		//cout<<"La cola esta vacia\n";
 		return "";
 	}
 }
@@ -129,6 +189,49 @@ bool cola::buscarElemento(string dato){
 		cout<<"La cola esta vacia";
 		return false;
 	}	
+}
+// invertir elementos en la cola
+void cola::invertirElementos(){
+	string dato;
+	Pila pila1;
+	
+	if(colaVacia()==false){
+		while(colaVacia()!=true){
+			dato=eliminarCola();
+			pila1.agregarPila(dato);
+		}
+		frente=-1;
+		final=-1;
+		
+		while(pila1.pilaVacia()==false){
+			dato=pila1.sacarPila();
+			insertarCola(dato);
+		}
+		
+	}else{
+		cout<<"La cola esta vacia"<<endl;
+	}
+}
+//eliminar un determinado elemento 
+void cola::eliminarDeterminado(string dato){
+	string elemento;
+	cola temp;
+	if(colaVacia()==false){
+		while(colaVacia()!=true){
+			elemento=eliminarCola();
+			if(elemento!=dato){
+				temp.insertarCola(elemento)	;
+			}
+		}
+		frente=-1;
+		final=-1;
+		while(temp.colaVacia()!=true){
+			elemento=temp.eliminarCola();
+			insertarCola(elemento);
+		}
+	}else{
+		cout<<"La cola esta vacia"<<endl;
+	}
 }
 // COLAS CIRCULARES
 //verificar si esta vacia la cola circula
@@ -389,7 +492,7 @@ int main(){
 	cola1.insertarCola("3");
 	
 	do{
-		cout<<"\n -- MENU DE COLOA -- \n";
+		cout<<"\n -- MENU DE COLA -- \n";
 		cout<<"1. Insertar elemento en la cola\n";
 		cout<<"2. Eliminar elemento de la cola\n";
 		cout<<"3. Ver frente\n";
@@ -399,6 +502,8 @@ int main(){
 		cout<<"7. EVACUACIONNN\n";
 		cout<<"8. Jugadores\n";
 		cout<<"9. Colas Circular\n";
+		cout<<"10. Funcion para invertir elementos en una cola\n";
+		cout<<"11. Funcion para eliminar un elemento determinado de una cola\n";
 		cout<<"0. salir\n";
 		cout<<"seleccione una opcion :";
 		
@@ -445,9 +550,19 @@ int main(){
 				break;
 			case 8:
 				jugadores();
-				break;
+				break;	
 			case 9:
 				menuCircular();
+				break;
+			case 10:
+				cola1.invertirElementos();
+				cola1.mostrarCola();
+				break;
+			case 11:
+				cout<<"Ingrese el elemento que desea eliminar: ";
+				cin>>dato;
+				cola1.eliminarDeterminado(dato);
+				cola1.mostrarCola();
 				break;
 			case 0:
 				cout<<"Programa finalizado.\n";
