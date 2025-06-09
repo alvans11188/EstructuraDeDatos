@@ -292,24 +292,29 @@ string cola::eliminarCircular(){
 }
 //mostrar cola circular
 void cola::mostrarCircular(){
-	int i=frente;
-	if(colaVacia()){
-		cout<<"La cola esta vacia"<<endl;
-		return;
-	}else{
-		cout<<"Los elementos son : "<<endl;
-		while(true){
-			cout<<elementos[i]<<" ";
-			if(i==MAX){
-				i=0;
-			}
-			if(i==final){
-				break;
-			}
-			i++;
-		}
-		cout<<endl;
-	}
+    if (colaVacia()) {
+        cout << "La cola esta vacia" << endl;
+        return;
+    }
+
+    cout << "Los elementos de la cola circular son: ";
+
+    if (frente <= final) {
+        
+        for (int i = frente; i <= final; i++) {
+            cout << elementos[i] << " ";
+        }
+    } else {
+        
+        for (int i = frente; i < MAX; i++) {
+            cout << elementos[i] << " ";
+        }
+        for (int i = 0; i <= final; i++) {
+            cout << elementos[i] << " ";
+        }
+    }
+
+    cout << endl;
 }
 
 void evacuacion(){
