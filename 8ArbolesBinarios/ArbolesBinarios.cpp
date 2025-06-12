@@ -32,7 +32,16 @@ Arbol::Arbol(){
 	raiz=NULL;
 }
 void Arbol::muestraArbol(Nodo *apnodo, int nivel){
-	
+	if(apnodo==NULL){
+		return ;
+	}else{
+		muestraArbol(apnodo->der, nivel+1);
+		for(int i=0;i<nivel;i++){
+			cout<<"  ";
+		}
+		cout<<apnodo->info<<endl;
+		muestraArbol(apnodo->izq,nivel+1);
+	}
 }
 Nodo* Arbol::creaArbol(){
 	bool resp;
@@ -68,16 +77,16 @@ void Arbol::preorden(Nodo* apnodo){
 //Recorrido en inorden: subarbol izquierda - raiz - subarbol derecho
 void Arbol::inorden(Nodo* apnodo){
 	if(apnodo !=NULL){
-		preorden(apnodo->izq);
+		inorden(apnodo->izq);
 		cout<<apnodo->info<<" - ";
-		preorden(apnodo->der);
+		inorden(apnodo->der);
 	}
 }
 //recorrido posorden: subarbol izquierdo - subarbol derecho - raiz
 void Arbol::posorden(Nodo* apnodo){
 	if(apnodo !=NULL){
-		preorden(apnodo->izq);
-		preorden(apnodo->der);
+		posorden(apnodo->izq);
+		posorden(apnodo->der);
 		cout<<apnodo->info<<" - ";
 	}
 }
@@ -98,7 +107,15 @@ int Arbol::contarNodos(Nodo* apnodo){
 }
 
 int Arbol::contarHojas(Nodo* apnodo){
-	
+	if(apnodo == NULL){
+		return 0;
+	}
+	// Si no tiene hijos, es una hoja
+	if(apnodo->izq == NULL && apnodo->der == NULL){
+		return 1;
+	}
+	// Llamada recursiva a subárbol izquierdo y derecho
+	return contarHojas(apnodo->izq) + contarHojas(apnodo->der);
 }
 
 void menu(){
