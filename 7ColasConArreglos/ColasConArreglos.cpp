@@ -84,6 +84,8 @@ class cola{
 		void insertaCircular(string dato);
 		string eliminarCircular();
 		void mostrarCircular();
+		int contarCircular();
+		bool buscarCircular(string dato);
 };
 //constructor 
 cola::cola(){
@@ -293,7 +295,7 @@ string cola::eliminarCircular(){
 //mostrar cola circular
 void cola::mostrarCircular(){
     if (colaVacia()) {
-        cout << "La cola esta vacia" << endl;
+        cout << "La cola esta vacia\n" << endl;
         return;
     }
 
@@ -316,7 +318,45 @@ void cola::mostrarCircular(){
 
     cout << endl;
 }
-
+//contar elementos de una cola circular
+int cola::contarCircular(){
+	int total;
+	if(colaVacia()){
+		return 0;
+	}else{
+		if(frente<=final){
+			total=(final-frente);
+		}else{
+			for (int i = frente; i < MAX; i++) {
+            	total++;
+	        }
+	        for (int i = 0; i <= final; i++) {
+	            total++;
+	        }
+		}
+	}
+	total++;
+	return total;
+}
+//buscar elementos en una cola circula
+bool cola::buscarCircular(string dato){
+	bool band;
+	if(colaVacia()){
+		return false;
+	}else{
+	  	for (int i = frente; i < MAX; i++) {
+            if(elementos[i]==dato){
+            	return true;
+			}
+        }
+        for (int i = 0; i <= final; i++) {
+            if(elementos[i]==dato){
+            	return true;
+			}
+        }
+	}
+	return false;
+}
 void evacuacion(){
 	//Acaba de ocurrir un accidente y se debe evacuar a todos los pasajeros. Para evacuar de forma ordenada 
     //creas las siguientes colas:
@@ -428,6 +468,7 @@ void menuCircular(){
 		cout<<"4. Mostrar cola circular\n";
 		cout<<"5. Contar elementos \n";
 		cout<<"6. Buscar elemento \n";
+		cout<<"7. Eliminar elementos repetidos/\n";
 		cout<<"0. salir\n";
 		cout<<"seleccione una opcion :";
 		
@@ -462,21 +503,30 @@ void menuCircular(){
 			case 4:
 				cir.mostrarCircular();
 				break;
-			/*
+			
 			case 5:
-				cout<<"Total de elementos en la cola: "<<cola1.contarElementos()<<endl;
+				cout<<"Total de elementos en la cola: "<<cir.contarCircular()<<endl;
 				break;
+			
 			case 6:
 				cout<<"Que elemento desea buscar"<<endl;
 				cin>>dato;
-				
-				if(cola1.buscarElemento(dato)){
+				//cir.buscarElemento  // tambien funciona la funcion para colas normales 
+				if(cir.buscarCircular(dato)){
 					cout<<"Elemento encontrado"<<endl;
 				}else{
 					cout<<"No se encontro el elemento"<<endl;
 				}
 				break;
-			*/
+			case 7:
+				cout<<"Que elementos desea eliminar: "<<endl;
+				cin>>dato;
+				if(cir.buscarElemento(dato)){
+					cout<<"Elemento encontrado"<<endl;
+				}else{
+					cout<<"No se encontro el elemento"<<endl;
+				}
+				break;
 			case 0:
 				cout<<"Programa finalizado.\n";
 				break;
