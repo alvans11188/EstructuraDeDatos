@@ -4,6 +4,7 @@
 #include<windows.h>
 #include <cmath>
 #include <cstdlib> 
+#include <ctime>
 using namespace std;
 class Nodo{
 	public:
@@ -52,6 +53,9 @@ class Arbol{
 		
 		//extras
 		void generarArbol(Nodo*& apnodo, int niveles);
+		int nivelDelNodo(Nodo* apnodo, int dato);
+		void mostrarPadres(Nodo* apnodo, int dato);
+		void nodosPorNivel(Nodo* apnodo);
 };
 //constructor
 Arbol::Arbol(){
@@ -432,13 +436,14 @@ int Arbol::valorMinimo(Nodo* apnodo){
 //EXTRAS
 void Arbol::generarArbol(Nodo*& apnodo,int cantidad){
 	int i,dato;
+	srand(time(0));
 	for(i=0;i<cantidad;i++){
 		dato= rand() % 100 +1; //numero randon entre 1 y 100
 		Arbol::insertarNodoIterativo(apnodo, dato);
 	}
 }
 /*
-void Arbol::generarArbol(Nodo*& apnodo,int niveles){
+void Arbol::generarArbolPorNivel(Nodo*& apnodo,int niveles){
 	int i,dato;
 	int repetir;
 	repetir = pow(2,niveles)-1;
@@ -448,6 +453,43 @@ void Arbol::generarArbol(Nodo*& apnodo,int niveles){
 	}
 }
 */
+int Arbol::nivelDelNodo(Nodo* apnodo, int dato){
+	int i=1;
+	while(apnodo!=NULL&&apnodo->info!=dato){
+		i++;
+		if(apnodo->info>dato){
+			apnodo=apnodo->izq;
+		}else{
+			apnodo=apnodo->der;
+		}
+	}
+	if(apnodo!=NULL){
+		//cout<<"La informacion se encuentra en el arbol"<<endl;
+		return i;
+	}else{
+		//cout<<"La informacion NO se encuentra en el arbol"<<endl;
+		return 0;
+	}
+}
+void Arbol::mostrarPadres(Nodo* apnodo, int dato){
+	
+	if(busquedav1ABB(apnodo, dato)){
+		cout<<"Sus antepasados son: ";
+		while(apnodo!=NULL&&apnodo->info!=dato){
+				cout<<apnodo->info<<" ";
+				if(apnodo->info>dato){
+					apnodo=apnodo->izq;
+				}else{
+					apnodo=apnodo->der;
+				}
+			}
+	}else{
+		cout<<"El dato no existe"<<endl;
+	}
+}
+void Arbol::nodosPorNivel(Nodo* apnodo){
+	
+}
 void menu(){
 	Arbol arbol, arbol2;
 	Nodo* raiz= arbol.regresaRaiz();
@@ -478,7 +520,9 @@ void menu(){
 		cout<<"20. Remover raiz"<<endl;
 		cout<<"21. Graficar arbol"<<endl;
 		cout<<"22. Generar un arbol aleatorio"<<endl;
-		
+		cout<<"23. Indicar el nivel de un nodo"<<endl;
+		cout<<"24. Mostrar parientes "<<endl;
+		cout<<"25. Contar nodos por nivel"<<endl;
 		cout<<"0. Salir"<<endl;
 		cout<<"Seleccione una opcion: ";
 		cin>>opcion;
@@ -656,6 +700,41 @@ void menu(){
 				cout<<"Ingrese la cantidad de valores a generar"<<endl;
 				cin>>cantidad;
 				arbol.generarArbol(raiz,cantidad);
+				break;
+			case 23:
+				if(raiz == NULL){
+			        cout << "El arbol esta vacio\n";
+			    } else {
+			    	cout<<"Ingrese el dato que desea buscar su nivel"<<endl;
+			    	cin>>dato;
+			    	if(arbol.nivelDelNodo(raiz,dato)==0){
+			    		cout<<"El dato no se encontro"<<endl;
+					}else{
+						cout << "El nivel del nodo es " << arbol.nivelDelNodo(raiz,dato) << endl;  
+					}
+			    }
+			    break;
+			case 24:
+				if(raiz == NULL){
+			        cout << "El arbol esta vacio\n";
+			    } else {
+			    	cout<<"Ingrese el dato que desea buscar sus Antepasados"<<endl;
+			    	cin>>dato;
+			        arbol.mostrarPadres(raiz,dato);
+			        
+			    }
+			    break;
+			case 25:
+				if(raiz == NULL){
+			        cout << "El arbol esta vacio\n";
+			    } else {
+			    	cout<<"Los nodos por nivel son: "<<endl;
+			        
+			        
+			    }
+			    break;
+			case 26:
+				
 				break;
 			case 0:
 				cout<<"Saliendo del programa...\n";
