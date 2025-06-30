@@ -56,6 +56,8 @@ class Arbol{
 		int nivelDelNodo(Nodo* apnodo, int dato);
 		void mostrarPadres(Nodo* apnodo, int dato);
 		void nodosPorNivel(Nodo* apnodo);
+		void verReflejo(Nodo* apnodo);
+		void clonarArbol(Nodo* apnodo);
 };
 //constructor
 Arbol::Arbol(){
@@ -490,8 +492,21 @@ void Arbol::mostrarPadres(Nodo* apnodo, int dato){
 void Arbol::nodosPorNivel(Nodo* apnodo){
 	
 }
+void Arbol::verReflejo(Nodo* apnodo){
+	if (apnodo == NULL){
+		return;
+	}
+    // Intercambiar los hijos izquierdo y derecho
+    Nodo* temp = apnodo->izq;
+    apnodo->izq = apnodo->der;
+    apnodo->der = temp;
+
+    // Aplicar recursivamente a los subárboles
+    verReflejo(apnodo->izq);
+    verReflejo(apnodo->der);
+}
 void menu(){
-	Arbol arbol, arbol2;
+	Arbol arbol, arbol2, arbol3;
 	Nodo* raiz= arbol.regresaRaiz();
 	Nodo* a;
 	int b;
@@ -523,6 +538,7 @@ void menu(){
 		cout<<"23. Indicar el nivel de un nodo"<<endl;
 		cout<<"24. Mostrar parientes "<<endl;
 		cout<<"25. Contar nodos por nivel"<<endl;
+		cout<<"26. Mostrar reflejo del Arbol"<<endl;
 		cout<<"0. Salir"<<endl;
 		cout<<"Seleccione una opcion: ";
 		cin>>opcion;
@@ -729,12 +745,16 @@ void menu(){
 			        cout << "El arbol esta vacio\n";
 			    } else {
 			    	cout<<"Los nodos por nivel son: "<<endl;
-			        
-			        
 			    }
 			    break;
 			case 26:
-				
+				if(raiz == NULL){
+			        cout << "El arbol esta vacio\n";
+			    } else {
+			    	Nodo* raiz2= arbol.regresaRaiz();
+			    	
+			    	arbol.verReflejo(raiz);
+			    }
 				break;
 			case 0:
 				cout<<"Saliendo del programa...\n";
