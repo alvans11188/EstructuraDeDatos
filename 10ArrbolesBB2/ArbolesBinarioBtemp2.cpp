@@ -59,6 +59,7 @@ class Arbol{
 		void verReflejo(Nodo* apnodo);
 		void clonarArbol(Nodo* apnodo);
 		int sumarArbol(Nodo* apnodo, int total);
+		void mostrarPares(Nodo* apnodo, int nivel);
 };
 //constructor
 Arbol::Arbol(){
@@ -516,7 +517,20 @@ int Arbol::sumarArbol(Nodo* apnodo, int total){
 	}
 	return total;
 }
-
+void Arbol::mostrarPares(Nodo* apnodo, int nivel){
+	if(apnodo==NULL){
+		return ;
+	}else{
+		mostrarPares(apnodo->der, nivel+1);
+		for(int i=0;i<nivel;i++){
+			cout<<"  ";
+		}
+		if(apnodo->info % 2 == 0 ){
+			cout<<apnodo->info<<endl;
+		}
+		mostrarPares(apnodo->izq,nivel+1);
+	}
+}
 void menu(){
 	Arbol arbol, arbol2, arbol3;
 	Nodo* raiz= arbol.regresaRaiz();
@@ -552,6 +566,8 @@ void menu(){
 		cout<<"25. Contar nodos por nivel"<<endl;
 		cout<<"26. Mostrar reflejo del Arbol"<<endl;
 		cout<<"27. Sumar todos los valores del arbol"<<endl;
+		cout<<"28. Mostrar solo nodos pares"<<endl;
+		
 		cout<<"0. Salir"<<endl;
 		cout<<"Seleccione una opcion: ";
 		cin>>opcion;
@@ -775,6 +791,13 @@ void menu(){
 			    } else {
 			    	int total=0;
 			    	cout<<"La suma de todos los nodos del arbol es: "<<arbol.sumarArbol(raiz,total)<<endl;
+			    }
+				break;
+			case 28:
+				if(raiz == NULL){
+			        cout << "El arbol esta vacio\n";
+			    } else {
+			    	arbol.mostrarPares(raiz,0);
 			    }
 				break;
 			case 0:
