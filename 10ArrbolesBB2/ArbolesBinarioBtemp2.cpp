@@ -61,6 +61,7 @@ class Arbol{
 		int sumarArbol(Nodo* apnodo, int total);
 		void mostrarPares(Nodo* apnodo, int nivel);
 		void mostrarImpares(Nodo* apnodo, int nivel);
+		void podarHojas(Nodo*& apnodo, Nodo* apnodo2);
 };
 //constructor
 Arbol::Arbol(){
@@ -546,6 +547,22 @@ void Arbol::mostrarImpares(Nodo* apnodo, int nivel){
 		mostrarImpares(apnodo->izq,nivel+1);
 	}
 }
+void Arbol::podarHojas(Nodo*& apnodo, Nodo* apnodo2){
+    if (apnodo == NULL){
+    	return;	
+	} 
+
+    // Si es una hoja, la eliminamos
+    if (apnodo->izq == NULL && apnodo->der == NULL &&apnodo!=apnodo2) {
+        delete apnodo;
+        apnodo = NULL;
+        return;
+    }
+
+    // Si no es hoja, seguimos con sus hijos
+    podarHojas(apnodo->izq, apnodo2);
+    podarHojas(apnodo->der, apnodo2);
+}
 void menu(){
 	Arbol arbol, arbol2, arbol3;
 	Nodo* raiz= arbol.regresaRaiz();
@@ -583,6 +600,7 @@ void menu(){
 		cout<<"27. Sumar todos los valores del arbol"<<endl;
 		cout<<"28. Mostrar solo nodos pares"<<endl;
 		cout<<"29. Mostrar solo nodos impares"<<endl;
+		cout<<"30. Podar solo hojas"<<endl;
 		cout<<"0. Salir"<<endl;
 		cout<<"Seleccione una opcion: ";
 		cin>>opcion;
@@ -820,6 +838,13 @@ void menu(){
 			        cout << "El arbol esta vacio\n";
 			    } else {
 			    	arbol.mostrarImpares(raiz,0);
+			    }
+				break;
+			case 30:
+				if(raiz == NULL){
+			        cout << "El arbol esta vacio\n";
+			    } else {
+			    	arbol.podarHojas(raiz,raiz);
 			    }
 				break;
 			case 0:
