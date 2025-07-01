@@ -595,12 +595,13 @@ void menu(){
 		cout<<"22. Generar un arbol aleatorio"<<endl;
 		cout<<"23. Indicar el nivel de un nodo"<<endl;
 		cout<<"24. Mostrar parientes "<<endl;
-		cout<<"25. Contar nodos por nivel"<<endl;
+		cout<<"25. Contar nodos por nivel"<<endl; //falta agregar
 		cout<<"26. Mostrar reflejo del Arbol"<<endl;
 		cout<<"27. Sumar todos los valores del arbol"<<endl;
 		cout<<"28. Mostrar solo nodos pares"<<endl;
 		cout<<"29. Mostrar solo nodos impares"<<endl;
 		cout<<"30. Podar solo hojas"<<endl;
+		cout<<"31. Mostrar Padre y hermano"<<endl;
 		cout<<"0. Salir"<<endl;
 		cout<<"Seleccione una opcion: ";
 		cin>>opcion;
