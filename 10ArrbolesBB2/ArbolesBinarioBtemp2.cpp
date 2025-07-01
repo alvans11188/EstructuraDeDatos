@@ -58,6 +58,7 @@ class Arbol{
 		void nodosPorNivel(Nodo* apnodo);
 		void verReflejo(Nodo* apnodo);
 		void clonarArbol(Nodo* apnodo);
+		int sumarArbol(Nodo* apnodo, int total);
 };
 //constructor
 Arbol::Arbol(){
@@ -490,7 +491,7 @@ void Arbol::mostrarPadres(Nodo* apnodo, int dato){
 	}
 }
 void Arbol::nodosPorNivel(Nodo* apnodo){
-	
+	//falta agregar :V
 }
 void Arbol::verReflejo(Nodo* apnodo){
 	if (apnodo == NULL){
@@ -505,6 +506,17 @@ void Arbol::verReflejo(Nodo* apnodo){
     verReflejo(apnodo->izq);
     verReflejo(apnodo->der);
 }
+int Arbol::sumarArbol(Nodo* apnodo, int total){
+	
+	if(apnodo !=NULL){
+		total=sumarArbol(apnodo->izq,total);
+		
+		total=apnodo->info+total;
+		total= sumarArbol(apnodo->der,total);
+	}
+	return total;
+}
+
 void menu(){
 	Arbol arbol, arbol2, arbol3;
 	Nodo* raiz= arbol.regresaRaiz();
@@ -539,6 +551,7 @@ void menu(){
 		cout<<"24. Mostrar parientes "<<endl;
 		cout<<"25. Contar nodos por nivel"<<endl;
 		cout<<"26. Mostrar reflejo del Arbol"<<endl;
+		cout<<"27. Sumar todos los valores del arbol"<<endl;
 		cout<<"0. Salir"<<endl;
 		cout<<"Seleccione una opcion: ";
 		cin>>opcion;
@@ -754,6 +767,14 @@ void menu(){
 			    	Nodo* raiz2= arbol.regresaRaiz();
 			    	
 			    	arbol.verReflejo(raiz);
+			    }
+				break;
+			case 27:
+				if(raiz == NULL){
+			        cout << "El arbol esta vacio\n";
+			    } else {
+			    	int total=0;
+			    	cout<<"La suma de todos los nodos del arbol es: "<<arbol.sumarArbol(raiz,total)<<endl;
 			    }
 				break;
 			case 0:
