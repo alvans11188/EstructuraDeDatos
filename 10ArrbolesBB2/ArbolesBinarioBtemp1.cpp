@@ -3,14 +3,17 @@
 #include<string>
 #include<windows.h>
 using namespace std;
+
 class Nodo{
 	public:
 		int info;
 		string info2;
+		
+		int FE;
+		
 		Nodo* izq;
 		Nodo* der;
 };
-
 class Arbol{
 	private:
 		Nodo* raiz; //apuntador al inicio del arbol
@@ -18,6 +21,10 @@ class Arbol{
 		Arbol(); //constructor
 		
 		Nodo* regresaRaiz();
+		Nodo*& obtenerRaiz() {
+		    return raiz;
+		}
+
 		void insertarNodo(Nodo*& apnodo, int dato);
 		void insertarNodo2(Nodo*& apnodo, int dato);
 		void insertarNodoIterativo(Nodo*& apnodo, int dato);
@@ -47,6 +54,8 @@ class Arbol{
 		
 		void muestraArbol2(Nodo* apnodo, int nivel);
 		void insertarNodoz(Nodo*& apnodo, string dato);
+		
+		void insertaBalanceado(Nodo*& apnodo, bool& BO, int info);
 };
 //constructor
 Arbol::Arbol(){
@@ -424,6 +433,110 @@ int Arbol::valorMinimo(Nodo* apnodo){
 	}
 }
 */
+void Arbol::insertaBalanceado(Nodo*& apnodo, bool& BO, int info) {
+    if (apnodo == NULL) {
+        Nodo* nuevo = new Nodo();
+        nuevo->info = info;
+        nuevo->izq = NULL;
+        nuevo->der = NULL;
+        nuevo->FE = 0;
+        apnodo = nuevo;
+        BO = true;
+    } else {
+        if (info < apnodo->info) {
+            insertaBalanceado(apnodo->izq, BO, info);
+            if (BO) {
+                if (apnodo->FE == 1) {
+                    apnodo->FE = 0;
+                    BO = false;
+                }
+                if (apnodo->FE == 0) {
+                    apnodo->FE = -1;
+                    BO = true;
+                }
+                if (apnodo->FE == -1) {
+                    Nodo* nodo1 = apnodo->izq;
+                    if (nodo1->FE == -1) {
+                        apnodo->izq = nodo1->der;
+                        nodo1->der = apnodo;
+                        apnodo->FE = 0;
+                        apnodo = nodo1;
+                    } else {
+                        Nodo* nodo2 = nodo1->der;
+                        nodo1->der = nodo2->izq;
+                        nodo2->izq = nodo1;
+                        apnodo->izq = nodo2->der;
+                        nodo2->der = apnodo;
+
+                        if (nodo2->FE == -1) {
+                            apnodo->FE = 1;
+                            nodo1->FE = 0;
+                        }
+                        if (nodo2->FE == 0) {
+                            apnodo->FE = 0;
+                            nodo1->FE = 0;
+                        }
+                        if (nodo2->FE == 1) {
+                            apnodo->FE = 0;
+                            nodo1->FE = -1;
+                        }
+                        apnodo = nodo2;
+                    }
+                    apnodo->FE = 0;
+                    BO = false;
+                }
+            }
+        }
+
+        if (info > apnodo->info) {
+            insertaBalanceado(apnodo->der, BO, info);
+            if (BO) {
+                if (apnodo->FE == -1) {
+                    apnodo->FE = 0;
+                    BO = false;
+                }
+                if (apnodo->FE == 0) {
+                    apnodo->FE = 1;
+                    BO = true;
+                }
+                if (apnodo->FE == 1) {
+                    Nodo* nodo1 = apnodo->der;
+                    if (nodo1->FE == 1) {
+                        apnodo->der = nodo1->izq;
+                        nodo1->izq = apnodo;
+                        apnodo->FE = 0;
+                        apnodo = nodo1;
+                    } else {
+                        Nodo* nodo2 = nodo1->izq;
+                        nodo1->izq = nodo2->der;
+                        nodo2->der = nodo1;
+                        apnodo->der = nodo2->izq;
+                        nodo2->izq = apnodo;
+
+                        if (nodo2->FE == 1) {
+                            apnodo->FE = -1;
+                            nodo1->FE = 0;
+                        }
+                        if (nodo2->FE == 0) {
+                            apnodo->FE = 0;
+                            nodo1->FE = 0;
+                        }
+                        if (nodo2->FE == -1) {
+                            apnodo->FE = 0;
+                            nodo1->FE = 1;
+                        }
+                        apnodo = nodo2;
+                    }
+                    apnodo->FE = 0;
+                    BO = false;
+                }
+            }
+        }
+
+        // Si info == apnodo->info, no se inserta (duplicado), opcionalmente podrías mostrar mensaje
+    }
+}
+
 
 void menu(){
 	Arbol arbol, arbol2;
@@ -454,16 +567,18 @@ void menu(){
 		cout<<"19. Poda del arbol"<<endl;
 		cout<<"20. Remover raiz"<<endl;
 		cout<<"21. Graficar arbol"<<endl;
+		cout<<"22. Insertar nodo balanceado"<<endl;
 		cout<<"0. Salir"<<endl;
 		cout<<"Seleccione una opcion: ";
 		cin>>opcion;
 		
 		switch(opcion){
+			
 			case 1:
 				cout<<"Ingrese dato a insertar (insertarNodo): ";
 				cin>>dato;
 				if(raiz==NULL){
-					raiz=new Nodo{dato,"", NULL, NULL};
+					raiz=new Nodo{dato,"",0,NULL, NULL};
 				}else{
 					arbol.insertarNodo(raiz,dato);
 				}
@@ -624,6 +739,15 @@ void menu(){
 			        arbol.graficarArbol(raiz,45,2,0);
 			        cout<<"\n\n\n\n\n\n\n\n\n";
 			        system("pause");
+			    }
+			    break;
+			
+			case 22: 
+				{
+			        cout << "Ingrese dato a insertar balanceado: ";
+					cin >> dato;
+					bool BO = false;
+					arbol.insertaBalanceado(arbol.obtenerRaiz(), BO, dato);
 			    }
 			    break;
 			case 0:
