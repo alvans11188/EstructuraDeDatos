@@ -1,0 +1,215 @@
+#include<iostream>
+#include<iomanip>
+#include<string>
+#include<windows.h>
+#include <cmath>
+#include <cstdlib> 
+#include <ctime>
+using namespace std;
+class Nodo{
+	public:
+		int info;
+		string info2;
+		int fe;
+		Nodo* izq;
+		Nodo* der;
+		Nodo(int valor){
+			info=valor;
+			fe=0;
+			izq=der=NULL;
+		}
+};
+
+class Arbol{
+	private:
+		Nodo* raiz; //apuntador al inicio del arbol
+	public:
+		Arbol(); //constructor
+		
+		Nodo* regresaRaiz();
+		
+		void insertaBalanceado(Nodo*& apnodo, bool& BO, int dato); 	
+		
+};
+//constructor
+Arbol::Arbol(){
+	raiz=NULL;
+}
+//regresa el apuntador a la raiz
+Nodo *Arbol::regresaRaiz(){
+	return raiz;
+}
+
+void Arbol::insertaBalanceado(Nodo*& apnodo, bool& BO, int dato) {
+    Nodo* nodo1;
+	Nodo* nodo2;
+	Nodo* otro;
+	if(apnodo!=NULL){
+    	insertaBalanceado(apnodo->izq,BO,dato);
+    	if(BO=true){
+    		if(apnodo->fe==1){
+    			apnodo->fe=0;
+    			BO=false;
+			}
+			if(apnodo->fe==0){
+    			apnodo->fe=-1;
+			}
+			if(apnodo->fe==-1){
+    			nodo1=apnodo->izq;
+    			if(nodo1->fe<=0){
+				//rotacion2
+				apnodo->izq=nodo1->der;
+				nodo1->der=apnodo;
+				apnodo->fe=0;
+				apnodo=nodo1;
+			}else{
+				nodo2=nodo1->der;
+				apnodo->izq=nodo2->der;
+				nodo2->der=apnodo;
+				nodo1->der=nodo2->izq;
+				nodo2->izq=nodo1;
+				if(nodo2->fe=-1){
+					apnodo->fe=1;
+				}else{
+					apnodo->fe=0;
+				}
+				if(nodo2->fe==1){
+					nodo1->fe=-1;
+				}else{
+					nodo1->fe=0;
+				}
+				apnodo=nodo2;
+			}
+			}
+
+			apnodo->fe=0;
+			BO=false;
+		}else{	
+			if(dato>apnodo->info){
+				insertaBalanceado(apnodo->izq,BO,dato);
+				if(apnodo->fe==-1){
+	    			apnodo->fe=0;
+	    			BO=false;
+				}
+				if(apnodo->fe==0){
+	    			apnodo->fe=1;
+				}
+				if(apnodo->fe==1){
+	    			nodo1=apnodo->der;
+				}
+				if(apnodo->fe>=0){
+					//rotacionDD
+					apnodo->der=nodo1->izq;
+					nodo1->izq=apnodo;
+					apnodo->fe=0;
+					apnodo=nodo1;
+				}else{
+					//rotacionDI
+					nodo2=nodo1->izq;
+					apnodo->der=nodo2->izq;
+					nodo2->izq=apnodo;
+					nodo1->izq=nodo2->der;
+					nodo2->der=nodo1;
+					if(nodo2->fe==1){
+						apnodo->fe=-1;
+					}else{
+						apnodo->fe=0;
+					}
+					if(nodo2->fe==1){
+						nodo1->fe=1;
+					}else{
+						nodo1->fe=0;
+					}
+					apnodo=nodo2;
+				}
+				apnodo->fe=0;
+				BO=false;
+			}
+		}
+		if(dato>apnodo->info){
+			insertaBalanceado(apnodo->izq,BO,dato);
+			if(BO==true){
+				if(apnodo->fe==-1){
+	    			apnodo->fe=0;
+	    			BO=false;
+				}
+				if(apnodo->fe==0){
+	    			nodo1->fe=1;
+				}
+				if(apnodo->fe==1){
+	    			nodo1=apnodo->der;
+				}
+				if(nodo1->fe>=0){
+					//rotacionDD
+					apnodo->der=nodo1->izq;
+					nodo1->izq=apnodo;
+					apnodo->fe=0;
+					apnodo=nodo1;
+				}else{
+					//rotacionDI
+					nodo2=nodo1->izq;
+					apnodo->der=nodo2->izq;
+					nodo2->izq=apnodo;
+					nodo1->izq=nodo2->der;
+					nodo2->der=nodo1;
+					if(nodo2->fe==1){
+						apnodo->fe=-1;
+					}else{
+						apnodo->fe=0;
+					}
+					if(nodo2->fe==1){
+						nodo1->fe=1;
+					}else{
+						nodo1->fe=0;
+					}
+					apnodo=nodo2;
+				}
+				apnodo->fe=0;
+				BO=false;
+			}
+		}else{
+		cout<<"La informacion ya se encuentra en el arbol"<<endl;
+		}
+	}else{
+		Nodo* nuevo= new Nodo(dato);
+		nuevo->info=dato;
+		apnodo->izq=NULL;
+		apnodo->der=NULL;
+		apnodo->fe=0;
+		BO=true;
+	}
+}
+void menu(){
+	Arbol arbol, arbol2, arbol3;
+	Nodo* raiz= arbol.regresaRaiz();
+	Nodo* a;
+	int b;
+	int opcion, dato;
+	do{
+		cout<<"\n==== MENU DE OPCIONES - ARBOL BINARIO ===="<<endl;
+		cout<<"1. Insercion balanceadao"<<endl;
+		cout<<"0. Salir"<<endl;
+		cout<<"Seleccione una opcion: ";
+		cin>>opcion;
+		switch(opcion){
+			case 1:
+				{
+			        cout << "Ingrese dato a insertar balanceado: ";
+					cin >> dato;
+					bool BO = false;
+					arbol.insertaBalanceado(raiz, BO, dato);
+			    }
+			    break;
+			case 0:
+				cout<<"Saliendo del programa...\n";
+				break;
+			default:
+				cout<<"Opcion invalida. Intente nuevamente.\n";
+		}
+	}while(opcion!=0);
+}
+
+int main(){
+	menu();
+	return 0;
+}
