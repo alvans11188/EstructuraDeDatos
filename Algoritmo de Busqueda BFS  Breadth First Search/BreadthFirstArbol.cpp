@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string.h>
 #include <chrono>
+#include <iomanip>
+#include<windows.h>
 using namespace std;
 #define MAX 100
 struct Nodo {
@@ -55,8 +57,23 @@ public:
             mostrar(nodo->izq, nivel + 1);
         }
     }
+    void gotoxy(int x, int y){
+		COORD coord;
+		coord.X= x;
+		coord.Y = y;
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+	}
+	void graficarArbol(Nodo* apnodo, int x, int y, int n){
+		if(apnodo==NULL){
+			return;
+		}
+		gotoxy(x,y); 
+		cout<<apnodo->dato;
+		graficarArbol(apnodo->izq, x-15+n*6,y+2,n+1);
+		graficarArbol(apnodo->der, x+15-n*6,y+2,n+1);
+	}
     // BFS con ABIERTO y CERRADO visibles
-    void BFS(int objetivo) {
+    void BFS(int buscar) {
 
         Nodo* abierto[MAX];
         Nodo* cerrado[MAX];
@@ -77,9 +94,9 @@ public:
             Nodo* X = abierto[frente++];
             cerrado[tamCerrado++] = X;
 
-            if (X->dato == objetivo) {
+            if (X->dato == buscar) {
                 encontrado = true;
-                cout << "Nodo objetivo " << objetivo << " encontrado.\n";
+                cout << "Nodo buscar " << buscar << " encontrado.\n";
                 break;
             }
 
@@ -91,7 +108,7 @@ public:
 			}
         }
         if (!encontrado){
-        	cout << "Nodo objetivo " << objetivo << " no se encontro.\n";
+        	cout << "Nodo buscar " << buscar << " no se encontro.\n";
 		}  
         cout << "\nCERRADO (nodos explorados): ";
         for (int i = 0; i < tamCerrado; i++) {
@@ -112,6 +129,7 @@ void menu() {
         cout << "1. Insertar nodo\n";
         cout << "2. Mostrar arbol\n";
         cout << "3. Buscar nodo (BFS)\n";
+        cout << "4. Mostrar arbol (cls)\n";
         cout << "0. Salir\n";
         cout << "Seleccione una opcion: ";
         cin >> opcion;
@@ -134,7 +152,7 @@ void menu() {
             	if(raiz==NULL){
             		cout<<"El arbol esta vacio";
 				}else{
-					cout << "Ingrese nodo objetivo a buscar: ";
+					cout << "Ingrese nodo buscar a buscar: ";
 	                cin >> dato;
 					auto inicio = chrono::high_resolution_clock::now();
 	                arbol.BFS(dato);
@@ -149,7 +167,16 @@ void menu() {
 					cout << " - " << duracion_s.count()  << " segundos\n";
 				}
                 break;
-
+			case 4:
+				if(raiz == NULL){
+			        cout << "El arbol esta vacio\n";
+			    } else {
+			    	system("cls");
+			        arbol.graficarArbol(raiz,45,2,0);
+			        cout<<"\n\n\n\n\n\n\n\n\n";
+			        system("pause");
+			    }
+                break;
             case 0:
                 cout << "Saliendo del programa.\n";
                 break;
