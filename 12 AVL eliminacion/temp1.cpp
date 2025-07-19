@@ -194,16 +194,57 @@ void Arbol::insertaBalanceado(Nodo*& apnodo, bool& BO, int dato) {
         BO = false;
     }
 }
-void Arbol::reestructuraIzq(Nodo*& nodo, bool& BO) {
+void Arbol::reestructuraIzq(Nodo*& apnodo, bool& BO) {
 
 }
 
-void Arbol::reestructuraDer(Nodo*& nodo, bool& BO) {
+void Arbol::reestructuraDer(Nodo*& apnodo, bool& BO) {
 
 }
 
-void Arbol::eliminaBalanceado(Nodo*& nodo, bool& BO, int dato) {
-
+void Arbol::eliminaBalanceado(Nodo*& apnodo, bool& BO, int dato) {
+	Nodo* otro,aux,aux1;
+	bool bol;
+	if(apnodo!=NULL){
+		if(dato<apnodo->info){
+			eliminaBalanceado(apnodo->izq,BO,dato);
+			reestrcturaIzq(apnodo,BO);
+		}else{
+			if(dato>apnodo->info){
+				eliminaBalanceado(apnodo->der,BO,dato);
+				reestructuraDer(apnodo,BO);
+			}else{
+				otro=apnodo;
+				BO=true;
+				if(otro->der==NULL){
+					apnodo->=otro->izq;
+				}else{
+					if(otro->izq==NULL){
+						
+					}else{
+						aux=apnodo->izq;
+						bol=false;
+						while(aux->der!=NULL){
+							aux1=aux;
+							aux=aux->der;
+							bo=true;
+						}
+						apnodo->info=aux->info;
+						otro=aux;
+						if(bo==true){
+							aux1->der=aux->izq;
+						}else{
+							apnodo->izq=aux->izq;
+						}
+						reestructuraDer(apnodo->izq,BO);
+					}
+				}
+				delete (otro);
+			}
+		}
+	}else{
+		cout<<"La informacion no se encuentra en el arbol"<<endl;
+	}
 }
 void Arbol::mostrarFactoresEquilibrio(Nodo* apnodo) {
     if (apnodo != NULL) {
