@@ -195,7 +195,8 @@ void Arbol::insertaBalanceado(Nodo*& apnodo, bool& BO, int dato) {
     }
 }
 void Arbol::reestructuraIzq(Nodo*& apnodo, bool& BO) {
-	Nodo* nodo1,nodo2;
+	Nodo* nodo1;
+	Nodo* nodo2;
 	if(BO==true){
 		switch(apnodo->fe){
 			case -1:{
@@ -254,16 +255,72 @@ void Arbol::reestructuraIzq(Nodo*& apnodo, bool& BO) {
 }
 
 void Arbol::reestructuraDer(Nodo*& apnodo, bool& BO) {
-
+	Nodo* nodo1;
+	Nodo* nodo2;
+	switch(apnodo->fe){
+		case 1:{
+			apnodo->fe=0;
+			break;
+		}
+		case 0:{
+			apnodo->fe=-1;
+			BO=false;
+			break;
+		}
+		case -1:{
+			nodo1=apnodo->izq;
+			if(nodo1->fe<=0){
+				//rotacion II
+				apnodo->izq=nodo1->der;
+				nodo1->der=apnodo;
+				switch(nodo1->fe){
+					case 0:{
+						apnodo->fe=-1;
+						nodo1->fe=1;
+						BO=false;
+						break;
+					}
+					case -1:{
+						apnodo->fe=0;
+						nodo1->fe=0;
+						break;
+					}
+				}
+				apnodo=nodo1;
+			}else{
+				//rotacion ID
+				nodo2=nodo1->der;
+				apnodo->izq=nodo2->der;
+				nodo2->der=apnodo;
+				nodo1->der=nodo2->izq;
+				nodo2->izq=nodo1;
+				if(nodo2->fe==-1){
+					apnodo->fe=1;
+				}else{
+					apnodo->fe=0;
+				}
+				if(nodo2->fe==1){
+					nodo1->fe=-1;
+				}else{
+					nodo1->fe=0;
+				}
+				apnodo=nodo2;
+				nodo2->fe=0;
+			}
+			break;
+		}
+	}
 }
 
 void Arbol::eliminaBalanceado(Nodo*& apnodo, bool& BO, int dato) {
-	Nodo* otro,aux,aux1;
+	Nodo* otro;
+	Nodo* aux;
+	Nodo* aux1;
 	bool bol;
 	if(apnodo!=NULL){
 		if(dato<apnodo->info){
 			eliminaBalanceado(apnodo->izq,BO,dato);
-			reestrcturaIzq(apnodo,BO);
+			reestructuraIzq(apnodo,BO);
 		}else{
 			if(dato>apnodo->info){
 				eliminaBalanceado(apnodo->der,BO,dato);
@@ -272,7 +329,7 @@ void Arbol::eliminaBalanceado(Nodo*& apnodo, bool& BO, int dato) {
 				otro=apnodo;
 				BO=true;
 				if(otro->der==NULL){
-					apnodo->=otro->izq;
+					apnodo=otro->izq;
 				}else{
 					if(otro->izq==NULL){
 						
@@ -282,11 +339,11 @@ void Arbol::eliminaBalanceado(Nodo*& apnodo, bool& BO, int dato) {
 						while(aux->der!=NULL){
 							aux1=aux;
 							aux=aux->der;
-							bo=true;
+							bol=true;
 						}
 						apnodo->info=aux->info;
 						otro=aux;
-						if(bo==true){
+						if(bol==true){
 							aux1->der=aux->izq;
 						}else{
 							apnodo->izq=aux->izq;
