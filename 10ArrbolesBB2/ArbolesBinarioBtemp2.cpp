@@ -650,7 +650,7 @@ void menu(){
 		cout<<"28. Mostrar solo nodos pares"<<endl;
 		cout<<"29. Mostrar solo nodos impares"<<endl;
 		cout<<"30. Podar solo hojas"<<endl;
-		cout<<"31. Mostrar Padre y hermano"<<endl;
+		cout<<"31. Mostrar Padre y hermano"<<endl; //falta agregar
 		cout<<"0. Salir"<<endl;
 		cout<<"Seleccione una opcion: ";
 		cin>>opcion;
