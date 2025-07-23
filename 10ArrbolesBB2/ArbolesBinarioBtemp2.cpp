@@ -494,8 +494,57 @@ void Arbol::mostrarPadres(Nodo* apnodo, int dato){
 	}
 }
 void Arbol::nodosPorNivel(Nodo* apnodo){
+	if(apnodo == NULL){
+		cout << "El arbol esta vacio.\n";
+		return;
+	}
+
+	const int MAX = 100; // maximo numero de nodos que soportara la cola
+	Nodo* cola[MAX];
+	int niveles[MAX];
+	int inicio = 0, fin = 0;
+	int nivelActual = 0;
+	int contador = 0;
+
+	// Encolar raiz y su nivel
+	cola[fin] = apnodo;
+	niveles[fin] = 1;
+	fin++;
+
+	while (inicio < fin){
+		Nodo* actual = cola[inicio];
+		int nivel = niveles[inicio];
+		inicio++;
+
+		if (nivel != nivelActual){
+			if (nivelActual != 0){
+				cout << "Nivel " << nivelActual << ": " << contador << " nodo(s)" << endl;
+			}
+			nivelActual = nivel;
+			contador = 1;
+		}else{
+			contador++;
+		}
+
+		if (actual->izq != NULL){
+			cola[fin] = actual->izq;
+			niveles[fin] = nivel + 1;
+			fin++;
+		}
+		if (actual->der != NULL){
+			cola[fin] = actual->der;
+			niveles[fin] = nivel + 1;
+			fin++;
+		}
+	}
+	// Imprimir el ultimo nivel
+	cout << "Nivel " << nivelActual << ": " << contador << " nodo(s)" << endl;
+}
+/*
+void Arbol::nodosPorNivel(Nodo* apnodo){
 	//falta agregar :V
 }
+*/
 void Arbol::verReflejo(Nodo* apnodo){
 	if (apnodo == NULL){
 		return;
@@ -595,7 +644,7 @@ void menu(){
 		cout<<"22. Generar un arbol aleatorio"<<endl;
 		cout<<"23. Indicar el nivel de un nodo"<<endl;
 		cout<<"24. Mostrar parientes "<<endl;
-		cout<<"25. Contar nodos por nivel"<<endl; //falta agregar
+		cout<<"25. Contar nodos por nivel"<<endl; //se termino de agregar
 		cout<<"26. Mostrar reflejo del Arbol"<<endl;
 		cout<<"27. Sumar todos los valores del arbol"<<endl;
 		cout<<"28. Mostrar solo nodos pares"<<endl;
@@ -807,6 +856,7 @@ void menu(){
 				if(raiz == NULL){
 			        cout << "El arbol esta vacio\n";
 			    } else {
+			    	arbol.nodosPorNivel(raiz);
 			    	cout<<"Los nodos por nivel son: "<<endl;
 			    }
 			    break;
