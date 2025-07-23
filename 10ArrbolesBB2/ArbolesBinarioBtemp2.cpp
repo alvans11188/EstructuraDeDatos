@@ -645,7 +645,7 @@ void menu(){
 		cout<<"23. Indicar el nivel de un nodo"<<endl;
 		cout<<"24. Mostrar parientes "<<endl;
 		cout<<"25. Contar nodos por nivel"<<endl; //se termino de agregar
-		cout<<"26. Mostrar reflejo del Arbol"<<endl;
+		cout<<"26. Mostrar reflejo del Arbol"<<endl;  // falta agregar
 		cout<<"27. Sumar todos los valores del arbol"<<endl;
 		cout<<"28. Mostrar solo nodos pares"<<endl;
 		cout<<"29. Mostrar solo nodos impares"<<endl;
@@ -896,6 +896,13 @@ void menu(){
 			        cout << "El arbol esta vacio\n";
 			    } else {
 			    	arbol.podarHojas(raiz,raiz);
+			    }
+				break;
+			case 31:
+				if(raiz == NULL){
+			        cout << "El arbol esta vacio\n";
+			    } else {
+			    	cout<<"Los padres y hermanos del nodo son: "<<endl;
 			    }
 				break;
 			case 0:
