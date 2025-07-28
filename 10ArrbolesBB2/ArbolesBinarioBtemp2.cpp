@@ -62,6 +62,7 @@ class Arbol{
 		void mostrarPares(Nodo* apnodo, int nivel);
 		void mostrarImpares(Nodo* apnodo, int nivel);
 		void podarHojas(Nodo*& apnodo, Nodo* apnodo2);
+		void mostrarPadreyHermano(Nodo* apnodo,int dato);
 };
 //constructor
 Arbol::Arbol(){
@@ -540,11 +541,44 @@ void Arbol::nodosPorNivel(Nodo* apnodo){
 	// Imprimir el ultimo nivel
 	cout << "Nivel " << nivelActual << ": " << contador << " nodo(s)" << endl;
 }
-/*
-void Arbol::nodosPorNivel(Nodo* apnodo){
-	//falta agregar :V
+void Arbol::mostrarPadreyHermano(Nodo* apnodo, int valor){
+	if(apnodo == NULL){
+		cout << "El arbol esta vacio.\n";
+		return;
+	}
+
+	// Caso especial: si el nodo buscado es la raíz
+	if(apnodo->info == valor){
+		cout << "El nodo " << valor << " es la raíz, no tiene padre ni hermano.\n";
+		return;
+	}
+
+	// Recorremos el arbol para buscar el padre
+	if(apnodo->izq != NULL && apnodo->izq->info == valor){
+		cout << "Padre de " << valor << ": " << apnodo->info << endl;
+		if(apnodo->der != NULL)
+			cout << "Hermano de " << valor << ": " << apnodo->der->info << endl;
+		else
+			cout << "El nodo " << valor << " no tiene hermano.\n";
+		return;
+	}
+
+	if(apnodo->der != NULL && apnodo->der->info == valor){
+		cout << "Padre de " << valor << ": " << apnodo->info << endl;
+		if(apnodo->izq != NULL)
+			cout << "Hermano de " << valor << ": " << apnodo->izq->info << endl;
+		else
+			cout << "El nodo " << valor << " no tiene hermano.\n";
+		return;
+	}
+
+	// Recurre por la izquierda y la derecha
+	if(apnodo->izq != NULL)
+		mostrarPadreyHermano(apnodo->izq, valor);
+	if(apnodo->der != NULL)
+		mostrarPadreyHermano(apnodo->der, valor);
 }
-*/
+
 void Arbol::verReflejo(Nodo* apnodo){
 	if (apnodo == NULL){
 		return;
@@ -644,8 +678,8 @@ void menu(){
 		cout<<"22. Generar un arbol aleatorio"<<endl;
 		cout<<"23. Indicar el nivel de un nodo"<<endl;
 		cout<<"24. Mostrar parientes "<<endl;
-		cout<<"25. Contar nodos por nivel"<<endl; //se termino de agregar
-		cout<<"26. Mostrar reflejo del Arbol"<<endl;  // falta agregar
+		cout<<"25. Contar nodos por nivel"<<endl; 
+		cout<<"26. Mostrar reflejo del Arbol"<<endl;  
 		cout<<"27. Sumar todos los valores del arbol"<<endl;
 		cout<<"28. Mostrar solo nodos pares"<<endl;
 		cout<<"29. Mostrar solo nodos impares"<<endl;
@@ -902,7 +936,10 @@ void menu(){
 				if(raiz == NULL){
 			        cout << "El arbol esta vacio\n";
 			    } else {
-			    	cout<<"Los padres y hermanos del nodo son: "<<endl;
+			    	cout<<"Ingrese el dato que quiere buscar su padre y hermano"<<endl;
+			    	cin>>dato;
+			    	arbol.mostrarPadreyHermano(raiz,dato);
+			    	//cout<<"Los padres y hermanos del nodo son: "<<endl;
 			    }
 				break;
 			case 0:

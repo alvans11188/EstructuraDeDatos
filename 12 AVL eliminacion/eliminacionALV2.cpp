@@ -108,14 +108,14 @@ void Arbol::insertaBalanceado(Nodo*& apnodo, bool& BO, int dato) {
                 case -1: {
                     nodo1 = apnodo->izq;
                     if (nodo1->fe == -1) {
-                        // Rotación simple derecha (II)
+                        // Rotacion simple derecha (II)
                         apnodo->izq = nodo1->der;
                         nodo1->der = apnodo;
                         apnodo->fe = 0;
                         apnodo = nodo1;
                         cout<<"Se realizo una rotacion simple derecha"<<endl;
                     } else {
-                        // Rotación doble izquierda-derecha (ID)
+                        // Rotacion doble izquierda-derecha (ID)
                         Nodo* nodo2 = nodo1->der;
                         nodo1->der = nodo2->izq;
                         nodo2->izq = nodo1;
@@ -156,14 +156,14 @@ void Arbol::insertaBalanceado(Nodo*& apnodo, bool& BO, int dato) {
                 case 1: {
                     Nodo* nodo1 = apnodo->der;
                     if (nodo1->fe == 1) {
-                        // Rotación simple izquierda (DD)
+                        // Rotacion simple izquierda (DD)
                         apnodo->der = nodo1->izq;
                         nodo1->izq = apnodo;
                         apnodo->fe = 0;
                         apnodo = nodo1;
                         cout<<"Se realizo una rotacion simple izquierda"<<endl;
                     } else {
-                        // Rotación doble derecha-izquierda (DI)
+                        // Rotacio doble derecha-izquierda (DI)
                         Nodo* nodo2 = nodo1->izq;
                         nodo1->izq = nodo2->der;
                         nodo2->der = nodo1;
@@ -208,14 +208,14 @@ void Arbol::reestructuraIzq(Nodo*& nodo, bool& BO) {
             nodo1 = nodo->izq;
             if (nodo1->fe <= 0) {
             	cout << "Factor de equilibrio de " << nodo->info << ": -2 -> Rotacion Simple Derecha (II)" << endl;
-                // Rotación simple derecha
+                // Rotacio simple derecha
                 nodo->izq = nodo1->der;
                 nodo1->der = nodo;
                 nodo->fe = nodo1->fe = 0;
                 nodo = nodo1;
             } else {
             	cout << "Factor de equilibrio de " << nodo->info << ": -2 -> Rotacion Izquierda-Derecha (ID)" << endl;
-                // Rotación doble izquierda-derecha
+                // Rotacion doble izquierda-derecha
                 Nodo* nodo2 = nodo1->der;
                 nodo1->der = nodo2->izq;
                 nodo2->izq = nodo1;
@@ -253,14 +253,14 @@ void Arbol::reestructuraDer(Nodo*& nodo, bool& BO) {
             nodo1 = nodo->der;
             if (nodo1->fe >= 0) {
             	cout << "Factor de equilibrio de " << nodo->info << ": 2 --> Rotacion Simple Izquierda (DD)" << endl;
-                // Rotación simple izquierda
+                // Rotacion simple izquierda
                 nodo->der = nodo1->izq;
                 nodo1->izq = nodo;
                 nodo->fe = nodo1->fe = 0;
                 nodo = nodo1;
             } else {
             	 cout << "Factor de equilibrio de " << nodo->info << ": 2 --> Rotacion Derecha-Izquierda (DI)" << endl;
-                // Rotación doble derecha-izquierda
+                // Rotacion doble derecha-izquierda
                 Nodo* nodo2 = nodo1->izq;
                 nodo1->izq = nodo2->der;
                 nodo2->der = nodo1;
